@@ -1,0 +1,23 @@
+<resources xmlns:xliff="http://schemas.android.com/tools">
+    <string name="about_message">&lt;p>&lt;b>Version <xliff:g id="type">%1$s</xliff:g>&lt;/b>&lt;/p>&lt;p>Developed by &lt;a href=\"http://erik.thauvin.net/\">&lt;b>Erik C. Thauvin&lt;/b>&lt;/a>. See all my apps &lt;a href=\"http://mobile.thauvin.net/android/\">&lt;b>here&lt;/b>&lt;/a>.&lt;/p>&lt;a href=\"http://m.thauvin.net/android\">&lt;b>m.thauvin.net/android&lt;/b>&lt;/a></string>
+    <string name="action_about">About</string>
+    <string name="action_config">Configurations</string>
+    <string name="alert_config_error">Configuration Errors</string>
+    <string name="app_name">TES Remote Programmer</string>
+    <string name="dialog_import">Import</string>
+    <string name="error_digit">digit</string>
+    <string name="error_invalid_dtmf">Invalid DTMF: <xliff:g id="type">%1$s</xliff:g></string>
+    <string name="error_invalid_field">Missing or invalid fields data.</string>
+    <string name="error_invalid_size">Invalid: <xliff:g id="size">%1$d</xliff:g> <xliff:g id="type">%2$s</xliff:g> required</string>
+    <string name="error_required">Required</string>
+    <string name="hint_master_code">Master Code</string>
+    <string name="hint_phone_number">Phone Number</string>
+    <string name="programming_heading">PROGRAMMING</string>
+    <string name="title_template_step">Step <xliff:g id="step_number">%1$d</xliff:g> of <xliff:g id="steps_count">%2$d</xliff:g></string>
+    <string name="validate_invalid_attr">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>, &lt;b>fields[<xliff:g id="field">%2$d</xliff:g>]&lt;/b>: &lt;font color=\"red\"><xliff:g id="attr">%3$s</xliff:g>&lt;/font> invalid</string>
+    <string name="validate_invalid_dtmf">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>, &lt;font color=\"red\">dtmf&lt;/font> invalid:&lt;br>&#160;&#160;&#160;&#160;&lt;font color=\"red\">&lt;small><xliff:g id="dtmf">%2$s</xliff:g>&lt;/small>&lt;/font>&lt;/p></string>
+    <string name="validate_invalid_param">&lt;p>&lt;b>params&lt;/b>: &lt;font color=\"red\"><xliff:g id="param">%1$s</xliff:g>&lt;/font> invalid&lt;/p></string>
+    <string name="validate_missing_fields">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>: &lt;font color=\"red\">fields&lt;/font> missing</string>
+    <string name="validate_missing_param">&lt;p>&lt;p>&lt;b>params&lt;/b>: &lt;font color=\"red\"><xliff:g id="param">%1$s</xliff:g>&lt;/font> missing&lt;/p></string>
+    <string name="validate_missing_ops">&lt;font color=\"red\">opts&lt;/font> missing.</string>
+</resources>

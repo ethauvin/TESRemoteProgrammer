@@ -115,7 +115,7 @@
       "dtmf": "*15[MASTER],[FIELD:1]*,[FIELD:2]*,[FIELD:3]*"
     },
     {
-      "title": "Remote Relay Activation",
+      "title": "Remote Relay 1 Activation",
       "fields": [
         {
           "hint": "Open=9, Hold=8, Release=7, 1hr=6",
@@ -125,6 +125,30 @@
         }
       ],
       "dtmf": "*16[MASTER],[FIELD:1]*"
+    },
+    {
+      "title": "Remote Relay 2 Activation",
+      "fields": [
+        {
+          "hint": "Open=5, Hold=4, Release=2, 1hr=2",
+          "size": 1,
+          "min": 2,
+          "max": 5
+        }
+      ],
+      "dtmf": "*16[MASTER],[FIELD:1]*"
+    },
+    {
+      "title": "Set Open Tone On/Off",
+      "fields": [
+        {
+          "hint": "1=ON 0=OFF",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        }
+      ],
+      "dtmf": "*17[MASTER],[FIELD:1]*"
     },
     {
       "title": "Set Open Tone On/Off",

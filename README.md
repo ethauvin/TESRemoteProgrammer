@@ -13,9 +13,6 @@ By default, TES Remote Programmer is configured to work with the [DoorKing (DKS)
 ## Usage
 
 ![Main Activity](images/screenshots/main_activity_framed_small.png)
-
 In the main activity screen enter the entry system's phone number and master code, then select on the programming options.
-
 ![Programming Activity](images/screenshots/add_phone_number_framed_small.png)
-
 In the programming activity screen fill out the fields and click the ![Dial](images/call_fab.png) floating button (if available) to dial the programming in or the ![Dial](images/dialpad_fab.png) floating button to view the manual steps.

@@ -8,6 +8,31 @@
   },
   "opts": [
     {
+      "title": "Add 7-digit Phone Number",
+      "fields": [
+        {
+          "hint": "Directory Code",
+          "size": 3
+        },
+        {
+          "hint": "Phone Number",
+          "size": 7,
+          "hash": true
+        }
+      ],
+      "dtmf": "*01[MASTER],[FIELD:1]*,[FIELD:2]*"
+    },
+    {
+      "title": "Add 4-Digit Entry Code",
+      "fields": [
+        {
+          "hint": "Entry Code",
+          "size": 4
+        }
+      ],
+      "dtmf": "*02[MASTER],[FIELD:1]*"
+    },
+    {
       "title": "Set Relay Strike Time",
       "fields": [
         {
@@ -26,18 +51,6 @@
       "dtmf": "*03[MASTER],[FIELD:1]*,[FIELD:2]*"
     },
     {
-      "title": "Set Open Tone On/Off",
-      "fields": [
-        {
-          "hint": "1=ON 0=OFF",
-          "min": 0,
-          "max": 1,
-          "size": 1
-        }
-      ],
-      "dtmf": "*17[MASTER],[FIELD:1]*"
-    },
-    {
       "title": "Set Talk Time",
       "fields": [
         {
@@ -50,28 +63,24 @@
       "dtmf": "*08[MASTER],[FIELD:1]*"
     },
     {
-      "title": "Set Number of Rings to Answer",
+      "title": "Add 5-Digit Entry Code",
       "fields": [
         {
-          "hint": "Number of Rings",
-          "min": 1,
-          "max": 99,
-          "size": 2
+          "hint": "Entry Code",
+          "size": 5
         }
       ],
-      "dtmf": "*18[MASTER],[FIELD:1]*"
+      "dtmf": "*09[MASTER],[FIELD:1]*"
     },
     {
-      "title": "Set PBX Line Access Code",
+      "title": "Delete 5-Digit Entry Code",
       "fields": [
         {
-          "hint": "Line Access Code Number",
-          "min": 1,
-          "max": 9,
-          "size": 1
+          "hint": "Entry Code",
+          "size": 5
         }
       ],
-      "dtmf": "*21[MASTER],[FIELD:1]*"
+      "dtmf": "*10[MASTER],[FIELD:1]*"
     },
     {
       "title": "Delete 4-Digit Entry Code",
@@ -84,85 +93,26 @@
       "dtmf": "*14[MASTER],[FIELD:1]*"
     },
     {
-      "title": "Add 4-Digit Entry Code",
+      "title": "Set Flash Entry Code",
       "fields": [
         {
-          "hint": "Entry Code",
+          "hint": "Flash Code Number (1..8)",
+          "size": 1,
+          "min": 1,
+          "max": 8
+        },
+        {
+          "hint": "Month Active",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Flash Entry Code",
           "size": 4
         }
       ],
-      "dtmf": "*02[MASTER],[FIELD:1]*"
-    },
-    {
-      "title": "Add Name",
-      "fields": [
-        {
-          "hint": "Directory Code",
-          "size": 3
-        },
-        {
-          "hint": "Name",
-          "alpha": true,
-          "size": 11
-        }
-      ],
-      "nodial": true,
-      "dtmf": "*66[MASTER],[FIELD:1]*,[FIELD:2]*"
-    },
-    {
-      "title": "Add 7-digit Phone Number",
-      "fields": [
-        {
-          "hint": "Directory Code",
-          "size": 3
-        },
-        {
-          "hint": "Phone Number",
-          "hash": true,
-          "size": 7
-        }
-      ],
-      "dtmf": "*01[MASTER],[FIELD:1]*,[FIELD:2]*"
-    },
-    {
-      "title": "Set Area Codes",
-      "fields": [
-        {
-          "hint": "2-Digit Area Code Ref Number",
-          "min": 1,
-          "max" : 15,
-          "size": 2
-        },
-        {
-          "hint": "Area Code (e.g. 1800 or #800)",
-          "hash" : true,
-          "size": 4,
-          "min": 1,
-          "max": 15
-        }
-      ],
-      "dtmf": "*24[MASTER],[FIELD:1]*,[FIELD:2]*"
-    },
-    {
-      "title": "Add Phone Number w/ Area Code",
-      "fields": [
-        {
-          "hint": "Directory Code",
-          "size": 3
-        },
-        {
-          "hint": "Area Code",
-          "size": 2,
-          "min": 1,
-          "max": 15
-        },
-        {
-          "hint": "Phone Number",
-          "hash": true,
-          "size": 7
-        }
-      ],
-      "dtmf": "*41[MASTER],[FIELD:1]*,[FIELD:2]*,[FIELD:3]*"
+      "dtmf": "*15[MASTER],[FIELD:1]*,[FIELD:2]*,[FIELD:3]*"
     },
     {
       "title": "Remote Relay Activation",
@@ -177,48 +127,59 @@
       "dtmf": "*16[MASTER],[FIELD:1]*"
     },
     {
-      "title": "Set Welcome Message",
+      "title": "Set Open Tone On/Off",
       "fields": [
         {
-          "hint": "Message (Line 1)",
-          "size": 16,
-          "alpha" : true
-        },
-        {
-          "hint": "Message (Line 2)",
-          "size": 16,
-          "alpha" : true
-        },
-        {
-          "hint": "Message (Line 3)",
-          "size": 16,
-          "alpha" : true
+          "hint": "1=ON 0=OFF",
+          "size": 1,
+          "min": 0,
+          "max": 1
         }
       ],
-      "nodial": true,
-      "dtmf": "*80[MASTER],[FIELD:1]*,[FIELD:2]*,[FIELD:3]*"
+      "dtmf": "*17[MASTER],[FIELD:1]*"
     },
     {
-      "title": "Set Instruction Message",
+      "title": "Set Number of Rings to Answer",
       "fields": [
         {
-          "hint": "Message (Line 1)",
-          "size": 16,
-          "alpha" : true
-        },
-        {
-          "hint": "Message (Line 2)",
-          "size": 16,
-          "alpha" : true
-        },
-        {
-          "hint": "Message (Line 3)",
-          "size": 16,
-          "alpha" : true
+          "hint": "Number of Rings",
+          "size": 2,
+          "min": 1,
+          "max": 99
         }
       ],
-      "nodial": true,
-      "dtmf": "*81[MASTER],[FIELD:1]*,[FIELD:2]*,[FIELD:3]*"
+      "dtmf": "*18[MASTER],[FIELD:1]*"
+    },
+    {
+      "title": "Set PBX Line Access Code",
+      "fields": [
+        {
+          "hint": "Line Access Code Number",
+          "size": 1,
+          "min": 1,
+          "max": 9
+        }
+      ],
+      "dtmf": "*21[MASTER],[FIELD:1]*"
+    },
+    {
+      "title": "Set Area Codes",
+      "fields": [
+        {
+          "hint": "2-Digit Area Code Ref Number",
+          "size": 2,
+          "min": 1,
+          "max": 15
+        },
+        {
+          "hint": "Area Code (e.g. 1800 or #800)",
+          "size": 4,
+          "min": 1,
+          "max": 15,
+          "hash": true
+        }
+      ],
+      "dtmf": "*24[MASTER],[FIELD:1]*,[FIELD:2]*"
     },
     {
       "title": "Set Time Clock",
@@ -267,6 +228,208 @@
         }
       ],
       "dtmf": "*33[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3]*,[FIELD:4]*,[FIELD:5]*,[FIELD:6]*,[FIELD:7]*"
+    },
+    {
+      "title": "Set Relay Activation Time Zone",
+      "fields": [
+        {
+          "hint": "Beginning Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Beginning Minutes (00..59)",
+          "size": 2,
+          "min": 0,
+          "max": 59
+        },
+        {
+          "hint": "Ending Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Ending Minutes (00..59)",
+          "size": 2,
+          "min": 0,
+          "max": 59
+        },
+        {
+          "hint": "AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Days of Week (Sun=1, Sat=7 or #)",
+          "size": 7,
+          "min": 1,
+          "max": 7,
+          "hash": true
+        }
+      ],
+      "dtmf": "*35[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3][FIELD:4]*,[FIELD:5]*,[FIELD:6]*"
+    },
+    {
+      "title": "Set 4-Digit Entry Code Time Zone",
+      "fields": [
+        {
+          "hint": "Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Minutes (00..59)",
+          "size": 2,
+          "min": 0,
+          "max": 59
+        },
+        {
+          "hint": "AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Days of Week (Sun=1..Sat=7 or #)",
+          "size": 7,
+          "min": 1,
+          "max": 7,
+          "hash": true
+        },
+        {
+          "hint": "Lower 4-Digit Boundary",
+          "size": 4
+        },
+        {
+          "hint": "Upper 4-Digit Boundary",
+          "size": 4
+        }
+      ],
+      "dtmf": "*36[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3]*,[FIELD:4]*,[FIELD:5]*,[FIELD:6]*"
+    },
+    {
+      "title": "Set 5-Digit Entry Code Time Zone",
+      "fields": [
+        {
+          "hint": "Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Minutes (00..59)",
+          "size": 2,
+          "min": 0,
+          "max": 59
+        },
+        {
+          "hint": "AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Days of Week (Sun=1, Sat=7 or #)",
+          "size": 7,
+          "min": 1,
+          "max": 7,
+          "hash": true
+        },
+        {
+          "hint": "Lower 5-Digit Boundary",
+          "size": 5
+        },
+        {
+          "hint": "Upper 5-Digit Boundary",
+          "size": 5
+        }
+      ],
+      "dtmf": "*37[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3]*,[FIELD:4]*,[FIELD:5]*,[FIELD:6]*"
+    },
+    {
+      "title": "Add Phone Number w/ Area Code",
+      "fields": [
+        {
+          "hint": "Directory Code",
+          "size": 3
+        },
+        {
+          "hint": "Area Code",
+          "size": 2,
+          "min": 1,
+          "max": 15
+        },
+        {
+          "hint": "Phone Number",
+          "size": 7,
+          "hash": true
+        }
+      ],
+      "dtmf": "*41[MASTER],[FIELD:1]*,[FIELD:2]*,[FIELD:3]*"
+    },
+    {
+      "title": "Add Name",
+      "fields": [
+        {
+          "hint": "Directory Code",
+          "size": 3
+        },
+        {
+          "hint": "Name",
+          "size": 11,
+          "alpha": true
+        }
+      ],
+      "nodial": true,
+      "dtmf": "*66[MASTER],[FIELD:1]*,[FIELD:2]*"
+    },
+    {
+      "title": "Set Welcome Message",
+      "fields": [
+        {
+          "hint": "Message (Line 1)",
+          "size": 16,
+          "alpha": true
+        },
+        {
+          "hint": "Message (Line 2)",
+          "size": 16,
+          "alpha": true
+        },
+        {
+          "hint": "Message (Line 3)",
+          "size": 16,
+          "alpha": true
+        }
+      ],
+      "nodial": true,
+      "dtmf": "*80[MASTER],[FIELD:1]*,[FIELD:2]*,[FIELD:3]*"
+    },
+    {
+      "title": "Set Instruction Message",
+      "fields": [
+        {
+          "hint": "Message (Line 1)",
+          "size": 16,
+          "alpha": true
+        },
+        {
+          "hint": "Message (Line 2)",
+          "size": 16,
+          "alpha": true
+        },
+        {
+          "hint": "Message (Line 3)",
+          "size": 16,
+          "alpha": true
+        }
+      ],
+      "nodial": true,
+      "dtmf": "*81[MASTER],[FIELD:1]*,[FIELD:2]*,[FIELD:3]*"
     }
   ]
 }

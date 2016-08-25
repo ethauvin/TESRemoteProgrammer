@@ -272,6 +272,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             it.writeObject(confs)
         }
     }
+
     fun saveConfig() {
         val confs = loadConfigurations()
         confs.configs.put(config.params.name, config)

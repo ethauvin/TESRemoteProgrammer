@@ -1,5 +1,5 @@
 # Telephone Entry System Remote Programmer for Android
 
-![License](http://img.shields.io/:license-apache-blue.svg?style=flat-square)](http://www.apache.org/licenses/LICENSE-2.0.html)
+![License (Apache 2.0)](https://img.shields.io/license-apache-blue.svg?style=flat-square)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
-[![VersionEye Logo](/images/feature_graphic.png | width=800)]
+[![TESRemoteProgrammer](images/feature_graphic.png)]

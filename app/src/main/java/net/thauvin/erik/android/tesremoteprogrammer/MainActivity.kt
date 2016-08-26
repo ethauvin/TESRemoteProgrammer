@@ -264,6 +264,11 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     Config::class.java)
 
             saveConfig()
+
+            config = Gson().fromJson(InputStreamReader(resources.openRawResource(R.raw.dks_1802)),
+                    Config::class.java)
+
+            saveConfig()
         }
     }
 

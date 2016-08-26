@@ -8,7 +8,7 @@ Program your Telephone Entry System remotely (off-site) using your phone.
 
 Most Telephone Entry Systems can be programmed from the front keypad, or remotely from an off-premise location using any touch-tone phone. TES Remote Programmer streamlines the often cumbersome remote programming process by providing data entry screens and automated dial-in options.
 
-By default, TES Remote Programmer is configured to work with the [DoorKing (DKS) 1802-EPD](http://www.doorking.com/telephone/1802-entry-system) system, additional [configurations](#configurations) can be created for most systems supporting remote programming.
+By default, TES Remote Programmer is configured to work with the [DoorKing (DKS) 1802 and 1802-EPD](http://www.doorking.com/telephone/1802-entry-system) systems, additional [configurations](#configurations) can be created for most systems supporting remote programming.
 
 ## Usage
 
@@ -94,7 +94,7 @@ which would translate into:
 |`title`   | The title of the option.                                                                 |
 |`fields`  | See [fields](#fields)                                                                    |
 |`dtmf`    | See [DTMF](#dtmf)                                                                        |
-|`nodial`  | Indicated the remote programming is not available. Steps must be executed at the keypad. |
+|`nodial`  | Indicate thar remote programming is not available. Steps must be executed at the keypad. |
 
 All are required, except `nodial`
 

@@ -116,14 +116,14 @@ All are required, except `nodial`
 
 Fields represent the data entry text fields on option screens.
 
-| Element | Description                                                                           | Required |
-|:--------|:--------------------------------------------------------------------------------------|:---------|
-|`hint`   | Set the hint/label of the field.                                                      | Yes      |
-|`size`   | Set the required size of the field.                                                   | Yes      |
-|`min`    | Set the minimum value of a numeric field.                                             | No       |
-|`max`    | Set the maximum value of a numeric field.                                             | No       |
-|`alpha`  | Set to `true` if the field is alphanumeric.                                           | No       |
-|`hash`   | Set to `true` if the field accept the (#Parameters) `hash` value in place of a digit. | No       |
+| Element | Description                                                                                       | Required |
+|:--------|:--------------------------------------------------------------------------------------------------|:---------|
+|`hint`   | Set the hint/label of the field.                                                                  | Yes      |
+|`size`   | Set the required size of the field.                                                               | Yes      |
+|`min`    | Set the minimum value of a numeric field.                                                         | No       |
+|`max`    | Set the maximum value of a numeric field.                                                         | No       |
+|`alpha`  | Set to `true` if the field is alphanumeric.                                                       | No       |
+|`hash`   | Set to `true` if the field accept the [Parameters](#parameters) `hash` value in place of a digit. | No       |
 
 
 #### DTMF

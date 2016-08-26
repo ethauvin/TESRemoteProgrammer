@@ -260,15 +260,16 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 config = it.readObject() as Config
             }
         } catch (ex: FileNotFoundException) {
-            config = Gson().fromJson(InputStreamReader(resources.openRawResource(R.raw.dks_1802_epd)),
-                    Config::class.java)
-
-            saveConfig()
-
+            val confs = Configurations()
             config = Gson().fromJson(InputStreamReader(resources.openRawResource(R.raw.dks_1802)),
                     Config::class.java)
+            confs.configs.put(config.params.name, config)
+            config = Gson().fromJson(InputStreamReader(resources.openRawResource(R.raw.dks_1802_epd)),
+                    Config::class.java)
+            confs.configs.put(config.params.name, config)
 
-            saveConfig()
+            saveConfigurations(confs)
+            saveConfig(false)
         }
     }
 
@@ -278,10 +279,12 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    fun saveConfig() {
-        val confs = loadConfigurations()
-        confs.configs.put(config.params.name, config)
-        saveConfigurations(confs)
+    fun saveConfig(backup: Boolean = true) {
+        if (backup) {
+            val confs = loadConfigurations()
+            confs.configs.put(config.params.name, config)
+            saveConfigurations(confs)
+        }
 
         ObjectOutputStream(openFileOutput(current_config_data, Context.MODE_PRIVATE)).use {
             it.writeObject(config)

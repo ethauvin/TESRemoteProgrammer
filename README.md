@@ -88,12 +88,12 @@ which would translate into:
 }
 ```
 
-| Options | Description                                                                              |
-|:--------|:-----------------------------------------------------------------------------------------|
-|`title`  | The title of the option.                                                                 |
-|`fields' | See (#Fields)                                                                            |
-|`dtmf`   | See (#DTMF)                                                                              |
-|`nodial` | Indicated the remote programming is not available. Steps must be executed at the keypad. |
+| Elements | Description                                                                              |
+|:---------|:-----------------------------------------------------------------------------------------|
+|`title`   | The title of the option.                                                                 |
+|`fields'  | See [fields](#fields)                                                                    |
+|`dtmf`    | See [DTMF](#dtmf)                                                                        |
+|`nodial`  | Indicated the remote programming is not available. Steps must be executed at the keypad. |
 
 All are required, except `nodial`
 
@@ -142,6 +142,10 @@ The following markers will be substituted by their actual values upon dialing.
 
 #### Validation
 
-Imported configurations will be validated. While the validation is not perfect, it should be good enough to spot most syntax errors. Please sure to use a JSON editor to make the whole process of creating configurations a whole lot easier. When in doubt be sure to look at the [default configuration](app/src/main/res/raw/dks_1802_epd.json).
+Imported configurations will be validated. While the validation is not perfect, it should be good enough to spot most syntax errors.
+
+Please sure to use a JSON editor to make the whole process of creating configurations a whole lot easier.
+
+When in doubt be sure to look at the [default configuration](app/src/main/res/raw/dks_1802_epd.json).
 
 

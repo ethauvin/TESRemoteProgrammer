@@ -145,7 +145,7 @@ The following markers will be substituted by their actual values upon dialing.
 
 Imported configurations will be validated. While the validation is not perfect, it should be good enough to spot most syntax errors.
 
-Please sure to use a JSON editor to make the whole process of creating configurations a whole lot easier.
+Please sure to use a JSON editor to make creating configurations a whole lot easier.
 
 When in doubt be sure to look at the [default configuration](app/src/main/res/raw/dks_1802_epd.json).
 

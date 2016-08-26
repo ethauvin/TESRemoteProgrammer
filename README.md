@@ -6,7 +6,7 @@
 
 Program your Telephone Entry System remotely (off-site) using your phone.
 
-Most Telephone Entry Systems can be programmed from the front keypad, or remotely from an off-premise location using any touch-tone phone. TES Remote Programmer streamlines the often cumbersome remote programming process by providing data entry screens and automated dial-in options.
+Most Telephone Entry Systems can be programmed from the front keypad or remotely from an off-premise location using any touch-tone phone. TES Remote Programmer streamlines the often cumbersome remote programming process by providing data entry screens and automated dial-in options.
 
 By default, TES Remote Programmer is configured to work with the [DoorKing (DKS) 1802 and 1802-EPD](http://www.doorking.com/telephone/1802-entry-system) systems, additional [configurations](#configurations) can be created for most systems supporting remote programming.
 
@@ -36,7 +36,7 @@ Custom configurations can be created using [JSON](http://www.json.org/).
 
 #### Parameters
 
-First defined the global parameters:
+Parameters define the configuration's global settings.
 
 ```json
 "params": {
@@ -58,9 +58,9 @@ First defined the global parameters:
 
 ### Options
 
-Second defined options. These defined the data used to create programming activity screens in the app.
+Options define the data used to create programming activity screens in the app.
 
-For example, the system's manual would list the steps to Programming 7-digit Phone Numbers as something like:
+For example, the system's manual would list the steps to _Programming 7-digit Phone Numbers_ as something like:
 
 1. Press *01 and enter Master Code.
 2. Enter a Directory Code then press *.
@@ -92,7 +92,7 @@ which would translate into:
 | Elements | Description                                                                              |
 |:---------|:-----------------------------------------------------------------------------------------|
 |`title`   | The title of the option.                                                                 |
-|`fields`  | See [fields](#fields)                                                                    |
+|`fields`  | See [Fields](#fields)                                                                    |
 |`dtmf`    | See [DTMF](#dtmf)                                                                        |
 |`nodial`  | Indicate thar remote programming is not available. Steps must be executed at the keypad. |
 

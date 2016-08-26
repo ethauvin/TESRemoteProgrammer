@@ -132,40 +132,42 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                 }
             }.lparams(width = matchParent, height = matchParent)
 
-            floatingActionButton {
-                imageResource = R.drawable.ic_menu_dialpad_lt
+            if (!option.nosteps) {
+                floatingActionButton {
+                    imageResource = R.drawable.ic_menu_dialpad_lt
 
-                if (!option.nodial) {
-                    backgroundTintList = ColorStateList.valueOf(Color.GRAY)
-                }
+                    if (!option.nodial) {
+                        backgroundTintList = ColorStateList.valueOf(Color.GRAY)
+                    }
 
-                onClick {
-                    if (validateFields(fields, option)) {
-                        val dtmf = Dtmf.build(params.master, params.star, option, fields)
-                        if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.star}${params.hash}")) {
-                            startActivity<StepsActivity>(
-                                    StepsActivity.EXTRA_STEPS to "$dtmf${MainActivity.PAUSE}${params.end}".split(','))
+                    onClick {
+                        if (validateFields(fields, option)) {
+                            val dtmf = Dtmf.build(params.master, params.star, option, fields)
+                            if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.star}${params.hash}")) {
+                                startActivity<StepsActivity>(
+                                        StepsActivity.EXTRA_STEPS to "$dtmf${MainActivity.PAUSE}${params.end}".split(','))
+                            } else {
+                                Snackbar.make(this@coordinatorLayout, getString(R.string.error_invalid_dtmf, dtmf),
+                                        Snackbar.LENGTH_LONG).show()
+                            }
                         } else {
-                            Snackbar.make(this@coordinatorLayout, getString(R.string.error_invalid_dtmf, dtmf),
+                            Snackbar.make(this@coordinatorLayout, R.string.error_invalid_field,
                                     Snackbar.LENGTH_LONG).show()
                         }
-                    } else {
-                        Snackbar.make(this@coordinatorLayout, R.string.error_invalid_field,
-                                Snackbar.LENGTH_LONG).show()
                     }
-                }
-            }.lparams(width = wrapContent, height = wrapContent) {
-                if (option.nodial) {
-                    gravity = BOTTOM or END
-                    rightMargin = dip(16)
-                } else {
-                    gravity = BOTTOM or START
-                    leftMargin = dip(16)
-                }
+                }.lparams(width = wrapContent, height = wrapContent) {
+                    if (option.nodial) {
+                        gravity = BOTTOM or END
+                        rightMargin = dip(16)
+                    } else {
+                        gravity = BOTTOM or START
+                        leftMargin = dip(16)
+                    }
 
-                bottomMargin = dip(16)
-                elevation = dip(6).toFloat()
-                behavior = ScrollAwareFABBehavior()
+                    bottomMargin = dip(16)
+                    elevation = dip(6).toFloat()
+                    behavior = ScrollAwareFABBehavior()
+                }
             }
 
             if (!option.nodial) {

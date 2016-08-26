@@ -323,12 +323,16 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 }
 
                 if (opts.size == 0) {
-                    errors.append(getString(R.string.validate_missing_ops))
+                    errors.append(getString(R.string.validate_missing_opts))
                 }
 
                 opts.forEachIndexed { i, option ->
                     if (option.fields.size == 0) {
                         errors.append(getString(R.string.validate_missing_fields, i + 1))
+                    }
+
+                    if (option.nosteps && option.nodial) {
+                        errors.append(getString(R.string.validate_invalid_option, i + 1, "nodial/nosteps"))
                     }
 
                     option.fields.forEachIndexed { j, field ->

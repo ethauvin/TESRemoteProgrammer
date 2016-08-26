@@ -124,6 +124,7 @@
           "max": 9
         }
       ],
+      "nosteps": true,
       "dtmf": "*16[MASTER],[FIELD:1]*"
     },
     {
@@ -136,6 +137,7 @@
           "max": 5
         }
       ],
+      "nosteps": true,
       "dtmf": "*16[MASTER],[FIELD:1]*"
     },
     {

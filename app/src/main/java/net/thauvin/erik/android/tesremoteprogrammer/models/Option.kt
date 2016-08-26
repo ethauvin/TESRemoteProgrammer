@@ -24,6 +24,7 @@ import java.io.Serializable
 data class Option(var title: String,
                   var fields: List<Field>,
                   var nodial: Boolean,
+                  var nosteps: Boolean,
                   var dtmf: String) : Parcelable, Serializable, Comparable<Option> {
 
     companion object {
@@ -35,11 +36,12 @@ data class Option(var title: String,
         }
     }
 
-    constructor() : this("", emptyList(), false, "")
+    constructor() : this("", emptyList(), false, false, "")
 
     constructor(source: Parcel) : this(
             source.readString(),
             source.createTypedArrayList(Field.CREATOR),
+            1.equals(source.readInt()),
             1.equals(source.readInt()),
             source.readString())
 
@@ -52,6 +54,7 @@ data class Option(var title: String,
         dest?.writeString(title)
         dest?.writeTypedList(fields)
         dest?.writeInt((if (nodial) 1 else 0))
+        dest?.writeInt((if (nosteps) 1 else 0))
         dest?.writeString(dtmf)
     }
 

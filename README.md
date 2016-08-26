@@ -24,7 +24,7 @@ In the programming activity screen fill out the fields and click the ![Dial](ima
 
 ![Configurations](images/screenshots/configurations_framed_small.png)
 
-To switch configuration, choose `Configurations` under the toolbar menu and select the desired configured.
+To switch configuration, choose `Configurations` under the toolbar menu and select the desired configuration.
 
 To import a new configuration, select `Import` in the _Configurations_ dialog.
 
@@ -50,7 +50,7 @@ Parameters define the configuration's global settings.
 
 | Parameter  | Description                                                                                      | Required |
 |:-----------|:-------------------------------------------------------------------------------------------------|:---------|
-|`name`      | The configuration name.                                                                          | Yes      |
+|`name`      | The name of the configuration.                                                                   | Yes      |
 |`star`      | The key used to start, acknowledge or terminate programming steps. Most systems use the `*` key. | Yes      |
 |`hash`      | They key used to in place of numbers when applicable. Most system use the `#` key                | No       |
 |`end`       | The end programming manual sequence. For example DoorKing uses `0` and `#` pressed together.     | No       |
@@ -58,13 +58,13 @@ Parameters define the configuration's global settings.
 
 ### Options
 
-Options define the data used to create programming activity screens in the app.
+Opts define the data used to create programming activity screens in the app.
 
-For example, the system's manual would list the steps to _Programming 7-digit Phone Numbers_ as something like:
+For example, the system's manual lists the steps to _Programming 7-digit Phone Numbers_ as:
 
 1. Press *01 and enter Master Code.
 2. Enter a Directory Code then press *.
-3. Enter a 7-digit Phone Number then press *.
+3. Enter a 7-digit Phone Number then press *. If the number is less than 7-digits, enter # in the empty spaces.
 4. Press 0# TOGETHER when finished.
 
 which would translate into:
@@ -89,14 +89,17 @@ which would translate into:
 ]
 ```
 
-| Elements | Description                                                                              |
-|:---------|:-----------------------------------------------------------------------------------------|
-|`title`   | The title of the option.                                                                 |
-|`fields`  | See [Fields](#fields)                                                                    |
-|`dtmf`    | See [DTMF](#dtmf)                                                                        |
-|`nodial`  | Indicate thar remote programming is not available. Steps must be executed at the keypad. |
+Step 4 is configured in the `end` [Parameter](#parameters) since it only applies to manual/keypad programming.
 
-All are required, except `nodial`
+| Elements | Description                                                                                       |
+|:---------|:--------------------------------------------------------------------------------------------------|
+|`title`   | The title of the option.                                                                          |
+|`fields`  | See [Fields](#fields)                                                                             |
+|`dtmf`    | See [DTMF](#dtmf)                                                                                 |
+|`nodial`  | Indicate thar remote programming is not available. Steps must be executed manually at the keypad. |
+|`nosteps` | Indicate that manual/keypad steps are not available. Programming must be executed remotely.       |
+
+All are required, except `nodial` and `nosteps` which are mutually exclusive.
 
 #### Fields
 
@@ -123,7 +126,7 @@ Fields represent the data entry text fields on option screens.
 |`min`    | Set the minimum value of a numeric field.                                                         | No       |
 |`max`    | Set the maximum value of a numeric field.                                                         | No       |
 |`alpha`  | Set to `true` if the field is alphanumeric.                                                       | No       |
-|`hash`   | Set to `true` if the field accept the [Parameters](#parameters) `hash` value in place of a digit. | No       |
+|`hash`   | Set to `true` if the field accept the `hash` [Parameter](#parameters) value in place of a digit.  | No       |
 
 
 #### DTMF
@@ -132,7 +135,7 @@ Fields represent the data entry text fields on option screens.
 "dtmf": "*01[MASTER],[FIELD:1]*,[FIELD:2]*"
 ```
 
-DTMF represent the dialing sequence for the programming steps. A comma (`,`) can be used to specify a pause in the dialing sequence.
+DTMF represent the dialing sequence for the programming steps. A comma (`,`) should be used to specify a pause in the dialing sequence.
 
 The following markers will be substituted by their actual values upon dialing.
 

@@ -48,6 +48,7 @@ data class Option(var title: String,
     override fun compareTo(other: Option): Int {
         return title.compareTo(other.title)
     }
+
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {

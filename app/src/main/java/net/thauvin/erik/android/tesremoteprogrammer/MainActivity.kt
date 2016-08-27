@@ -60,7 +60,12 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     lateinit var config: Config
     val configurations_data = "configurations.dat"
     val current_config_data = "config.dat"
-    val defaultConfigs = listOf(R.raw.dks_1802, R.raw.dks_1802_epd, R.raw.dks_1812, R.raw.dks_1803_1808_1810)
+    val defaultConfigs = listOf(
+            R.raw.dks_1802,
+            R.raw.dks_1802_epd,
+            R.raw.dks_1812,
+            R.raw.dks_1819,
+            R.raw.dks_1803_1808_1810)
     val read_request_code = 42
 
     companion object {

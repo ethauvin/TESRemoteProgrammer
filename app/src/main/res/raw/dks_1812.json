@@ -72,9 +72,7 @@
         },
         {
           "hint": "Year (00..99)",
-          "size": 2,
-          "min": 0,
-          "max": 99
+          "size": 2
         },
         {
           "hint": "Day of Week (Sun=1..Sat=7)",

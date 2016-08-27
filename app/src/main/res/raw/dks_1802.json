@@ -131,7 +131,7 @@
       "title": "Remote Relay 2 Activation",
       "fields": [
         {
-          "hint": "Open=5, Hold=4, Release=2, 1hr=2",
+          "hint": "Open=5, Hold=4, Release=3, 1hr=2",
           "size": 1,
           "min": 2,
           "max": 5
@@ -177,7 +177,7 @@
       "dtmf": "*21[MASTER],[FIELD:1]*"
     },
     {
-      "title": "Set Area Codes",
+      "title": "Set Area Code",
       "fields": [
         {
           "hint": "2-Digit Area Code Ref Number",
@@ -229,10 +229,8 @@
           "max": 31
         },
         {
-          "hint": "Year (Even=00, Odd=01)",
-          "size": 2,
-          "min": 0,
-          "max": 1
+          "hint": "Year",
+          "size": 2
         },
         {
           "hint": "Day of Week (Sun=1..Sat=7)",
@@ -247,6 +245,18 @@
       "title": "Set Relay Activation Time Zone",
       "fields": [
         {
+          "hint": "Time Zone Number (1...4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "1=ON 0=OFF",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
           "hint": "Beginning Hour (01..12)",
           "size": 2,
           "min": 1,
@@ -257,6 +267,12 @@
           "size": 2,
           "min": 0,
           "max": 59
+        },
+        {
+          "hint": "AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
         },
         {
           "hint": "Ending Hour (01..12)",
@@ -279,24 +295,46 @@
         {
           "hint": "Days of Week (Sun=1, Sat=7 or #)",
           "size": 7,
-          "min": 1,
-          "max": 7,
           "hash": true
         }
       ],
-      "dtmf": "*35[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3][FIELD:4]*,[FIELD:5]*,[FIELD:6]*"
+      "dtmf": "*35[MASTER],[FIELD:1]*,[FIELD:2]*,[FIELD:3][FIELD:4]*,[FIELD:5]*,[FIELD:6][FIELD:7]*,[FIELD:8]*,[FIELD:9]*"
     },
     {
       "title": "Set 4-Digit Entry Code Time Zone",
       "fields": [
         {
-          "hint": "Hour (01..12)",
+          "hint": "1=ON 0=OFF",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Beginning Hour (01..12)",
           "size": 2,
           "min": 1,
           "max": 12
         },
         {
-          "hint": "Minutes (00..59)",
+          "hint": "Beginning Minutes (00..59)",
+          "size": 2,
+          "min": 0,
+          "max": 59
+        },
+        {
+          "hint": "AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Ending Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Ending Minutes (00..59)",
           "size": 2,
           "min": 0,
           "max": 59
@@ -310,8 +348,6 @@
         {
           "hint": "Days of Week (Sun=1..Sat=7 or #)",
           "size": 7,
-          "min": 1,
-          "max": 7,
           "hash": true
         },
         {
@@ -323,19 +359,25 @@
           "size": 4
         }
       ],
-      "dtmf": "*36[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3]*,[FIELD:4]*,[FIELD:5]*,[FIELD:6]*"
+      "dtmf": "*36[MASTER],[FIELD:1]*,[FIELD:2][FIELD:3]*,[FIELD:4]*,[FIELD:5][FIELD:6]*,[FIELD:7]*,[FIELD:8]*,[FIELD:9]*,[FIELD:10]*"
     },
     {
       "title": "Set 5-Digit Entry Code Time Zone",
       "fields": [
         {
-          "hint": "Hour (01..12)",
+          "hint": "1=ON 0=OFF",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Beginning Hour (01..12)",
           "size": 2,
           "min": 1,
           "max": 12
         },
         {
-          "hint": "Minutes (00..59)",
+          "hint": "Beginning Minutes (00..59)",
           "size": 2,
           "min": 0,
           "max": 59
@@ -347,22 +389,38 @@
           "max": 1
         },
         {
-          "hint": "Days of Week (Sun=1, Sat=7 or #)",
-          "size": 7,
+          "hint": "Ending Hour (01..12)",
+          "size": 2,
           "min": 1,
-          "max": 7,
+          "max": 12
+        },
+        {
+          "hint": "Ending Minutes (00..59)",
+          "size": 2,
+          "min": 0,
+          "max": 59
+        },
+        {
+          "hint": "AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Days of Week (Sun=1..Sat=7 or #)",
+          "size": 7,
           "hash": true
         },
         {
-          "hint": "Lower 5-Digit Boundary",
-          "size": 5
+          "hint": "Lower 4-Digit Boundary",
+          "size": 4
         },
         {
-          "hint": "Upper 5-Digit Boundary",
-          "size": 5
+          "hint": "Upper 4-Digit Boundary",
+          "size": 4
         }
       ],
-      "dtmf": "*37[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3]*,[FIELD:4]*,[FIELD:5]*,[FIELD:6]*"
+      "dtmf": "*37[MASTER],[FIELD:1]*,[FIELD:2][FIELD:3]*,[FIELD:4]*,[FIELD:5][FIELD:6]*,[FIELD:7]*,[FIELD:8]*,[FIELD:9]*,[FIELD:10]*"
     },
     {
       "title": "Add Phone Number w/ Area Code",

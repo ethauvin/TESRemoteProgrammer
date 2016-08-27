@@ -1,0 +1,200 @@
+{
+  "params": {
+    "name": "DKS 1819",
+    "star": "*",
+    "hash": "#",
+    "end": "0 + #",
+    "size": 4
+  },
+  "opts": [
+    {
+      "title": "Set Relay Strike Time",
+      "fields": [
+        {
+          "hint": "Strike Time (00=1/4...99 seconds)",
+          "min": 0,
+          "max": 99,
+          "size": 2
+        }
+      ],
+      "dtmf": "*03[MASTER],1*,[FIELD:1]*"
+    },
+    {
+      "title": "Add 7-digit Phone Number",
+      "fields": [
+        {
+          "hint": "Phone Number",
+          "size": 7,
+          "hash": true
+        }
+      ],
+      "dtmf": "*01[MASTER],001*,[FIELD:1]*"
+    },
+    {
+      "title": "Set Area Code",
+      "fields": [
+        {
+          "hint": "Area Code Ref Number",
+          "size": 2,
+          "min": 1,
+          "max": 15
+        },
+        {
+          "hint": "Area Code (e.g. 1800 or #800)",
+          "size": 4,
+          "min": 1,
+          "max": 15,
+          "hash": true
+        }
+      ],
+      "dtmf": "*24[MASTER],[FIELD:1]*,[FIELD:2]*"
+    },
+    {
+      "title": "Add Phone Number w/ Area Code",
+      "fields": [
+        {
+          "hint": "Area Code",
+          "size": 2,
+          "min": 1,
+          "max": 15
+        },
+        {
+          "hint": "Phone Number",
+          "size": 7,
+          "hash": true
+        }
+      ],
+      "dtmf": "*41[MASTER],001,[FIELD:1]*,[FIELD:2]*"
+    },
+    {
+      "title": "Set Time Clock",
+      "fields": [
+        {
+          "hint": "Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Minutes (00..59)",
+          "size": 2,
+          "min": 0,
+          "max": 59
+        },
+        {
+          "hint": "AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Month (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Day of Month (01..31)",
+          "size": 2,
+          "min": 1,
+          "max": 31
+        },
+        {
+          "hint": "Year",
+          "size": 2
+        },
+        {
+          "hint": "Day of Week (Sun=1..Sat=7)",
+          "size": 1,
+          "min": 1,
+          "max": 7
+        }
+      ],
+      "dtmf": "*33[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3]*,[FIELD:4]*,[FIELD:5]*,[FIELD:6]*,[FIELD:7]*"
+    },
+    {
+      "title": "Set Relay Activation Time Zone",
+      "fields": [
+        {
+          "hint": "Time Zone Number (1 or 2)",
+          "size": 1,
+          "min": 1,
+          "max": 2
+        },
+        {
+          "hint": "1=ON 0=OFF",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Beginning Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Beginning Minutes (00..59)",
+          "size": 2,
+          "min": 0,
+          "max": 59
+        },
+        {
+          "hint": "Ending Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Ending Minutes (00..59)",
+          "size": 2,
+          "min": 0,
+          "max": 59
+        },
+        {
+          "hint": "AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Days of Week (Sun=1, Sat=7 or #)",
+          "size": 7,
+          "hash": true
+        }
+      ],
+      "dtmf": "*35[MASTER],[FIELD:1]*,[FIELD:2]*,[FIELD:3][FIELD:4]*,[FIELD:5][FIELD:6]*,[FIELD:7]*,[FIELD:8]*"
+    },
+    {
+      "title": "Remote Relay Activation",
+      "fields": [
+        {
+          "hint": "Open=1, Hold=2, Release=4, 1hr=4",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        }
+      ],
+      "nosteps": true,
+      "dtmf": "*16[MASTER],[FIELD:1]*"
+    },
+    {
+      "title": "Enable/Disable Auto Relay Time Zone",
+      "fields": [
+        {
+          "hint": "Time Zone Number (1 or 2)",
+          "size": 2,
+          "min": 1,
+          "max": 2
+        },
+        {
+          "hint": "1=ON 0=OFF",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        }
+      ],
+      "dtmf": "*35[MASTER],[FIELD:1]*,[FIELD:2]*"
+    }
+  ]
+}

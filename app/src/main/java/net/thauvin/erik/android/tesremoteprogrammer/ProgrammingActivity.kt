@@ -31,17 +31,21 @@ import android.text.TextUtils
 import android.text.method.DigitsKeyListener
 import android.util.TypedValue
 import android.view.Gravity.*
+import android.view.ViewManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import com.lb.auto_fit_textview.AutoResizeTextView
 import net.thauvin.erik.android.tesremoteprogrammer.filters.AlphaFilter
 import net.thauvin.erik.android.tesremoteprogrammer.filters.MinMaxFilter
+import net.thauvin.erik.android.tesremoteprogrammer.filters.NumberFilter
 import net.thauvin.erik.android.tesremoteprogrammer.models.Option
 import net.thauvin.erik.android.tesremoteprogrammer.models.Params
 import net.thauvin.erik.android.tesremoteprogrammer.util.Dtmf
 import net.thauvin.erik.android.tesremoteprogrammer.util.plural
 import net.thauvin.erik.android.tesremoteprogrammer.widget.ScrollAwareFABBehavior
 import org.jetbrains.anko.*
+import org.jetbrains.anko.custom.ankoView
 import org.jetbrains.anko.design.coordinatorLayout
 import org.jetbrains.anko.design.floatingActionButton
 import org.jetbrains.anko.design.textInputLayout
@@ -52,6 +56,9 @@ import java.util.*
 
 @RuntimePermissions
 class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
+
+    fun ViewManager.autofitTextView(theme: Int = 0, init: AutoResizeTextView.() -> Unit) = ankoView({ AutoResizeTextView(it) }, theme, init)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -61,18 +68,19 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
 
         coordinatorLayout {
 
-            textView {
+            autofitTextView {
                 padding = dip(20)
                 text = option.title
                 setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20f)
+                singleLine = true
+                maxLines = 1
                 typeface = Typeface.DEFAULT_BOLD
                 isFocusableInTouchMode = true
-                singleLine = true
                 ellipsize = TextUtils.TruncateAt.END
-            }
+            }.lparams(width = matchParent, height = matchParent)
 
             nestedScrollView {
-                topPadding = dip(55)
+                topPadding = dip(50)
                 horizontalPadding = dip(20)
 
                 verticalLayout {
@@ -96,9 +104,9 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                                     inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
                                     inputFilters.add(AlphaFilter())
                                 } else {
-                                    inputType = InputType.TYPE_CLASS_NUMBER
-                                    keyListener = DigitsKeyListener.getInstance("0,1,2,3,4,5,6,7,8,9" +
-                                            if (field.hash) ",${params.hash}" else "")
+                                    inputType = InputType.TYPE_CLASS_PHONE
+                                    inputFilters.add(NumberFilter("0123456789" +
+                                            if (field.hash) "${params.hash}" else ""))
                                     if (field.max != -1 && field.min != -1) {
                                         inputFilters.add(MinMaxFilter(field.min, field.max, field.size))
                                     }

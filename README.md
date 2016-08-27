@@ -8,7 +8,7 @@ Program your Telephone Entry System remotely (off-site) using your phone.
 
 Most Telephone Entry Systems can be programmed from the front keypad or remotely from an off-premise location using any touch-tone phone. TES Remote Programmer streamlines the often cumbersome remote programming process by providing data entry screens and automated dial-in options.
 
-By default, TES Remote Programmer is configured to work with the [DoorKing (DKS) 1802 and 1802-EPD](http://www.doorking.com/telephone/1802-entry-system) systems, additional [configurations](#configurations) can be created for most systems supporting remote programming.
+By default, TES Remote Programmer is configured to work with the [DoorKing (DKS) 1802, 1802-EPD. 1803, 1808 and 1810](http://www.doorking.com/telephone/) systems, additional [configurations](#configurations) can be created for most systems supporting remote programming.
 
 ## Usage
 
@@ -32,7 +32,7 @@ To import a new configuration, select `Import` in the _Configurations_ dialog.
 
 Custom configurations can be created using [JSON](http://www.json.org/). 
 
-[View Example](app/src/main/res/raw/dks_1802_epd.json)
+[View Examples](app/src/main/res/raw/)
 
 #### Parameters
 
@@ -89,14 +89,14 @@ which would translate into:
 ]
 ```
 
-Step 4 is configured in the `end` [Parameter](#parameters) since it only applies to manual/keypad programming.
+Step 4 is configured in the `end` [parameter](#parameters) since it only applies to manual/keypad programming.
 
 | Elements | Description                                                                                       |
 |:---------|:--------------------------------------------------------------------------------------------------|
 |`title`   | The title of the option.                                                                          |
 |`fields`  | See [Fields](#fields)                                                                             |
 |`dtmf`    | See [DTMF](#dtmf)                                                                                 |
-|`nodial`  | Indicate thar remote programming is not available. Steps must be executed manually at the keypad. |
+|`nodial`  | Indicate that remote programming is not available. Steps must be executed manually at the keypad. |
 |`nosteps` | Indicate that manual/keypad steps are not available. Programming must be executed remotely.       |
 
 All are required, except `nodial` and `nosteps` which are mutually exclusive.
@@ -126,7 +126,7 @@ Fields represent the data entry text fields on option screens.
 |`min`    | Set the minimum value of a numeric field.                                                         | No       |
 |`max`    | Set the maximum value of a numeric field.                                                         | No       |
 |`alpha`  | Set to `true` if the field is alphanumeric.                                                       | No       |
-|`hash`   | Set to `true` if the field accept the `hash` [Parameter](#parameters) value in place of a digit.  | No       |
+|`hash`   | Set to `true` if the field accept the `hash` [parameter](#parameters) value in place of a digit.  | No       |
 
 
 #### DTMF
@@ -150,6 +150,6 @@ Imported configurations will be validated. While the validation is not perfect, 
 
 Please sure to use a JSON editor to make creating configurations a whole lot easier.
 
-When in doubt be sure to look at the [default configuration](app/src/main/res/raw/dks_1802_epd.json).
+When in doubt be sure to look at the [default configurations](app/src/main/res/raw/).
 
 

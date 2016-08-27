@@ -21,7 +21,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.io.Serializable
 
-data class Config(var params: Params, var opts: List<Option>) : Parcelable, Serializable {
+data class Config(var params: Params, var opts: List<Option>) : Parcelable, Serializable, Comparable<Config> {
     companion object {
         private @JvmStatic val serialVersionUID: Long = 1
 
@@ -36,6 +36,10 @@ data class Config(var params: Params, var opts: List<Option>) : Parcelable, Seri
     constructor(source: Parcel) : this(
             source.readParcelable<Params>(Params::class.java.classLoader),
             source.createTypedArrayList(Option.CREATOR))
+
+    override fun compareTo(other: Config): Int {
+        return params.name.compareTo(other.params.name)
+    }
 
     override fun describeContents() = 0
 

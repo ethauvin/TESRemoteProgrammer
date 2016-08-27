@@ -1,0 +1,333 @@
+{
+  "params": {
+    "name": "DKS 1803/1808/1810",
+    "star": "*",
+    "hash": "#",
+    "end": "0 + #",
+    "size": 4
+  },
+  "opts": [
+    {
+      "title": "Add 16-Digits Phone Number",
+      "fields": [
+        {
+          "hint": "Directory Code",
+          "size": 3
+        },
+        {
+          "hint": "Phone Number",
+          "size": 16,
+          "hash": true
+        }
+      ],
+      "dtmf": "*01[MASTER],[FIELD:1]*,[FIELD:2]*"
+    },
+    {
+      "title": "Delete Phone Number",
+      "fields": [
+        {
+          "hint": "Directory Code",
+          "size": 3
+        }
+      ],
+      "dtmf": "*01[MASTER],[FIELD:1]*,*"
+    },
+    {
+      "title": "Add 4-Digit Entry Code",
+      "fields": [
+        {
+          "hint": "Entry Code",
+          "size": 4
+        }
+      ],
+      "dtmf": "*02[MASTER],[FIELD:1]*"
+    },
+    {
+      "title": "Set Relay Strike Time",
+      "fields": [
+        {
+          "hint": "Relay (1 or 2)",
+          "min": 1,
+          "max": 2,
+          "size": 1
+        },
+        {
+          "hint": "Strike Time (00=1/4...99 seconds)",
+          "min": 0,
+          "max": 99,
+          "size": 2
+        }
+      ],
+      "dtmf": "*03[MASTER],[FIELD:1]*,[FIELD:2]*"
+    },
+    {
+      "title": "Delete 4-Digit Entry Code",
+      "fields": [
+        {
+          "hint": "Entry Code",
+          "size": 4
+        }
+      ],
+      "dtmf": "*14[MASTER],[FIELD:1]*"
+    },
+    {
+      "title": "Add 5-Digit Entry Code",
+      "fields": [
+        {
+          "hint": "Entry Code",
+          "size": 5
+        }
+      ],
+      "dtmf": "*09[MASTER],[FIELD:1]*"
+    },
+    {
+      "title": "Delete 5-Digit Entry Code",
+      "fields": [
+        {
+          "hint": "Entry Code",
+          "size": 5
+        }
+      ],
+      "dtmf": "*10[MASTER],[FIELD:1]*"
+    },
+    {
+      "title": "Set Open Tone On/Off",
+      "fields": [
+        {
+          "hint": "1=ON 0=OFF",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        }
+      ],
+      "dtmf": "*17[MASTER],[FIELD:1]*"
+    },
+    {
+      "title": "Set PBX Line Access Code",
+      "fields": [
+        {
+          "hint": "Line Access Code Number",
+          "size": 1,
+          "min": 1,
+          "max": 9
+        }
+      ],
+      "dtmf": "*21[MASTER],[FIELD:1]*"
+    },
+    {
+      "title": "Set Time Clock",
+      "fields": [
+        {
+          "hint": "Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Minutes (00..59)",
+          "size": 2,
+          "min": 0,
+          "max": 59
+        },
+        {
+          "hint": "AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Month (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Day of Month (01..31)",
+          "size": 2,
+          "min": 1,
+          "max": 31
+        },
+        {
+          "hint": "Year",
+          "size": 2
+        },
+        {
+          "hint": "Day of Week (Sun=1..Sat=7)",
+          "size": 1,
+          "min": 1,
+          "max": 7
+        }
+      ],
+      "dtmf": "*33[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3]*,[FIELD:4]*,[FIELD:5]*,[FIELD:6]*,[FIELD:7]*"
+    },
+    {
+      "title": "Set Relay Activation Time Zone",
+      "fields": [
+        {
+          "hint": "Beginning Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Beginning Minutes (00..59)",
+          "size": 2,
+          "min": 0,
+          "max": 59
+        },
+        {
+          "hint": "Ending Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Ending Minutes (00..59)",
+          "size": 2,
+          "min": 0,
+          "max": 59
+        },
+        {
+          "hint": "AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Days of Week (Sun=1, Sat=7 or #)",
+          "size": 7,
+          "min": 1,
+          "max": 7,
+          "hash": true
+        }
+      ],
+      "dtmf": "*35[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3][FIELD:4]*,[FIELD:5]*,[FIELD:6]*"
+    },
+    {
+      "title": "Set 4-Digit Entry Code Time Zone",
+      "fields": [
+        {
+          "hint": "Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Minutes (00..59)",
+          "size": 2,
+          "min": 0,
+          "max": 59
+        },
+        {
+          "hint": "AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Days of Week (Sun=1..Sat=7 or #)",
+          "size": 7,
+          "min": 1,
+          "max": 7,
+          "hash": true
+        },
+        {
+          "hint": "Lower 4-Digit Boundary",
+          "size": 4
+        },
+        {
+          "hint": "Upper 4-Digit Boundary",
+          "size": 4
+        }
+      ],
+      "dtmf": "*36[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3]*,[FIELD:4]*,[FIELD:5]*,[FIELD:6]*"
+    },
+    {
+      "title": "Set 5-Digit Entry Code Time Zone",
+      "fields": [
+        {
+          "hint": "Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Minutes (00..59)",
+          "size": 2,
+          "min": 0,
+          "max": 59
+        },
+        {
+          "hint": "AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Days of Week (Sun=1, Sat=7 or #)",
+          "size": 7,
+          "min": 1,
+          "max": 7,
+          "hash": true
+        },
+        {
+          "hint": "Lower 5-Digit Boundary",
+          "size": 5
+        },
+        {
+          "hint": "Upper 5-Digit Boundary",
+          "size": 5
+        }
+      ],
+      "dtmf": "*37[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3]*,[FIELD:4]*,[FIELD:5]*,[FIELD:6]*"
+    },
+    {
+      "title": "Add 1-Day Flash Entry Code",
+      "fields": [
+        {
+          "hint": "Flash Code Number (1..8)",
+          "size": 1,
+          "min": 1,
+          "max": 8
+        },
+        {
+          "hint": "Active Day of Month",
+          "size": 2,
+          "min": 1,
+          "max": 31
+        },
+        {
+          "hint": "Flash Code",
+          "size": 4
+        }
+      ],
+      "dtmf": "*15[MASTER],[FIELD:1]*,[FIELD:2]*,[FIELD:3]*"
+    },
+    {
+      "title": "Remote Relay 1 Activation",
+      "fields": [
+        {
+          "hint": "Open=9, Hold=8, Release=7, 1hr=6",
+          "size": 1,
+          "min": 6,
+          "max": 9
+        }
+      ],
+      "nosteps": true,
+      "dtmf": "*16[MASTER],[FIELD:1]*"
+    },
+    {
+      "title": "Remote Relay 2 Activation",
+      "fields": [
+        {
+          "hint": "Open=5, Hold=4, Release=2, 1hr=2",
+          "size": 1,
+          "min": 2,
+          "max": 5
+        }
+      ],
+      "nosteps": true,
+      "dtmf": "*16[MASTER],[FIELD:1]*"
+    }
+  ]
+}

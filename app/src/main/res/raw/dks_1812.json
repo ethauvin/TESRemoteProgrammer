@@ -1,0 +1,359 @@
+{
+  "params": {
+    "name": "DKS 1812",
+    "star": "*",
+    "hash": "#",
+    "end": "0 + #",
+    "size": 4
+  },
+  "opts": [
+    {
+      "title": "Set Relay Strike Time",
+      "fields": [
+        {
+          "hint": "Relay (1 or 2)",
+          "min": 1,
+          "max": 2,
+          "size": 1
+        },
+        {
+          "hint": "Strike Time (00=1/4...99 seconds)",
+          "min": 0,
+          "max": 99,
+          "size": 2
+        }
+      ],
+      "dtmf": "*03[MASTER],[FIELD:1]*,[FIELD:2]*"
+    },
+    {
+      "title": "Enable/Disable Answer Incoming Call",
+      "fields": [
+        {
+          "hint": "0=Enable, 1=Disable",
+          "min": 0,
+          "max": 1,
+          "size": 1
+        }
+      ],
+      "dtmf": "*15[MASTER],[FIELD:1]*"
+    },
+    {
+      "title": "Set Time/Date Calendar",
+      "fields": [
+        {
+          "hint": "Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Minutes (00..59)",
+          "size": 2,
+          "min": 0,
+          "max": 59
+        },
+        {
+          "hint": "AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Month (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Day of Month (01..31)",
+          "size": 2,
+          "min": 1,
+          "max": 31
+        },
+        {
+          "hint": "Year (00..99)",
+          "size": 2,
+          "min": 0,
+          "max": 99
+        },
+        {
+          "hint": "Day of Week (Sun=1..Sat=7)",
+          "size": 1,
+          "min": 1,
+          "max": 7
+        }
+      ],
+      "dtmf": "*33[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3]*,[FIELD:4][FIELD:5][FIELD:6][FIELD:7]*"
+    },
+    {
+      "title": "Set Do Not Disturb Time Zone",
+      "fields": [
+        {
+          "hint": "O=ON 1=OFF",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Minutes (01..59)",
+          "size": 2,
+          "min": 1,
+          "max": 59
+        },
+        {
+          "hint": "AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Active Days of Week (Sun=1..Sat=7, or #)",
+          "size": 7,
+          "hash": true
+        }
+      ],
+      "dtmf": "*34[MASTER],[FIELD:1]*,[FIELD:2][FIELD:3]*,[FIELD:4]*,[FIELD:5]*"
+    },
+    {
+      "title": "Set Automatic Relay Activation Time Zone",
+      "fields": [
+        {
+          "hint": "O=ON 1=OFF",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Minutes (01..59)",
+          "size": 2,
+          "min": 1,
+          "max": 59
+        },
+        {
+          "hint": "AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Active Days of Week (Sun=1..Sat=7, or #)",
+          "size": 7,
+          "hash": true
+        }
+      ],
+      "dtmf": "*35[MASTER],[FIELD:1]*,[FIELD:2][FIELD:3]*,[FIELD:4]*,[FIELD:5]*"
+    },
+    {
+      "title": "Set Access Code Time Zone",
+      "fields": [
+        {
+          "hint": "O=ON 1=OFF",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Beginning Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Beginning Minutes (01..59)",
+          "size": 2,
+          "min": 1,
+          "max": 59
+        },
+        {
+          "hint": "Beginning AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Ending Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Ending Minutes (01..59)",
+          "size": 2,
+          "min": 1,
+          "max": 59
+        },
+        {
+          "hint": "Ending AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Active Days of Week (Sun=1..Sat=7, or #)",
+          "size": 7,
+          "hash": true
+        }
+      ],
+      "dtmf": "*36[MASTER],[FIELD:1]*,[FIELD:2][FIELD:3][FIELD:4]*,[FIELD:5][FIELD:6][FIELD:7]*,[FIELD:8]"
+    },
+    {
+      "title": "Set Call Forward Time Zone",
+      "fields": [
+        {
+          "hint": "O=ON 1=OFF",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Beginning Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Beginning Minutes (01..59)",
+          "size": 2,
+          "min": 1,
+          "max": 59
+        },
+        {
+          "hint": "Beginning AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Ending Hour (01..12)",
+          "size": 2,
+          "min": 1,
+          "max": 12
+        },
+        {
+          "hint": "Ending Minutes (01..59)",
+          "size": 2,
+          "min": 1,
+          "max": 59
+        },
+        {
+          "hint": "Ending AM=0 PM=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+        {
+          "hint": "Active Days of Week (Sun=1..Sat=7, or #)",
+          "size": 7,
+          "hash": true
+        }
+      ],
+      "dtmf": "*37[MASTER],[FIELD:1]*,[FIELD:2][FIELD:3][FIELD:4]*,[FIELD:5][FIELD:6][FIELD:7]*,[FIELD:8]"
+    },
+    {
+      "title": "Add 1-Day Flash Access Code",
+      "fields": [
+        {
+          "hint": "Relay (1 or 2)",
+          "size": 1,
+          "min": 1,
+          "max": 2
+        },
+        {
+          "hint": "Active Day of Month",
+          "size": 2,
+          "min": 1,
+          "max": 31
+        }
+      ],
+      "dtmf": "*45[MASTER],[FIELD:1]*,[FIELD:2]*"
+    },
+    {
+      "title": "Set Call Forward Phone Number",
+      "fields": [
+        {
+          "hint": "Area Code (1..., #... or ####)",
+          "size": 4,
+          "hash": true
+        },
+        {
+          "hint": "Phone Number",
+          "size": 7
+        }
+      ],
+      "dtmf": "*10[MASTER],[FIELD:1]*,[FIELD:2]*"
+    },
+    {
+      "title": "Enable/Disable Call Forward",
+      "fields": [
+        {
+          "hint": "0=Enable, 1=Disable",
+          "min": 0,
+          "max": 1,
+          "size": 1
+        }
+      ],
+      "dtmf": "*14[MASTER],[FIELD:1]*"
+    },
+    {
+      "title": "Set Preprogrammed Phone Number",
+      "fields": [
+        {
+          "hint": "Directory Number (1, 2, or 3)",
+          "size": 1,
+          "min": 1,
+          "max": 3
+        },
+        {
+          "hint": "Area Code (1..., #... or ####)",
+          "size": 4,
+          "hash": true
+        },
+        {
+          "hint": "Phone Number",
+          "size": 7
+        }
+      ],
+      "dtmf": "*2[FIELD:1][MASTER],[FIELD:2]*,[FIELD:3]"
+    },
+    {
+      "title": "Add Access Code",
+      "fields": [
+        {
+          "hint": "Location Code",
+          "size": 2,
+          "min": 1,
+          "max": 50
+        },
+        {
+          "hint": "Access Code",
+          "size": 4
+        }
+      ],
+      "dtmf": "*02[MASTER],[FIELD:1]*,[FIELD:2]*"
+    },
+    {
+      "title": "Delete Access Code",
+      "fields": [
+        {
+          "hint": "Location Code",
+          "size": 2,
+          "min": 1,
+          "max": 50
+        }
+      ],
+      "dtmf": "*02[MASTER],[FIELD:1]*,####*"
+    }
+  ]
+}

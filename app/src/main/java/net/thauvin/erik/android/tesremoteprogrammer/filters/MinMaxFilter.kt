@@ -21,9 +21,9 @@ import android.text.InputFilter
 import android.text.Spanned
 
 class MinMaxFilter : InputFilter {
-    private var min: Int = 0
-    private var max: Int = 0
-    private var size: Int = 0
+    private val min: Int
+    private val max: Int
+    private val size: Int
 
     constructor(min: Int, max: Int, size: Int) {
         this.min = min
@@ -32,11 +32,15 @@ class MinMaxFilter : InputFilter {
     }
 
     override fun filter(source: CharSequence, start: Int, end: Int, dest: Spanned, dstart: Int, dend: Int): CharSequence? {
-        val input = (dest.toString() + source.toString()).toInt()
-        val len = dest.length + source.length
-        if ((min > 0 && size > 1 && len < size && input == 0) || input in IntRange(min, max)) {
-            return null
+        try {
+            val input = (dest.toString() + source.toString()).toInt()
+            val len = dest.length + source.length
+            if ((min > 0 && size > 1 && len < size && input == 0) || input in IntRange(min, max)) {
+                return null
+            }
+        } catch (nef: NumberFormatException) {
         }
+
         return ""
     }
 }

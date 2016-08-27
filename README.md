@@ -10,6 +10,8 @@ Most Telephone Entry Systems can be programmed from the front keypad or remotely
 
 By default, TES Remote Programmer is configured to work with the [DoorKing (DKS) 1802, 1802-EPD. 1803, 1808 and 1810](http://www.doorking.com/telephone/) systems, additional [configurations](#configurations) can be created for most systems supporting remote programming.
 
+Please note that all default configurations are set for 3-digits directory code length. If your system is setup differently, you will need to modify the [default configuration](app/src/main/res/raw/) and re-import it. Look for all `Directory Code` fields and modify their `size` attributes accordingly.
+
 ## Usage
 
 ![Main Activity](images/screenshots/main_activity_framed_small.png)

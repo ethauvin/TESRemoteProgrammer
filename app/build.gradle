@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "net.thauvin.erik.android.tesremoteprogrammer"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -37,7 +37,6 @@ dependencies {
     compile 'org.jetbrains.anko:anko-design:0.9'
     compile 'com.android.support:design:24.1.1'
     compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
-
 
     // https://github.com/JakeWharton/ViewPagerIndicator
     compile 'fr.avianey.com.viewpagerindicator:library:2.4.1.1@aar'

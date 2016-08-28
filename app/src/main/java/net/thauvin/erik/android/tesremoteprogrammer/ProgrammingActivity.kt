@@ -28,7 +28,6 @@ import android.support.v7.app.AppCompatActivity
 import android.text.InputFilter
 import android.text.InputType
 import android.text.TextUtils
-import android.text.method.DigitsKeyListener
 import android.util.TypedValue
 import android.view.Gravity.*
 import android.view.ViewManager
@@ -57,7 +56,7 @@ import java.util.*
 @RuntimePermissions
 class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
 
-    fun ViewManager.autofitTextView(theme: Int = 0, init: AutoResizeTextView.() -> Unit) = ankoView({ AutoResizeTextView(it) }, theme, init)
+    inline fun ViewManager.autofitTextView(theme: Int = 0, init: AutoResizeTextView.() -> Unit) = ankoView({ AutoResizeTextView(it) }, theme, init)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,11 +80,11 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
 
             nestedScrollView {
                 topPadding = dip(50)
+                bottomPadding = dip(30)
                 horizontalPadding = dip(20)
 
                 verticalLayout {
                     lparams(width = matchParent, height = wrapContent)
-
 
                     val it = option.fields.iterator()
                     while (it.hasNext()) {

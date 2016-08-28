@@ -38,6 +38,26 @@
       "dtmf": "*01[MASTER],[FIELD:1]*,[FIELD:2]*"
     },
     {
+      "title": "Delete 7-digit Phone Number",
+      "fields": [
+        {
+          "hint": "Directory Code",
+          "size": 3
+        }
+      ],
+      "dtmf": "*01[MASTER],[FIELD:1]*,#######*"
+    },
+    {
+      "title": "Delete 16-digit Phone Number",
+      "fields": [
+        {
+          "hint": "Directory Code",
+          "size": 3
+        }
+      ],
+      "dtmf": "*01[MASTER],[FIELD:1]*,*"
+    },
+    {
       "title": "Add 4-Digit Entry Code",
       "fields": [
         {
@@ -384,7 +404,7 @@
           "size": 1,
           "min": 0,
           "max": 1
-        },
+        }
       ],
       "dtmf": "*36[MASTER],[FIELD:1]*"
     },
@@ -457,7 +477,7 @@
           "size": 1,
           "min": 0,
           "max": 1
-        },
+        }
       ],
       "dtmf": "*37[MASTER],[FIELD:1]*"
     },

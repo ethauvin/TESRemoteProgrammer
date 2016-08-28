@@ -8,7 +8,7 @@ Program your Telephone Entry System remotely (off-site) using your phone.
 
 Most Telephone Entry Systems can be programmed from the front keypad or remotely from an off-premise location using any touch-tone phone. TES Remote Programmer streamlines the often cumbersome remote programming process by providing data entry screens and automated dial-in options.
 
-By default, TES Remote Programmer is configured to work with the [DoorKing (DKS) 1802, 1802-EPD. 1803, 1808, 1810 and 1819](http://www.doorking.com/telephone/) systems, additional [configurations](#configurations) can be created for most systems supporting remote programming.
+By default, TES Remote Programmer is configured to work with the [DoorKing (DKS) 1802, 1802-EPD, 1803, 1808, 1810 and 1819](http://www.doorking.com/telephone/) systems, additional [configurations](#configurations) can be created for most systems supporting remote programming.
 
 Please note that all default configurations are set for 3-digits directory code length. If your system is setup differently, you will need to modify the [default configuration](app/src/main/res/raw/) and re-import it. Look for all `Directory Code` fields and modify their `size` attributes accordingly.
 
@@ -124,7 +124,7 @@ Fields represent the data entry text fields on option screens.
 | Element | Description                                                                                       | Required |
 |:--------|:--------------------------------------------------------------------------------------------------|:---------|
 |`hint`   | Set the hint/label of the field.                                                                  | Yes      |
-|`size`   | Set the required size of the field.                                                               | Yes      |
+|`size`   | Set the size of the field.                                                                        | Yes      |
 |`min`    | Set the minimum value of a numeric field.                                                         | No       |
 |`max`    | Set the maximum value of a numeric field.                                                         | No       |
 |`alpha`  | Set to `true` if the field is alphanumeric.                                                       | No       |

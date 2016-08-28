@@ -23,6 +23,21 @@
       "dtmf": "*01[MASTER],[FIELD:1]*,[FIELD:2]*"
     },
     {
+      "title": "Add 16-digit Phone Number",
+      "fields": [
+        {
+          "hint": "Directory Code",
+          "size": 3
+        },
+        {
+          "hint": "Phone Number",
+          "size": 16,
+          "hash": true
+        }
+      ],
+      "dtmf": "*01[MASTER],[FIELD:1]*,[FIELD:2]*"
+    },
+    {
       "title": "Add 4-Digit Entry Code",
       "fields": [
         {
@@ -362,6 +377,18 @@
       "dtmf": "*36[MASTER],[FIELD:1]*,[FIELD:2][FIELD:3]*,[FIELD:4]*,[FIELD:5][FIELD:6]*,[FIELD:7]*,[FIELD:8]*,[FIELD:9]*,[FIELD:10]*"
     },
     {
+      "title": "Enabled/Disable 4-Digit Entry Code Time Zone",
+      "fields": [
+        {
+          "hint": "1=ON 0=OFF",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+      ],
+      "dtmf": "*36[MASTER],[FIELD:1]*"
+    },
+    {
       "title": "Set 5-Digit Entry Code Time Zone",
       "fields": [
         {
@@ -421,6 +448,18 @@
         }
       ],
       "dtmf": "*37[MASTER],[FIELD:1]*,[FIELD:2][FIELD:3]*,[FIELD:4]*,[FIELD:5][FIELD:6]*,[FIELD:7]*,[FIELD:8]*,[FIELD:9]*,[FIELD:10]*"
+    },
+    {
+      "title": "Enabled/Disable 5-Digit Entry Code Time Zone",
+      "fields": [
+        {
+          "hint": "1=ON 0=OFF",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        },
+      ],
+      "dtmf": "*37[MASTER],[FIELD:1]*"
     },
     {
       "title": "Add Phone Number w/ Area Code",

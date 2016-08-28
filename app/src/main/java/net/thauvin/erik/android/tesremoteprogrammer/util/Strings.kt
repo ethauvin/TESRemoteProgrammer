@@ -17,24 +17,6 @@
  */
 package net.thauvin.erik.android.tesremoteprogrammer.util
 
-fun String.plural(size: Int): String {
-    val consonants = "bcdfghjklmnpqrstvwxz"
-
-    if (size > 1 && this.length > 2) {
-        if ((this.endsWith("o", true) || this.endsWith("s", true)) &&
-                consonants.contains(this[this.length - 2], true)) {
-            return this + "es"
-        }
-
-        if (this.endsWith("y", true) &&
-                consonants.contains(this[this.length - 2], true)) {
-            return this + "ies"
-        }
-    }
-
-    return this + "s"
-}
-
 fun String.replaceAll(replace: Array<Pair<String, String>>): String {
     val result = StringBuilder(this)
     var offset: Int

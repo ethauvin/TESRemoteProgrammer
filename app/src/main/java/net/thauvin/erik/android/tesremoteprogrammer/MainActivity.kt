@@ -44,7 +44,6 @@ import com.google.gson.JsonSyntaxException
 import net.thauvin.erik.android.tesremoteprogrammer.models.Config
 import net.thauvin.erik.android.tesremoteprogrammer.models.Configurations
 import net.thauvin.erik.android.tesremoteprogrammer.util.Dtmf
-import net.thauvin.erik.android.tesremoteprogrammer.util.plural
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.textInputLayout
 import permissions.dispatcher.NeedsPermission
@@ -304,10 +303,12 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 config = Gson().fromJson(InputStreamReader(resources.openRawResource(it)),
                         Config::class.java)
 
-//                val errors = StringBuilder()
-//                if (!validateConfig(config, errors)) {
-//                    info("${config.params.name}: $errors")
-//                }
+                if (BuildConfig.DEBUG) {
+                    val errors = StringBuilder()
+                    if (!validateConfig(config, errors)) {
+                        info(">>> ${config.params.name}: " + Html.fromHtml(errors.toString()))
+                    }
+                }
 
                 confs.configs.put(config.params.name, config)
             }
@@ -413,7 +414,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         if (size > 0 && (fields[1].text.length != size)) {
             isValid = false
             fields[1].error = getString(R.string.error_invalid_size, size,
-                    getString(R.string.error_digit).plural(size))
+                    resources.getQuantityString(R.plurals.error_digit, size))
         }
 
         return isValid

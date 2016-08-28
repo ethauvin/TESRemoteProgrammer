@@ -41,7 +41,6 @@ import net.thauvin.erik.android.tesremoteprogrammer.filters.NumberFilter
 import net.thauvin.erik.android.tesremoteprogrammer.models.Option
 import net.thauvin.erik.android.tesremoteprogrammer.models.Params
 import net.thauvin.erik.android.tesremoteprogrammer.util.Dtmf
-import net.thauvin.erik.android.tesremoteprogrammer.util.plural
 import net.thauvin.erik.android.tesremoteprogrammer.widget.ScrollAwareFABBehavior
 import org.jetbrains.anko.*
 import org.jetbrains.anko.custom.ankoView
@@ -230,7 +229,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                 val size = option.fields[i].size
                 if (!option.fields[i].alpha && size > 0 && (v.length() != size)) {
                     v.error = getString(R.string.error_invalid_size, size,
-                            getString(R.string.error_digit).plural(size))
+                            resources.getQuantityString(R.plurals.error_digit, size))
                     isValid = false
                 }
             }

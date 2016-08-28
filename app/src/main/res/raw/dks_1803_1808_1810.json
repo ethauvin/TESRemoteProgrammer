@@ -8,7 +8,7 @@
   },
   "opts": [
     {
-      "title": "Add 16-Digits Phone Number",
+      "title": "Add 16-Digit Phone Number",
       "fields": [
         {
           "hint": "Directory Code",
@@ -205,7 +205,7 @@
           "hash": true
         }
       ],
-      "dtmf": "*35[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3][FIELD:4]*,[FIELD:5]*,[FIELD:6]*"
+      "dtmf": "*35[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3][FIELD:4]*,[FIELD:5]*,[FIELD:6]*,[FIELD:7]*"
     },
     {
       "title": "Set 4-Digit Entry Code Time Zone",

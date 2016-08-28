@@ -21,4 +21,5 @@
     <string name="validate_missing_fields">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>: &lt;font color=\"red\">fields&lt;/font> missing</string>
     <string name="validate_missing_param">&lt;p>&lt;p>&lt;b>params&lt;/b>: &lt;font color=\"red\"><xliff:g id="param">%1$s</xliff:g>&lt;/font> missing&lt;/p></string>
     <string name="validate_missing_opts">&lt;font color=\"red\">opts&lt;/font> missing.</string>
+    <string name="validate_unused_field">&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>, &lt;font color=\"red\">fields[<xliff:g id="field">%2$d</xliff:g>]&lt;/font>: unused</string>
 </resources>

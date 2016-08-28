@@ -24,8 +24,8 @@ import java.util.*
 
 class Dtmf {
     companion object {
-        private val DTMF_MASTER = "[MASTER]"
-        private val DTMF_FIELD = "[FIELD:%1\$d]"
+        val DTMF_MASTER = "[MASTER]"
+        val DTMF_FIELD = "[FIELD:%1\$d]"
 
         private fun alphaToDigits(text: String, star: String): String {
             val result = StringBuffer()

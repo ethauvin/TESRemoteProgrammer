@@ -72,10 +72,42 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         val PAUSE = ','
     }
 
+    @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun importConfig(intent: Intent) {
+        val errors = StringBuilder()
+
+        val tmp: Config? = try {
+            Gson().fromJson(InputStreamReader(contentResolver.openInputStream(intent.data)),
+                    Config::class.java)
+        } catch (jse: JsonSyntaxException) {
+            val cause = jse.cause
+            if (cause != null) {
+                errors.append(cause.message)
+            } else {
+                errors.append(jse.message)
+            }
+            null
+        }
+
+        if (tmp != null && validateConfig(tmp, errors)) {
+            config = tmp
+            saveConfig()
+            recreate()
+        }
+
+        if (errors.length > 0) {
+            alert {
+                title(R.string.alert_config_error)
+                message(Html.fromHtml("$errors"))
+                cancelButton { }
+            }.show()
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == read_request_code && resultCode == Activity.RESULT_OK) {
             if (data != null) {
-                MainActivityPermissionsDispatcher.validateConfigWithCheck(this, data)
+                MainActivityPermissionsDispatcher.importConfigWithCheck(this, data)
             }
         }
     }
@@ -271,6 +303,12 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             defaultConfigs.forEach {
                 config = Gson().fromJson(InputStreamReader(resources.openRawResource(it)),
                         Config::class.java)
+
+//                val errors = StringBuilder()
+//                if (!validateConfig(config, errors)) {
+//                    info("${config.params.name}: $errors")
+//                }
+
                 confs.configs.put(config.params.name, config)
             }
 
@@ -297,91 +335,70 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    fun validateConfig(intent: Intent) {
-        val errors = StringBuilder()
+    fun validateConfig(config: Config, errors: StringBuilder): Boolean {
+        val len = errors.length
 
-        val tmp: Config? = try {
-            Gson().fromJson(InputStreamReader(contentResolver.openInputStream(intent.data)),
-                    Config::class.java)
-        } catch (jse: JsonSyntaxException) {
-            val cause = jse.cause
-            if (cause != null) {
-                errors.append(cause.message)
-            } else {
-                errors.append(jse.message)
+        with(config) {
+            if (params.name.isBlank()) {
+                errors.append(getString(R.string.validate_missing_param, "name"))
             }
-            null
-        }
 
-        if (tmp != null) {
-            with(tmp) {
-                if (params.name.isBlank()) {
-                    errors.append(getString(R.string.validate_missing_param, "name"))
+            if (params.size < 1) {
+                errors.append(getString(R.string.validate_invalid_param, "size"))
+            }
+
+            if (params.star.isBlank()) {
+                errors.append(getString(R.string.validate_missing_param, "star"))
+            }
+
+            if (opts.size == 0) {
+                errors.append(getString(R.string.validate_missing_opts))
+            }
+
+            opts.forEachIndexed { i, option ->
+                if (option.fields.size == 0) {
+                    errors.append(getString(R.string.validate_missing_fields, i + 1))
                 }
 
-                if (params.size < 1) {
-                    errors.append(getString(R.string.validate_invalid_param, "size"))
+                if (option.nosteps && option.nodial) {
+                    errors.append(getString(R.string.validate_invalid_option, i + 1, "nodial/nosteps"))
                 }
 
-                if (params.star.isBlank()) {
-                    errors.append(getString(R.string.validate_missing_param, "star"))
+                if (option.dtmf.isBlank()) {
+                    errors.append(getString(R.string.validate_invalid_dtmf, i + 1, "''"))
                 }
 
-                if (opts.size == 0) {
-                    errors.append(getString(R.string.validate_missing_opts))
-                }
-
-                opts.forEachIndexed { i, option ->
-                    if (option.fields.size == 0) {
-                        errors.append(getString(R.string.validate_missing_fields, i + 1))
+                option.fields.forEachIndexed { j, field ->
+                    if (field.size <= 0) {
+                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "size"))
                     }
 
-                    if (option.nosteps && option.nodial) {
-                        errors.append(getString(R.string.validate_invalid_option, i + 1, "nodial/nosteps"))
-                    }
-
-                    option.fields.forEachIndexed { j, field ->
-                        if (field.size <= 0) {
-                            errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "size"))
-                        }
-
-                        if (!field.alpha) {
-                            if (field.min >= 0 || field.max >= 0) {
-                                if (field.max < 1) {
-                                    errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "max"))
-                                } else if (field.min < 0) {
-                                    errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "min"))
-                                } else if (field.min > field.max) {
-                                    errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "max/min"))
-                                }
+                    if (!field.alpha) {
+                        if (field.min >= 0 || field.max >= 0) {
+                            if (field.max < 1) {
+                                errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "max"))
+                            } else if (field.min < 0) {
+                                errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "min"))
+                            } else if (field.min > field.max) {
+                                errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "max/min"))
                             }
                         }
                     }
 
-                    val blank = "\\0"
-                    val dtmf = Dtmf.mock(option, blank)
-                    if (!Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.star}${params.hash}$blank")) {
-                        errors.append(getString(R.string.validate_invalid_dtmf, i + 1, dtmf.replace(blank, "&#10003;")))
-
+                    if (!option.dtmf.contains(Dtmf.DTMF_FIELD.format(j + 1))) {
+                        errors.append(getString(R.string.validate_unused_field, i + 1, j + 1))
                     }
                 }
-            }
 
-            if (errors.length == 0) {
-                config = tmp
-                saveConfig()
-                recreate()
+                val blank = "\\0"
+                val dtmf = Dtmf.mock(option, blank)
+                if (!Dtmf.validate(dtmf, "${MainActivity.Companion.PAUSE}${params.star}${params.hash}$blank")) {
+                    errors.append(getString(R.string.validate_invalid_dtmf, i + 1, dtmf.replace(blank, "&#10003;")))
+                }
             }
         }
 
-        if (errors.length > 0) {
-            alert {
-                title(R.string.alert_config_error)
-                message(Html.fromHtml("$errors"))
-                cancelButton { }
-            }.show()
-        }
+        return errors.length == len
     }
 
     fun validateFields(fields: ArrayList<EditText>, size: Int): Boolean {

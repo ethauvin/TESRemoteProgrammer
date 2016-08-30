@@ -1,8 +1,8 @@
 {
   "params": {
     "name": "DKS 1803/1808/1810",
-    "star": "*",
-    "hash": "#",
+    "ack": "*",
+    "alt": "#",
     "end": "0 + #",
     "size": 4
   },
@@ -17,7 +17,7 @@
         {
           "hint": "Phone Number",
           "size": 16,
-          "hash": true
+          "alt": true
         }
       ],
       "dtmf": "*01[MASTER],[FIELD:1]*,[FIELD:2]*"
@@ -202,7 +202,7 @@
         {
           "hint": "Days of Week (Sun=1, Sat=7 or #)",
           "size": 7,
-          "hash": true
+          "alt": true
         }
       ],
       "dtmf": "*35[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3][FIELD:4]*,[FIELD:5]*,[FIELD:6]*,[FIELD:7]*"
@@ -231,7 +231,7 @@
         {
           "hint": "Days of Week (Sun=1..Sat=7 or #)",
           "size": 7,
-          "hash": true
+          "alt": true
         },
         {
           "hint": "Lower 4-Digit Boundary",
@@ -268,7 +268,7 @@
         {
           "hint": "Days of Week (Sun=1, Sat=7 or #)",
           "size": 7,
-          "hash": true
+          "alt": true
         },
         {
           "hint": "Lower 5-Digit Boundary",

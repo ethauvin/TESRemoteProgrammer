@@ -1,8 +1,8 @@
 {
   "params": {
     "name": "DKS 1802-EPD",
-    "star": "*",
-    "hash": "#",
+    "ack": "*",
+    "alt": "#",
     "end": "0 + #",
     "size": 4
   },
@@ -17,7 +17,7 @@
         {
           "hint": "Phone Number",
           "size": 7,
-          "hash": true
+          "alt": true
         }
       ],
       "dtmf": "*01[MASTER],[FIELD:1]*,[FIELD:2]*"
@@ -32,7 +32,7 @@
         {
           "hint": "Phone Number",
           "size": 16,
-          "hash": true
+          "alt": true
         }
       ],
       "dtmf": "*01[MASTER],[FIELD:1]*,[FIELD:2]*"
@@ -225,7 +225,7 @@
           "size": 4,
           "min": 1,
           "max": 15,
-          "hash": true
+          "alt": true
         }
       ],
       "dtmf": "*24[MASTER],[FIELD:1]*,[FIELD:2]*"
@@ -330,7 +330,7 @@
         {
           "hint": "Days of Week (Sun=1, Sat=7 or #)",
           "size": 7,
-          "hash": true
+          "alt": true
         }
       ],
       "dtmf": "*35[MASTER],[FIELD:1]*,[FIELD:2]*,[FIELD:3][FIELD:4]*,[FIELD:5]*,[FIELD:6][FIELD:7]*,[FIELD:8]*,[FIELD:9]*"
@@ -383,7 +383,7 @@
         {
           "hint": "Days of Week (Sun=1..Sat=7 or #)",
           "size": 7,
-          "hash": true
+          "alt": true
         },
         {
           "hint": "Lower 4-Digit Boundary",
@@ -456,7 +456,7 @@
         {
           "hint": "Days of Week (Sun=1..Sat=7 or #)",
           "size": 7,
-          "hash": true
+          "alt": true
         },
         {
           "hint": "Lower 4-Digit Boundary",
@@ -497,7 +497,7 @@
         {
           "hint": "Phone Number",
           "size": 7,
-          "hash": true
+          "alt": true
         }
       ],
       "dtmf": "*41[MASTER],[FIELD:1]*,[FIELD:2]*,[FIELD:3]*"
@@ -512,7 +512,7 @@
         {
           "hint": "Name",
           "size": 11,
-          "alpha": true
+          "alpha": "dks"
         }
       ],
       "nodial": true,
@@ -524,17 +524,17 @@
         {
           "hint": "Message (Line 1)",
           "size": 16,
-          "alpha": true
+          "alpha": "dks"
         },
         {
           "hint": "Message (Line 2)",
           "size": 16,
-          "alpha": true
+          "alpha": "dks"
         },
         {
           "hint": "Message (Line 3)",
           "size": 16,
-          "alpha": true
+          "alpha": "dks"
         }
       ],
       "nodial": true,
@@ -546,17 +546,17 @@
         {
           "hint": "Message (Line 1)",
           "size": 16,
-          "alpha": true
+          "alpha": "dks"
         },
         {
           "hint": "Message (Line 2)",
           "size": 16,
-          "alpha": true
+          "alpha": "dks"
         },
         {
           "hint": "Message (Line 3)",
           "size": 16,
-          "alpha": true
+          "alpha": "dks"
         }
       ],
       "nodial": true,

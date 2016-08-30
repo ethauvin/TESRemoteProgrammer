@@ -25,8 +25,9 @@ data class Params(var name: String,
                   var phone: String,
                   var master: String,
                   var size: Int,
-                  var star: String,
-                  var hash: String,
+                  var ack: String,
+                  var alt: String,
+                  var begin: String,
                   var end: String) : Parcelable, Serializable {
 
     companion object {
@@ -38,7 +39,7 @@ data class Params(var name: String,
         }
     }
 
-    constructor() : this("", "", "", -1, "", "", "")
+    constructor() : this("", "", "", -1, "", "", "", "")
 
     constructor(source: Parcel) : this(
             source.readString(),
@@ -47,7 +48,8 @@ data class Params(var name: String,
             source.readInt(),
             source.readString(),
             source.readString(),
-            source.readString())
+            source.readString(),
+    source.readString())
 
     override fun describeContents() = 0
 
@@ -56,8 +58,9 @@ data class Params(var name: String,
         dest?.writeString(phone)
         dest?.writeString(master)
         dest?.writeInt(size)
-        dest?.writeString(star)
-        dest?.writeString(hash)
+        dest?.writeString(ack)
+        dest?.writeString(alt)
+        dest?.writeString(begin)
         dest?.writeString(end)
     }
 }

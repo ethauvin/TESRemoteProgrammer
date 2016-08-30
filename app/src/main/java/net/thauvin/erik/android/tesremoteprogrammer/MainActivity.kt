@@ -64,6 +64,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             R.raw.dks_1802_epd,
             R.raw.dks_1812,
             R.raw.dks_1819,
+            R.raw.linear_ae_100,
+            R.raw.linear_ae_500,
             R.raw.dks_1803_1808_1810)
     val read_request_code = 42
 
@@ -348,8 +350,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 errors.append(getString(R.string.validate_invalid_param, "size"))
             }
 
-            if (params.star.isBlank()) {
-                errors.append(getString(R.string.validate_missing_param, "star"))
+            if (params.ack.isBlank()) {
+                errors.append(getString(R.string.validate_missing_param, "ack"))
             }
 
             if (opts.size == 0) {
@@ -374,7 +376,13 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                         errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "size"))
                     }
 
-                    if (!field.alpha) {
+                    if (field.minSize == 0) {
+                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "minSize"))
+                    } else if (field.minSize > 0 && field.minSize > field.size) {
+                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "minSize/size"))
+                    }
+
+                    if (field.alpha.isBlank()) {
                         if (field.min >= 0 || field.max >= 0) {
                             if (field.max < 1) {
                                 errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "max"))
@@ -393,7 +401,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
                 val blank = "\\0"
                 val dtmf = Dtmf.mock(option, blank)
-                if (!Dtmf.validate(dtmf, "${MainActivity.Companion.PAUSE}${params.star}${params.hash}$blank")) {
+                if (!Dtmf.validate(dtmf, "${MainActivity.Companion.PAUSE}${params.ack}${params.alt}$blank")) {
                     errors.append(getString(R.string.validate_invalid_dtmf, i + 1, dtmf.replace(blank, "&#10003;")))
                 }
             }

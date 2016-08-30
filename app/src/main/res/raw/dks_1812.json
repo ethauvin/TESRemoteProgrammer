@@ -1,8 +1,8 @@
 {
   "params": {
     "name": "DKS 1812",
-    "star": "*",
-    "hash": "#",
+    "ack": "*",
+    "alt": "#",
     "end": "0 + #",
     "size": 4
   },
@@ -113,7 +113,7 @@
         {
           "hint": "Active Days of Week (Sun=1..Sat=7, or #)",
           "size": 7,
-          "hash": true
+          "alt": true
         }
       ],
       "dtmf": "*34[MASTER],[FIELD:1]*,[FIELD:2][FIELD:3]*,[FIELD:4]*,[FIELD:5]*"
@@ -148,7 +148,7 @@
         {
           "hint": "Active Days of Week (Sun=1..Sat=7, or #)",
           "size": 7,
-          "hash": true
+          "alt": true
         }
       ],
       "dtmf": "*35[MASTER],[FIELD:1]*,[FIELD:2][FIELD:3]*,[FIELD:4]*,[FIELD:5]*"
@@ -201,7 +201,7 @@
         {
           "hint": "Active Days of Week (Sun=1..Sat=7, or #)",
           "size": 7,
-          "hash": true
+          "alt": true
         }
       ],
       "dtmf": "*36[MASTER],[FIELD:1]*,[FIELD:2][FIELD:3][FIELD:4]*,[FIELD:5][FIELD:6][FIELD:7]*,[FIELD:8]"
@@ -254,7 +254,7 @@
         {
           "hint": "Active Days of Week (Sun=1..Sat=7, or #)",
           "size": 7,
-          "hash": true
+          "alt": true
         }
       ],
       "dtmf": "*37[MASTER],[FIELD:1]*,[FIELD:2][FIELD:3][FIELD:4]*,[FIELD:5][FIELD:6][FIELD:7]*,[FIELD:8]"
@@ -283,7 +283,7 @@
         {
           "hint": "Area Code (1..., #... or ####)",
           "size": 4,
-          "hash": true
+          "alt": true
         },
         {
           "hint": "Phone Number",
@@ -316,7 +316,7 @@
         {
           "hint": "Area Code (1..., #... or ####)",
           "size": 4,
-          "hash": true
+          "alt": true
         },
         {
           "hint": "Phone Number",

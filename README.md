@@ -8,7 +8,11 @@ Program your Telephone Entry System remotely (off-site) using your phone.
 
 Most Telephone Entry Systems can be programmed from the front keypad or remotely from an off-premise location using any touch-tone phone. TES Remote Programmer streamlines the often cumbersome remote programming process by providing data entry screens and automated dial-in options.
 
-By default, TES Remote Programmer is configured to work with the [DoorKing (DKS) 1802, 1802-EPD, 1803, 1808, 1810 and 1819](http://www.doorking.com/telephone/) systems, additional [configurations](#configurations) can be created for most systems supporting remote programming.
+### DoorKing (DKS) & Linear
+
+By default, TES Remote Programmer is configured to work with the [DoorKing (DKS) 1802, 1802-EPD, 1803, 1808, 1810 and 1819](http://www.doorking.com/telephone/) as well as the [Linear AE-100 and AE-500](http://www.linearproaccess.com/access-controls/telephone-entry-systems/) systems, additional [configurations](#configurations) can be created for most systems supporting remote programming.
+
+### Directory Code
 
 Please note that all default configurations are set for 3-digits directory code length. If your system is setup differently, you will need to modify the [default configuration](app/src/main/res/raw/) and re-import it. Look for all `Directory Code` fields and modify their `size` attributes accordingly.
 
@@ -43,8 +47,8 @@ Parameters define the configuration's global settings.
 ```json
 "params": {
   "name": "DKS 1802-EPD",
-  "star": "*",
-  "hash": "#",
+  "ack": "*",
+  "alt": "#",
   "end": "0 + #",
   "size": 4
 }
@@ -53,8 +57,9 @@ Parameters define the configuration's global settings.
 | Parameter  | Description                                                                                      | Required |
 |:-----------|:-------------------------------------------------------------------------------------------------|:---------|
 |`name`      | The name of the configuration.                                                                   | Yes      |
-|`star`      | The key used to start, acknowledge or terminate programming steps. Most systems use the `*` key. | Yes      |
-|`hash`      | They key used to in place of numbers when applicable. Most system use the `#` key                | No       |
+|`ack`       | The key used to acknowledge or terminate programming steps. Most systems use the `*` or `#` key. | Yes      |
+|`alt`       | They key used to in place of numbers when applicable. DKS systems use the `#` key                | No       |
+|`begin`     | The begin programming manual sequence. For example Linear use `0` and `2` pressed together.      | No       |
 |`end`       | The end programming manual sequence. For example DoorKing uses `0` and `#` pressed together.     | No       |
 |`size`      | The size (number of digits) of the master code. Most systems use 4 or 5.                         | Yes      |
 
@@ -83,7 +88,7 @@ which would translate into:
       {
         "hint": "Phone Number",
         "size": 7,
-        "hash": true
+        "alt": true
       }
     ],
     "dtmf": "*01[MASTER],[FIELD:1]*,[FIELD:2]*"
@@ -93,7 +98,7 @@ which would translate into:
 
 Step 4 is configured in the `end` [parameter](#parameters) since it only applies to manual/keypad programming.
 
-| Elements | Description                                                                                       |
+| Property | Description                                                                                       |
 |:---------|:--------------------------------------------------------------------------------------------------|
 |`title`   | The title of the option.                                                                          |
 |`fields`  | See [Fields](#fields)                                                                             |
@@ -114,21 +119,23 @@ All are required, except `nodial` and `nosteps` which are mutually exclusive.
   {
     "hint": "Phone Number",
     "size": 7,
-    "hash": true
+    "alt": true
   }
 ]
 ```
 
 Fields represent the data entry text fields on option screens.
 
-| Element | Description                                                                                       | Required |
-|:--------|:--------------------------------------------------------------------------------------------------|:---------|
-|`hint`   | Set the hint/label of the field.                                                                  | Yes      |
-|`size`   | Set the size of the field.                                                                        | Yes      |
-|`min`    | Set the minimum value of a numeric field.                                                         | No       |
-|`max`    | Set the maximum value of a numeric field.                                                         | No       |
-|`alpha`  | Set to `true` if the field is alphanumeric.                                                       | No       |
-|`hash`   | Set to `true` if the field accept the `hash` [parameter](#parameters) value in place of a digit.  | No       |
+| Property | Description                                                                                           | Required |
+|:---------|:------------------------------------------------------------------------------------------------------|:---------|
+|`hint`    | Set the hint/label of the field.                                                                      | Yes      |
+|`size`    | Set the size of the field.                                                                            | Yes      |
+|`minSize` | Set the minimum size of the field. If set, `size` is the maximum size of the field.                   | No       |
+|`min`     | Set the minimum value of a numeric field.                                                             | No       |
+|`max`     | Set the maximum value of a numeric field.                                                             | No       |
+|`alpha`   | Set to `dks` or `linear` for alphanumeric fields.                                                     | No       |
+|`alt`     | Set to `true` if the field accepts the `alt` [parameter](#parameters) value in place of a digit.     | No       |
+|`zeros`   | Set to `true` by default. Allows numeric values with leading zeros (i.e. `001`), based on the `size`. | No       |
 
 
 #### DTMF
@@ -153,5 +160,3 @@ Imported configurations will be validated. While the validation is not perfect, 
 Please sure to use a JSON editor to make creating configurations a whole lot easier.
 
 When in doubt be sure to look at the [default configurations](app/src/main/res/raw/).
-
-

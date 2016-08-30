@@ -1,0 +1,342 @@
+{
+  "params": {
+    "name": "Linear AE-500",
+    "ack": "#",
+    "begin": "0 + 2",
+    "size": 6
+  },
+  "opts": [
+    {
+      "title": "Add Resident to Directory",
+      "fields": [
+        {
+          "hint": "Unit Number (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "Directory Code",
+          "size": 3
+        },
+        {
+          "hint": "Name",
+          "size": 16,
+          "alpha": "linear"
+        },
+        {
+          "hint": "Phone",
+          "size": 14
+        },
+        {
+          "hint": "Entry Code",
+          "size": 4
+        }
+      ],
+      "dtmf": "[FIELD:1]#,[MASTER]#,21#,[FIELD:2]#,[FIELD:3]#,[FIELD:4]#,[FIELD:5]#,[FIELD:5]#,99#"
+    },
+    {
+      "title": "Modify Resident in Directory",
+      "fields": [
+        {
+          "hint": "Unit Number (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "Directory Code",
+          "size": 3
+        },
+        {
+          "hint": "Name",
+          "size": 16,
+          "alpha": "linear"
+        },
+        {
+          "hint": "Phone",
+          "size": 14
+        },
+        {
+          "hint": "Entry Code",
+          "size": 4
+        }
+      ],
+      "dtmf": "[FIELD:1]#,[MASTER]#,22#,[FIELD:2]#,[FIELD:3]#,[FIELD:4]#,[FIELD:5]#,99#"
+    },
+    {
+      "title": "Delete Resident from Directory",
+      "fields": [
+        {
+          "hint": "Unit Number (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "Directory Code",
+          "size": 3
+        }
+      ],
+      "dtmf": "[FIELD:1]#,[MASTER]#,23#,[FIELD:2]#,[FIELD:2]#,99#"
+    },
+    {
+      "title": "Add Entry Code",
+      "fields": [
+        {
+          "hint": "Unit Number (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "Entry Code",
+          "size": 4
+        },
+        {
+          "hint": "Relay (1=A, 2=B, 3=AB, 4=A-ON/OFF 5=B-ON/OFF)",
+          "size": 1,
+          "min": 1,
+          "max": 5
+        },
+        {
+          "hint": "Number of Uses",
+          "size": 3,
+          "min": 1,
+          "max": 250,
+          "nozeros": true
+        }
+      ],
+      "dtmf": "[FIELD:1]#,[MASTER]#,31#,[FIELD:2]#,[FIELD:2]#,[FIELD:3]#,[FIELD:4],99#"
+    },
+    {
+      "title": "Modify Entry Code",
+      "fields": [
+        {
+          "hint": "Unit Number (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "Entry Code",
+          "size": 4
+        },
+        {
+          "hint": "Relay (1=A, 2=B, 3=AB, 4=A-ON/OFF 5=B-ON/OFF)",
+          "size": 1,
+          "min": 1,
+          "max": 5
+        },
+        {
+          "hint": "Number of Uses",
+          "size": 3,
+          "min": 1,
+          "max": 250,
+          "nozeros": true
+        }
+      ],
+      "dtmf": "[FIELD:1]#,[MASTER]#,32#,[FIELD:2]#,[FIELD:3]#,[FIELD:4],99#"
+    },
+    {
+      "title": "Delete Entry Code",
+      "fields": [
+        {
+          "hint": "Unit Number (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "Entry Code",
+          "size": 4
+        }
+      ],
+      "dtmf": "[FIELD:1]#,[MASTER]#,33#,[FIELD:2]#,[FIELD:2]#,99#"
+    },
+    {
+      "title": "Change Welcome Display Text",
+      "fields": [
+        {
+          "hint": "Unit Number (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "Line 1",
+          "size": 16,
+          "alpha": "linear"
+        },
+        {
+          "hint": "Line 2",
+          "size": 16,
+          "alpha": "linear"
+        }
+      ],
+      "dtmf": "[FIELD:1]#,[MASTER]#,57#,[FIELD:2]#,[FIELD:3]#,99#"
+    },
+    {
+      "title": "Latch Access Relay",
+      "fields": [
+        {
+          "hint": "Unit Number (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "Relay Channel: [A=1, B=2)",
+          "size": 1,
+          "min": 1,
+          "max": 2
+        }
+      ],
+      "dtmf": "[FIELD:1]#,[MASTER]#,8[FIELD:2]#,99#"
+    },
+    {
+      "title": "Release Access Relay",
+      "fields": [
+        {
+          "hint": "Unit Number (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "Relay Channel: [A=1, B=2)",
+          "size": 1,
+          "min": 1,
+          "max": 2
+        }
+      ],
+      "dtmf": "[FIELD:1]#,[MASTER]#,8[FIELD:2]#,99#"
+    },
+    {
+      "title": "Assign Block Transmitter",
+      "fields": [
+        {
+          "hint": "Unit Number (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "Number of Transmitters",
+          "size": 3,
+          "min": 1,
+          "max": 500
+        },
+        {
+          "hint": "Facility Code (0=None..15)",
+          "size": 2,
+          "min": 0,
+          "max": 15
+        },
+        {
+          "hint": "First/Lowest Transmitter ID",
+          "size": 2,
+          "min": 2,
+          "max": 6
+        }
+      ],
+      "dtmf": "[FIELD:1]#,[MASTER]#,41#,[FIELD:2]#,[FIELD:3]#,[FIELD:4]#,99#"
+    },
+    {
+      "title": "Assign Single Transmitter",
+      "fields": [
+        {
+          "hint": "Unit Number (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "Facility Code (0=None..15)",
+          "size": 2,
+          "min": 0,
+          "max": 15
+        },
+        {
+          "hint": "Transmitter ID",
+          "size": 2,
+          "min": 2,
+          "max": 6
+        }
+      ],
+      "dtmf": "[FIELD:1]#,[MASTER]#,45#,[FIELD:2]#,[FIELD:3]#,99#"
+    },
+    {
+      "title": "Suspend Transmitter",
+      "fields": [
+        {
+          "hint": "Unit Number (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "Facility Code (0=None..15)",
+          "size": 2,
+          "min": 0,
+          "max": 15
+        },
+        {
+          "hint": "Transmitter ID",
+          "size": 2,
+          "min": 2,
+          "max": 6
+        }
+      ],
+      "dtmf": "[FIELD:1]#,[MASTER]#,43#,[FIELD:2]#,[FIELD:3]#,99#"
+    },
+    {
+      "title": "Activate Transmitter",
+      "fields": [
+        {
+          "hint": "Unit Number (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "Facility Code (0=None..15)",
+          "size": 2,
+          "min": 0,
+          "max": 15
+        },
+        {
+          "hint": "Transmitter ID",
+          "size": 2,
+          "min": 2,
+          "max": 6
+        }
+      ],
+      "dtmf": "[FIELD:1]#,[MASTER]#,42#,[FIELD:2]#,[FIELD:3]#,99#"
+    },
+    {
+      "title": "Delete Single Transmitter",
+      "fields": [
+        {
+          "hint": "Unit Number (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "Facility Code (0=None..15)",
+          "size": 2,
+          "min": 0,
+          "max": 15
+        },
+        {
+          "hint": "Transmitter ID",
+          "size": 2,
+          "min": 2,
+          "max": 6
+        }
+      ],
+      "dtmf": "[FIELD:1]#,[MASTER]#,47#,[FIELD:2]#,[FIELD:3]#,99#"
+    }
+  ]
+}

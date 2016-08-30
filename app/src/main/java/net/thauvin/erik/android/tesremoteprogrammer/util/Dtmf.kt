@@ -26,74 +26,141 @@ class Dtmf {
     companion object {
         val DTMF_MASTER = "[MASTER]"
         val DTMF_FIELD = "[FIELD:%1\$d]"
+        val DKS = "dks"
+        val LINEAR = "linear"
+        val DKS_EXTRAS = " "
+        val LINEAR_EXTRAS = ", -."
 
-        private fun alphaToDigits(text: String, star: String): String {
+        private fun linearAlphaToDigits(text: String): String {
             val result = StringBuffer()
 
             text.toUpperCase().forEach { c ->
                 when (c) {
-                    'A' -> result.append("2$star${MainActivity.PAUSE}")
-                    'B' -> result.append("22$star${MainActivity.PAUSE}")
-                    'C' -> result.append("2222$star${MainActivity.PAUSE}")
+                    'A' -> result.append("1${MainActivity.PAUSE}")
+                    'B' -> result.append("11${MainActivity.PAUSE}")
+                    'C' -> result.append("111${MainActivity.PAUSE}")
 
-                    'D' -> result.append("3$star${MainActivity.PAUSE}")
-                    'E' -> result.append("33$star${MainActivity.PAUSE}")
-                    'F' -> result.append("333$star${MainActivity.PAUSE}")
+                    'D' -> result.append("2${MainActivity.PAUSE}")
+                    'E' -> result.append("22${MainActivity.PAUSE}")
+                    'F' -> result.append("222${MainActivity.PAUSE}")
 
-                    'G' -> result.append("4$star${MainActivity.PAUSE}")
-                    'H' -> result.append("44$star${MainActivity.PAUSE}")
-                    'I' -> result.append("444$star${MainActivity.PAUSE}")
+                    'G' -> result.append("3${MainActivity.PAUSE}")
+                    'H' -> result.append("33${MainActivity.PAUSE}")
+                    'I' -> result.append("333${MainActivity.PAUSE}")
 
-                    'J' -> result.append("5$star${MainActivity.PAUSE}")
-                    'K' -> result.append("55$star${MainActivity.PAUSE}")
-                    'L' -> result.append("555$star${MainActivity.PAUSE}")
+                    'J' -> result.append("4${MainActivity.PAUSE}")
+                    'K' -> result.append("44${MainActivity.PAUSE}")
+                    'L' -> result.append("444${MainActivity.PAUSE}")
 
-                    'M' -> result.append("6$star${MainActivity.PAUSE}")
-                    'N' -> result.append("66$star${MainActivity.PAUSE}")
-                    'O' -> result.append("666$star${MainActivity.PAUSE}")
+                    'M' -> result.append("5${MainActivity.PAUSE}")
+                    'N' -> result.append("55${MainActivity.PAUSE}")
+                    'O' -> result.append("555${MainActivity.PAUSE}")
 
-                    'P' -> result.append("7$star${MainActivity.PAUSE}")
-                    'Q' -> result.append("77$star${MainActivity.PAUSE}")
-                    'R' -> result.append("777$star${MainActivity.PAUSE}")
-                    'S' -> result.append("7777$star${MainActivity.PAUSE}")
+                    'P' -> result.append("6${MainActivity.PAUSE}")
+                    'Q' -> result.append("66${MainActivity.PAUSE}")
+                    'R' -> result.append("666${MainActivity.PAUSE}")
 
-                    'T' -> result.append("8$star${MainActivity.PAUSE}")
-                    'U' -> result.append("88$star${MainActivity.PAUSE}")
-                    'V' -> result.append("888$star${MainActivity.PAUSE}")
+                    'S' -> result.append("7${MainActivity.PAUSE}")
+                    'T' -> result.append("77${MainActivity.PAUSE}")
+                    'U' -> result.append("777${MainActivity.PAUSE}")
 
-                    'W' -> result.append("9$star${MainActivity.PAUSE}")
-                    'X' -> result.append("99$star${MainActivity.PAUSE}")
-                    'Y' -> result.append("999$star${MainActivity.PAUSE}")
-                    'Z' -> result.append("9999$star${MainActivity.PAUSE}")
+                    'V' -> result.append("8${MainActivity.PAUSE}")
+                    'W' -> result.append("88${MainActivity.PAUSE}")
+                    'X' -> result.append("888${MainActivity.PAUSE}")
 
-                    '0' -> result.append("0$star${MainActivity.PAUSE}")
-                    '1' -> result.append("11$star${MainActivity.PAUSE}")
-                    '2' -> result.append("2222$star${MainActivity.PAUSE}")
-                    '3' -> result.append("3333$star${MainActivity.PAUSE}")
-                    '4' -> result.append("4444$star${MainActivity.PAUSE}")
-                    '5' -> result.append("5555$star${MainActivity.PAUSE}")
-                    '6' -> result.append("6666$star${MainActivity.PAUSE}")
-                    '7' -> result.append("77777$star${MainActivity.PAUSE}")
-                    '8' -> result.append("8888$star${MainActivity.PAUSE}")
-                    '9' -> result.append("99999$star${MainActivity.PAUSE}")
+                    'Y' -> result.append("9${MainActivity.PAUSE}")
+                    'Z' -> result.append("99${MainActivity.PAUSE}")
+                    ',' -> result.append("999${MainActivity.PAUSE}")
 
-                    ' ' -> result.append("1$star${MainActivity.PAUSE}")
+                    '0' -> result.append("0000${MainActivity.PAUSE}")
+                    '1' -> result.append("1111${MainActivity.PAUSE}")
+                    '2' -> result.append("2222${MainActivity.PAUSE}")
+                    '3' -> result.append("3333${MainActivity.PAUSE}")
+                    '4' -> result.append("4444${MainActivity.PAUSE}")
+                    '5' -> result.append("5555${MainActivity.PAUSE}")
+                    '6' -> result.append("6666${MainActivity.PAUSE}")
+                    '7' -> result.append("7777${MainActivity.PAUSE}")
+                    '8' -> result.append("8888${MainActivity.PAUSE}")
+                    '9' -> result.append("9999${MainActivity.PAUSE}")
+
+                    ' ' -> result.append("0${MainActivity.PAUSE}")
+                    '-' -> result.append("00${MainActivity.PAUSE}")
+                    '.' -> result.append("0000${MainActivity.PAUSE}")
+                }
+            }
+            return result.toString()
+        }
+
+        private fun dksAlphaToDigits(text: String, ack: String): String {
+            val result = StringBuffer()
+
+            text.toUpperCase().forEach { c ->
+                when (c) {
+                    'A' -> result.append("2$ack${MainActivity.PAUSE}")
+                    'B' -> result.append("22$ack${MainActivity.PAUSE}")
+                    'C' -> result.append("222$ack${MainActivity.PAUSE}")
+
+                    'D' -> result.append("3$ack${MainActivity.PAUSE}")
+                    'E' -> result.append("33$ack${MainActivity.PAUSE}")
+                    'F' -> result.append("333$ack${MainActivity.PAUSE}")
+
+                    'G' -> result.append("4$ack${MainActivity.PAUSE}")
+                    'H' -> result.append("44$ack${MainActivity.PAUSE}")
+                    'I' -> result.append("444$ack${MainActivity.PAUSE}")
+
+                    'J' -> result.append("5$ack${MainActivity.PAUSE}")
+                    'K' -> result.append("55$ack${MainActivity.PAUSE}")
+                    'L' -> result.append("555$ack${MainActivity.PAUSE}")
+
+                    'M' -> result.append("6$ack${MainActivity.PAUSE}")
+                    'N' -> result.append("66$ack${MainActivity.PAUSE}")
+                    'O' -> result.append("666$ack${MainActivity.PAUSE}")
+
+                    'P' -> result.append("7$ack${MainActivity.PAUSE}")
+                    'Q' -> result.append("77$ack${MainActivity.PAUSE}")
+                    'R' -> result.append("777$ack${MainActivity.PAUSE}")
+                    'S' -> result.append("7777$ack${MainActivity.PAUSE}")
+
+                    'T' -> result.append("8$ack${MainActivity.PAUSE}")
+                    'U' -> result.append("88$ack${MainActivity.PAUSE}")
+                    'V' -> result.append("888$ack${MainActivity.PAUSE}")
+
+                    'W' -> result.append("9$ack${MainActivity.PAUSE}")
+                    'X' -> result.append("99$ack${MainActivity.PAUSE}")
+                    'Y' -> result.append("999$ack${MainActivity.PAUSE}")
+                    'Z' -> result.append("9999$ack${MainActivity.PAUSE}")
+
+                    '0' -> result.append("0$ack${MainActivity.PAUSE}")
+                    '1' -> result.append("11$ack${MainActivity.PAUSE}")
+                    '2' -> result.append("2222$ack${MainActivity.PAUSE}")
+                    '3' -> result.append("3333$ack${MainActivity.PAUSE}")
+                    '4' -> result.append("4444$ack${MainActivity.PAUSE}")
+                    '5' -> result.append("5555$ack${MainActivity.PAUSE}")
+                    '6' -> result.append("6666$ack${MainActivity.PAUSE}")
+                    '7' -> result.append("77777$ack${MainActivity.PAUSE}")
+                    '8' -> result.append("8888$ack${MainActivity.PAUSE}")
+                    '9' -> result.append("99999$ack${MainActivity.PAUSE}")
+
+                    ' ' -> result.append("1$ack${MainActivity.PAUSE}")
                 }
             }
             return result.toString()
         }
 
         fun build(master: String,
-                  star: String,
+                  ack: String,
                   option: Option,
                   fields: ArrayList<EditText>): String {
             val replace = arrayListOf(Pair("$DTMF_MASTER", master))
 
             fields.forEachIndexed { i, field ->
                 replace.add(Pair(DTMF_FIELD.format(i + 1),
-                        if (option.fields[i].alpha) {
-                            alphaToDigits(field.text.toString(), star)
-                        } else {
+                        if (option.fields[i].alpha.equals(DKS, true)) {
+                            dksAlphaToDigits(field.text.toString(), ack)
+                        } else if (option.fields[i].alpha.equals(LINEAR, true)) {
+                            linearAlphaToDigits(field.text.toString())
+                        }
+                        else {
                             field.text.toString()
                         }))
             }

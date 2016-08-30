@@ -98,15 +98,21 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                             val editText = editText() {
                                 hint = field.hint
 
-                                if (field.alpha) {
-                                    inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
-                                    inputFilters.add(AlphaFilter())
+                                if (field.alpha.isNotBlank()) {
+                                    if (field.alpha.equals(Dtmf.DKS, true)) {
+                                        inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+                                        inputFilters.add(AlphaFilter(Dtmf.DKS_EXTRAS))
+                                    } else if (field.alpha.equals(Dtmf.LINEAR, true)) {
+                                        inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
+                                        inputFilters.add(AlphaFilter(Dtmf.LINEAR_EXTRAS))
+                                    }
                                 } else {
                                     inputType = InputType.TYPE_CLASS_PHONE
                                     inputFilters.add(NumberFilter("0123456789" +
-                                            if (field.hash) "${params.hash}" else ""))
+                                            if (field.alt) "${params.alt}" else ""))
                                     if (field.max != -1 && field.min != -1) {
-                                        inputFilters.add(MinMaxFilter(field.min, field.max, field.size))
+                                        inputFilters.add(
+                                                MinMaxFilter(field.min, field.max, field.size, field.zeros))
                                     }
                                 }
 
@@ -148,10 +154,22 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
 
                     onClick {
                         if (validateFields(fields, option)) {
-                            val dtmf = Dtmf.build(params.master, params.star, option, fields)
-                            if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.star}${params.hash}")) {
+                            val dtmf = Dtmf.build(params.master, params.ack, option, fields)
+                            if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}")) {
+                                val begin = if (params.begin.isNotBlank()) {
+                                    "${params.begin}${MainActivity.PAUSE}"
+                                } else {
+                                    ""
+                                }
+
+                                val end = if (params.end.isNotBlank()) {
+                                    "${MainActivity.PAUSE}${params.end}"
+                                } else {
+                                    ""
+                                }
+
                                 startActivity<StepsActivity>(
-                                        StepsActivity.EXTRA_STEPS to "$dtmf${MainActivity.PAUSE}${params.end}".split(','))
+                                        StepsActivity.EXTRA_STEPS to "$begin$dtmf$end".split(','))
                             } else {
                                 Snackbar.make(this@coordinatorLayout, getString(R.string.error_invalid_dtmf, dtmf),
                                         Snackbar.LENGTH_LONG).show()
@@ -181,8 +199,8 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     imageResource = R.drawable.fab_ic_call
                     onClick {
                         if (validateFields(fields, option)) {
-                            val dtmf = Dtmf.build(params.master, params.star, option, fields)
-                            if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.star}${params.hash}")) {
+                            val dtmf = Dtmf.build(params.master, params.ack, option, fields)
+                            if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}")) {
                                 ProgrammingActivityPermissionsDispatcher.callWithCheck(
                                         this@ProgrammingActivity, params.phone, dtmf)
                             } else {
@@ -214,7 +232,9 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
 
     @NeedsPermission(Manifest.permission.CALL_PHONE)
     fun call(phone: String, dtmf: String) {
-        info("$phone${MainActivity.PAUSE}${MainActivity.PAUSE}$dtmf")
+        if (BuildConfig.DEBUG) {
+            info(">>> $phone${MainActivity.PAUSE}${MainActivity.PAUSE}$dtmf")
+        }
         makeCall("$phone${MainActivity.PAUSE}${MainActivity.PAUSE}$dtmf")
     }
 
@@ -226,15 +246,40 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                 v.error = getString(R.string.error_required)
                 isValid = false
             } else {
-                val size = option.fields[i].size
-                if (!option.fields[i].alpha && size > 0 && (v.length() != size)) {
+                val size = if (option.fields[i].minSize > 0) {
+                    option.fields[i].minSize
+                } else {
+                    option.fields[i].size
+                }
+                if (option.fields[i].alpha.isBlank() &&
+                        !validateSize(v.length(), option.fields[i].minSize, option.fields[i].size)) {
                     v.error = getString(R.string.error_invalid_size, size,
                             resources.getQuantityString(R.plurals.error_digit, size))
                     isValid = false
+                }
+
+                if (option.fields[i].min > 0 && option.fields[i].max > 0) {
+                    try {
+                        if (v.text.toString().toInt() !in IntRange(option.fields[i].min, option.fields[i].max)) {
+                            v.error = getString(R.string.error_invalid)
+                            isValid = false
+                        }
+                    } catch (nfe: NumberFormatException) {
+                        v.error = getString(R.string.error_invalid)
+                        isValid = false
+                    }
                 }
             }
         }
 
         return isValid
+    }
+
+    fun validateSize(size: Int, min: Int, max: Int): Boolean {
+        if (min > 0) {
+            return size in IntRange(min, max)
+        } else {
+            return size == max
+        }
     }
 }

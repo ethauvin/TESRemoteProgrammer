@@ -22,6 +22,12 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 
 class AlphaFilter : InputFilter {
+    private val extras: String
+
+    constructor(extras: String) {
+        this.extras = extras
+    }
+
     override fun filter(source: CharSequence,
                         start: Int,
                         end: Int,
@@ -32,7 +38,7 @@ class AlphaFilter : InputFilter {
         if (source is SpannableStringBuilder) {
             for (i in end - 1 downTo start) {
                 val c = source[i]
-                if (!c.isLetterOrDigit() && !Character.isSpaceChar(c)) {
+                if (!c.isLetterOrDigit() && !extras.contains(c)) {
                     source.delete(i, i + 1)
                 }
             }
@@ -41,7 +47,7 @@ class AlphaFilter : InputFilter {
             val sb = StringBuilder()
             for (i in start..end - 1) {
                 val c = source[i]
-                if (c.isLetterOrDigit() || Character.isSpaceChar(c)) {
+                if (c.isLetterOrDigit() || extras.contains(c)) {
                     sb.append(c.toUpperCase())
                 }
             }

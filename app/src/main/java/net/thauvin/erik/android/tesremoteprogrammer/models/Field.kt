@@ -22,8 +22,10 @@ import android.os.Parcelable
 import java.io.Serializable
 
 data class Field(var hint: String,
-                 var alpha: Boolean,
-                 val hash: Boolean,
+                 var alpha: String,
+                 val alt: Boolean,
+                 var zeros: Boolean,
+                 var minSize: Int,
                  var size: Int,
                  var min: Int,
                  var max: Int) : Parcelable, Serializable {
@@ -37,12 +39,14 @@ data class Field(var hint: String,
         }
     }
 
-    constructor() : this("", false, false, -1, -1, -1)
+    constructor() : this("", "", false, true, -1, -1, -1, -1)
 
     constructor(source: Parcel) : this(
             source.readString(),
+            source.readString(),
             1.equals(source.readInt()),
             1.equals(source.readInt()),
+            source.readInt(),
             source.readInt(),
             source.readInt(),
             source.readInt())
@@ -51,8 +55,10 @@ data class Field(var hint: String,
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.writeString(hint)
-        dest?.writeInt((if (alpha) 1 else 0))
-        dest?.writeInt((if (hash) 1 else 0))
+        dest?.writeString(alpha)
+        dest?.writeInt((if (alt) 1 else 0))
+        dest?.writeInt((if (zeros) 1 else 0))
+        dest?.writeInt(minSize)
         dest?.writeInt(size)
         dest?.writeInt(min)
         dest?.writeInt(max)

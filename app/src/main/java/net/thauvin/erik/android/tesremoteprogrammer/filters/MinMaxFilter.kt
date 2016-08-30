@@ -19,28 +19,54 @@ package net.thauvin.erik.android.tesremoteprogrammer.filters
 
 import android.text.InputFilter
 import android.text.Spanned
+import org.jetbrains.anko.AnkoLogger
 
-class MinMaxFilter : InputFilter {
+class MinMaxFilter : InputFilter, AnkoLogger {
     private val min: Int
     private val max: Int
     private val size: Int
+    private val zeros: Boolean
 
-    constructor(min: Int, max: Int, size: Int) {
+    constructor(min: Int, max: Int, size: Int, zeros: Boolean) {
         this.min = min
         this.max = max
         this.size = size
+        this.zeros = zeros
     }
 
     override fun filter(source: CharSequence, start: Int, end: Int, dest: Spanned, dstart: Int, dend: Int): CharSequence? {
-        try {
-            val input = (dest.toString() + source.toString()).toInt()
-            val len = dest.length + source.length
-            if ((min > 0 && size > 1 && len < size && input == 0) || input in IntRange(min, max)) {
-                return null
-            }
-        } catch (nef: NumberFormatException) {
-        }
+        val input = (dest.toString() + source.toString())
 
+        if (isInRange(input, size, min, max, zeros)) {
+            return null
+        }
         return ""
+    }
+
+    private fun isInRange(s: String, size: Int, min: Int, max: Int, zeros: Boolean): Boolean {
+        try {
+            var i = s.toInt()
+            val len = s.length
+
+            if (zeros) {
+                if (size > 1 && len != size) {
+                    if (i == 0) {
+                        return true
+                    } else {
+                        i = s.padEnd(size, '0').toInt()
+                    }
+                }
+            } else {
+                if (len > 1 && s.startsWith("0")) {
+                    return false
+                } else if (len < max.toString().length) {
+                    i = s.padEnd(size, '0').toInt()
+                }
+            }
+
+            return i in IntRange(min, max)
+        } catch (nfe: NumberFormatException) {
+            return false
+        }
     }
 }

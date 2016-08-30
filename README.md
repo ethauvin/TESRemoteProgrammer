@@ -10,7 +10,7 @@ Most Telephone Entry Systems can be programmed from the front keypad or remotely
 
 ### DoorKing (DKS) & Linear
 
-By default, TES Remote Programmer is configured to work with the [DoorKing (DKS) 1802, 1802-EPD, 1803, 1808, 1810 and 1819](http://www.doorking.com/telephone/) as well as the [Linear AE-100 and AE-500](http://www.linearproaccess.com/access-controls/telephone-entry-systems/) systems, additional [configurations](#configurations) can be created for most systems supporting remote programming.
+By default, TES Remote Programmer is configured to work with the [DoorKing 1802, 1802-EPD, 1803, 1808, 1810 and 1819](http://www.doorking.com/telephone/) as well as the [Linear AE-100 and AE-500](http://www.linearproaccess.com/access-controls/telephone-entry-systems/) systems, additional [configurations](#configurations) can be created for most systems supporting remote programming.
 
 ### Directory Code
 
@@ -59,9 +59,9 @@ Parameters define the configuration's global settings.
 |`name`      | The name of the configuration.                                                                   | Yes      |
 |`ack`       | The key used to acknowledge or terminate programming steps. Most systems use the `*` or `#` key. | Yes      |
 |`alt`       | They key used to in place of numbers when applicable. DKS systems use the `#` key                | No       |
-|`begin`     | The begin programming manual sequence. For example Linear use `0` and `2` pressed together.      | No       |
-|`end`       | The end programming manual sequence. For example DoorKing uses `0` and `#` pressed together.     | No       |
-|`size`      | The size (number of digits) of the master code. Most systems use 4 or 5.                         | Yes      |
+|`begin`     | The begin programming manual sequence. For example Linear uses `0` and `2` pressed together.     | No       |
+|`end`       | The end programming manual sequence. For example DSK uses `0` and `#` pressed together.          | No       |
+|`size`      | The size (number of digits) of the master code. Most systems use 4 or 6.                         | Yes      |
 
 ### Options
 

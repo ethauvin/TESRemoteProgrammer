@@ -31,6 +31,67 @@ class Dtmf {
         val DKS_EXTRAS = " "
         val LINEAR_EXTRAS = ", -."
 
+        private fun dksAlphaToDigits(text: String, ack: String): String {
+            val result = StringBuffer()
+
+            text.toUpperCase().forEach { c ->
+                when (c) {
+                    'A' -> result.append("2$ack${MainActivity.PAUSE}")
+                    'B' -> result.append("22$ack${MainActivity.PAUSE}")
+                    'C' -> result.append("222$ack${MainActivity.PAUSE}")
+
+                    'D' -> result.append("3$ack${MainActivity.PAUSE}")
+                    'E' -> result.append("33$ack${MainActivity.PAUSE}")
+                    'F' -> result.append("333$ack${MainActivity.PAUSE}")
+
+                    'G' -> result.append("4$ack${MainActivity.PAUSE}")
+                    'H' -> result.append("44$ack${MainActivity.PAUSE}")
+                    'I' -> result.append("444$ack${MainActivity.PAUSE}")
+
+                    'J' -> result.append("5$ack${MainActivity.PAUSE}")
+                    'K' -> result.append("55$ack${MainActivity.PAUSE}")
+                    'L' -> result.append("555$ack${MainActivity.PAUSE}")
+
+                    'M' -> result.append("6$ack${MainActivity.PAUSE}")
+                    'N' -> result.append("66$ack${MainActivity.PAUSE}")
+                    'O' -> result.append("666$ack${MainActivity.PAUSE}")
+
+                    'P' -> result.append("7$ack${MainActivity.PAUSE}")
+                    'Q' -> result.append("77$ack${MainActivity.PAUSE}")
+                    'R' -> result.append("777$ack${MainActivity.PAUSE}")
+                    'S' -> result.append("7777$ack${MainActivity.PAUSE}")
+
+                    'T' -> result.append("8$ack${MainActivity.PAUSE}")
+                    'U' -> result.append("88$ack${MainActivity.PAUSE}")
+                    'V' -> result.append("888$ack${MainActivity.PAUSE}")
+
+                    'W' -> result.append("9$ack${MainActivity.PAUSE}")
+                    'X' -> result.append("99$ack${MainActivity.PAUSE}")
+                    'Y' -> result.append("999$ack${MainActivity.PAUSE}")
+                    'Z' -> result.append("9999$ack${MainActivity.PAUSE}")
+
+                    '0' -> result.append("0$ack${MainActivity.PAUSE}")
+                    '1' -> result.append("11$ack${MainActivity.PAUSE}")
+                    '2' -> result.append("2222$ack${MainActivity.PAUSE}")
+                    '3' -> result.append("3333$ack${MainActivity.PAUSE}")
+                    '4' -> result.append("4444$ack${MainActivity.PAUSE}")
+                    '5' -> result.append("5555$ack${MainActivity.PAUSE}")
+                    '6' -> result.append("6666$ack${MainActivity.PAUSE}")
+                    '7' -> result.append("77777$ack${MainActivity.PAUSE}")
+                    '8' -> result.append("8888$ack${MainActivity.PAUSE}")
+                    '9' -> result.append("99999$ack${MainActivity.PAUSE}")
+
+                    ' ' -> result.append("1$ack${MainActivity.PAUSE}")
+                }
+            }
+            return result.toString()
+        }
+
+        fun isValidAlpha(alpha: String) : Boolean {
+            return alpha.isBlank() || alpha.equals(DKS, true) || alpha.equals(LINEAR, true)
+        }
+
+
         private fun linearAlphaToDigits(text: String): String {
             val result = StringBuffer()
 
@@ -86,62 +147,6 @@ class Dtmf {
                     ' ' -> result.append("0${MainActivity.PAUSE}")
                     '-' -> result.append("00${MainActivity.PAUSE}")
                     '.' -> result.append("0000${MainActivity.PAUSE}")
-                }
-            }
-            return result.toString()
-        }
-
-        private fun dksAlphaToDigits(text: String, ack: String): String {
-            val result = StringBuffer()
-
-            text.toUpperCase().forEach { c ->
-                when (c) {
-                    'A' -> result.append("2$ack${MainActivity.PAUSE}")
-                    'B' -> result.append("22$ack${MainActivity.PAUSE}")
-                    'C' -> result.append("222$ack${MainActivity.PAUSE}")
-
-                    'D' -> result.append("3$ack${MainActivity.PAUSE}")
-                    'E' -> result.append("33$ack${MainActivity.PAUSE}")
-                    'F' -> result.append("333$ack${MainActivity.PAUSE}")
-
-                    'G' -> result.append("4$ack${MainActivity.PAUSE}")
-                    'H' -> result.append("44$ack${MainActivity.PAUSE}")
-                    'I' -> result.append("444$ack${MainActivity.PAUSE}")
-
-                    'J' -> result.append("5$ack${MainActivity.PAUSE}")
-                    'K' -> result.append("55$ack${MainActivity.PAUSE}")
-                    'L' -> result.append("555$ack${MainActivity.PAUSE}")
-
-                    'M' -> result.append("6$ack${MainActivity.PAUSE}")
-                    'N' -> result.append("66$ack${MainActivity.PAUSE}")
-                    'O' -> result.append("666$ack${MainActivity.PAUSE}")
-
-                    'P' -> result.append("7$ack${MainActivity.PAUSE}")
-                    'Q' -> result.append("77$ack${MainActivity.PAUSE}")
-                    'R' -> result.append("777$ack${MainActivity.PAUSE}")
-                    'S' -> result.append("7777$ack${MainActivity.PAUSE}")
-
-                    'T' -> result.append("8$ack${MainActivity.PAUSE}")
-                    'U' -> result.append("88$ack${MainActivity.PAUSE}")
-                    'V' -> result.append("888$ack${MainActivity.PAUSE}")
-
-                    'W' -> result.append("9$ack${MainActivity.PAUSE}")
-                    'X' -> result.append("99$ack${MainActivity.PAUSE}")
-                    'Y' -> result.append("999$ack${MainActivity.PAUSE}")
-                    'Z' -> result.append("9999$ack${MainActivity.PAUSE}")
-
-                    '0' -> result.append("0$ack${MainActivity.PAUSE}")
-                    '1' -> result.append("11$ack${MainActivity.PAUSE}")
-                    '2' -> result.append("2222$ack${MainActivity.PAUSE}")
-                    '3' -> result.append("3333$ack${MainActivity.PAUSE}")
-                    '4' -> result.append("4444$ack${MainActivity.PAUSE}")
-                    '5' -> result.append("5555$ack${MainActivity.PAUSE}")
-                    '6' -> result.append("6666$ack${MainActivity.PAUSE}")
-                    '7' -> result.append("77777$ack${MainActivity.PAUSE}")
-                    '8' -> result.append("8888$ack${MainActivity.PAUSE}")
-                    '9' -> result.append("99999$ack${MainActivity.PAUSE}")
-
-                    ' ' -> result.append("1$ack${MainActivity.PAUSE}")
                 }
             }
             return result.toString()

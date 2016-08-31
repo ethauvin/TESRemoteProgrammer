@@ -20,12 +20,19 @@ package net.thauvin.erik.android.tesremoteprogrammer.filters
 import android.text.InputFilter
 import android.text.SpannableStringBuilder
 import android.text.Spanned
+import net.thauvin.erik.android.tesremoteprogrammer.util.isDigits
+import org.jetbrains.anko.AnkoLogger
 
-class NumberFilter : InputFilter {
+class NumberFilter : InputFilter, AnkoLogger {
     private val allowed: String
+    private val digits = "0123456789"
 
-    constructor(allowed: String) {
-       this.allowed = allowed
+    constructor(allowed: String, alt: String) {
+        this.allowed = if (allowed.isDigits()) {
+            "$allowed$alt"
+        } else {
+            "$digits$alt"
+        }
     }
 
     override fun filter(source: CharSequence,

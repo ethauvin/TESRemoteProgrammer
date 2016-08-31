@@ -108,8 +108,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                                     }
                                 } else {
                                     inputType = InputType.TYPE_CLASS_PHONE
-                                    inputFilters.add(NumberFilter("0123456789" +
-                                            if (field.alt) "${params.alt}" else ""))
+                                    inputFilters.add(NumberFilter(field.digits, if (field.alt) params.alt else ""))
                                     if (field.max != -1 && field.min != -1) {
                                         inputFilters.add(
                                                 MinMaxFilter(field.min, field.max, field.size, field.zeros))

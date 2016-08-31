@@ -44,6 +44,7 @@ import com.google.gson.JsonSyntaxException
 import net.thauvin.erik.android.tesremoteprogrammer.models.Config
 import net.thauvin.erik.android.tesremoteprogrammer.models.Configurations
 import net.thauvin.erik.android.tesremoteprogrammer.util.Dtmf
+import net.thauvin.erik.android.tesremoteprogrammer.util.isDigits
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.textInputLayout
 import permissions.dispatcher.NeedsPermission
@@ -380,6 +381,14 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                         errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "minSize"))
                     } else if (field.minSize > 0 && field.minSize > field.size) {
                         errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "minSize/size"))
+                    }
+
+                    if (field.digits.isNotBlank() && !field.digits.isDigits()) {
+                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "digits"))
+                    }
+
+                    if (!Dtmf.isValidAlpha(field.alpha)) {
+                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "alpha"))
                     }
 
                     if (field.alpha.isBlank()) {

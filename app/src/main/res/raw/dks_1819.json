@@ -160,7 +160,8 @@
         {
           "hint": "Days of Week (Sun=1, Sat=7 or #)",
           "size": 7,
-          "alt": true
+          "alt": true,
+          "digits": "1234567"
         }
       ],
       "dtmf": "*35[MASTER],[FIELD:1]*,[FIELD:2]*,[FIELD:3][FIELD:4]*,[FIELD:5][FIELD:6]*,[FIELD:7]*,[FIELD:8]*"

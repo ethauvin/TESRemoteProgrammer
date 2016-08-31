@@ -17,6 +17,20 @@
  */
 package net.thauvin.erik.android.tesremoteprogrammer.util
 
+fun String.isDigits() : Boolean {
+    if (isBlank()) {
+        return false
+    }
+
+    forEach {
+        if (!it.isDigit()) {
+            return false
+        }
+    }
+
+    return true
+}
+
 fun String.replaceAll(replace: Array<Pair<String, String>>): String {
     val result = StringBuilder(this)
     var offset: Int

@@ -23,6 +23,7 @@ import java.io.Serializable
 
 data class Field(var hint: String,
                  var alpha: String,
+                 var digits: String,
                  val alt: Boolean,
                  var zeros: Boolean,
                  var minSize: Int,
@@ -39,9 +40,10 @@ data class Field(var hint: String,
         }
     }
 
-    constructor() : this("", "", false, true, -1, -1, -1, -1)
+    constructor() : this("", "", "", false, true, -1, -1, -1, -1)
 
     constructor(source: Parcel) : this(
+            source.readString(),
             source.readString(),
             source.readString(),
             1.equals(source.readInt()),
@@ -56,6 +58,7 @@ data class Field(var hint: String,
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.writeString(hint)
         dest?.writeString(alpha)
+        dest?.writeString(digits)
         dest?.writeInt((if (alt) 1 else 0))
         dest?.writeInt((if (zeros) 1 else 0))
         dest?.writeInt(minSize)

@@ -202,10 +202,29 @@
         {
           "hint": "Days of Week (Sun=1, Sat=7 or #)",
           "size": 7,
-          "alt": true
+          "alt": true,
+          "digits": "1234567"
         }
       ],
       "dtmf": "*35[MASTER],[FIELD:1][FIELD:2]*,[FIELD:3][FIELD:4]*,[FIELD:5]*,[FIELD:6]*,[FIELD:7]*"
+    },
+    {
+      "title": "Enable/Disable Automatic Relay Time Zone",
+      "fields": [
+        {
+          "hint": "Time Zone (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "OFF=0 ON=1",
+          "size": 1,
+          "min": 0,
+          "max": 1
+        }
+      ],
+      "dtmf": "*35[MASTER],[FIELD:1]*,[FIELD:2]*"
     },
     {
       "title": "Set 4-Digit Entry Code Time Zone",
@@ -231,7 +250,8 @@
         {
           "hint": "Days of Week (Sun=1..Sat=7 or #)",
           "size": 7,
-          "alt": true
+          "alt": true,
+          "digits": "1234567"
         },
         {
           "hint": "Lower 4-Digit Boundary",
@@ -268,7 +288,8 @@
         {
           "hint": "Days of Week (Sun=1, Sat=7 or #)",
           "size": 7,
-          "alt": true
+          "alt": true,
+          "digits": "1234567"
         },
         {
           "hint": "Lower 5-Digit Boundary",

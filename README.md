@@ -54,14 +54,14 @@ Parameters define the configuration's global settings.
 }
 ```
 
-| Parameter  | Description                                                                                      | Required |
-|:-----------|:-------------------------------------------------------------------------------------------------|:---------|
-|`name`      | The name of the configuration.                                                                   | Yes      |
-|`ack`       | The key used to acknowledge or terminate programming steps. Most systems use the `*` or `#` key. | Yes      |
-|`alt`       | They key used to in place of numbers when applicable. DKS systems use the `#` key                | No       |
-|`begin`     | The begin programming manual sequence. For example Linear uses `0` and `2` pressed together.     | No       |
-|`end`       | The end programming manual sequence. For example DSK uses `0` and `#` pressed together.          | No       |
-|`size`      | The size (number of digits) of the master code. Most systems use 4 or 6.                         | Yes      |
+| Property | Description                                                                                      | Required |
+|:---------|:-------------------------------------------------------------------------------------------------|:---------|
+|`name`    | The name of the configuration.                                                                   | Yes      |
+|`ack`     | The key used to acknowledge or terminate programming steps. Most systems use the `*` or `#` key. | Yes      |
+|`alt`     | They key used to in place of numbers when applicable. DKS systems use the `#` key                | No       |
+|`begin`   | The begin programming manual sequence. For example Linear uses `0` and `2` pressed together.     | No       |
+|`end`     | The end programming manual sequence. For example DSK uses `0` and `#` pressed together.          | No       |
+|`size`    | The size (number of digits) of the master code. Most systems use 4 or 6.                         | Yes      |
 
 ### Options
 
@@ -134,7 +134,8 @@ Fields represent the data entry text fields on option screens.
 |`min`     | Set the minimum value of a numeric field.                                                             | No       |
 |`max`     | Set the maximum value of a numeric field.                                                             | No       |
 |`alpha`   | Set to `dks` or `linear` for alphanumeric fields.                                                     | No       |
-|`alt`     | Set to `true` if the field accepts the `alt` [parameter](#parameters) value in place of a digit.     | No       |
+'`digits`  | Set digits that are allowed. For example DKS uses `1234567` for days of the week: Sun=1... Sat=7.     | No       |
+|`alt`     | Set to `true` if the field accepts the `alt` [parameter](#parameters) value in place of a digit.      | No       |
 |`zeros`   | Set to `true` by default. Allows numeric values with leading zeros (i.e. `001`), based on the `size`. | No       |
 
 

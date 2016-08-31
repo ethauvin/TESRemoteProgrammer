@@ -48,7 +48,7 @@ class AlphaFilter : InputFilter {
             for (i in start..end - 1) {
                 val c = source[i]
                 if (c.isLetterOrDigit() || extras.contains(c)) {
-                    sb.append(c.toUpperCase())
+                    sb.append(c)
                 }
             }
             return sb.toString()

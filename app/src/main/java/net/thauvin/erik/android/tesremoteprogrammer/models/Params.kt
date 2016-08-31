@@ -22,6 +22,7 @@ import android.os.Parcelable
 import java.io.Serializable
 
 data class Params(var name: String,
+                  var type: String,
                   var phone: String,
                   var master: String,
                   var size: Int,
@@ -39,9 +40,10 @@ data class Params(var name: String,
         }
     }
 
-    constructor() : this("", "", "", -1, "", "", "", "")
+    constructor() : this("", "", "", "", -1, "", "", "", "")
 
     constructor(source: Parcel) : this(
+            source.readString(),
             source.readString(),
             source.readString(),
             source.readString(),
@@ -55,6 +57,7 @@ data class Params(var name: String,
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.writeString(name)
+        dest?.writeString(type)
         dest?.writeString(phone)
         dest?.writeString(master)
         dest?.writeInt(size)

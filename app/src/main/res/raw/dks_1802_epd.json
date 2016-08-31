@@ -1,6 +1,7 @@
 {
   "params": {
     "name": "DKS 1802-EPD",
+    "type": "dks",
     "ack": "*",
     "alt": "#",
     "end": "0 + #",
@@ -533,7 +534,7 @@
         {
           "hint": "Name",
           "size": 11,
-          "alpha": "dks"
+          "alpha": true
         }
       ],
       "nodial": true,
@@ -545,17 +546,17 @@
         {
           "hint": "Message (Line 1)",
           "size": 16,
-          "alpha": "dks"
+          "alpha": true
         },
         {
           "hint": "Message (Line 2)",
           "size": 16,
-          "alpha": "dks"
+          "alpha": true
         },
         {
           "hint": "Message (Line 3)",
           "size": 16,
-          "alpha": "dks"
+          "alpha": true
         }
       ],
       "nodial": true,
@@ -567,17 +568,17 @@
         {
           "hint": "Message (Line 1)",
           "size": 16,
-          "alpha": "dks"
+          "alpha": true
         },
         {
           "hint": "Message (Line 2)",
           "size": 16,
-          "alpha": "dks"
+          "alpha": true
         },
         {
           "hint": "Message (Line 3)",
           "size": 16,
-          "alpha": "dks"
+          "alpha": true
         }
       ],
       "nodial": true,

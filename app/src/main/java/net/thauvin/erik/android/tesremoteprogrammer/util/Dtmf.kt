@@ -87,8 +87,8 @@ class Dtmf {
             return result.toString()
         }
 
-        fun isValidAlpha(alpha: String) : Boolean {
-            return alpha.isBlank() || alpha.equals(DKS, true) || alpha.equals(LINEAR, true)
+        fun isValidType(type: String): Boolean {
+            return type.equals(DKS, true) || type.equals(LINEAR, true)
         }
 
 
@@ -152,7 +152,8 @@ class Dtmf {
             return result.toString()
         }
 
-        fun build(master: String,
+        fun build(type: String,
+                  master: String,
                   ack: String,
                   option: Option,
                   fields: ArrayList<EditText>): String {
@@ -160,12 +161,11 @@ class Dtmf {
 
             fields.forEachIndexed { i, field ->
                 replace.add(Pair(DTMF_FIELD.format(i + 1),
-                        if (option.fields[i].alpha.equals(DKS, true)) {
+                        if (type.equals(DKS, true)) {
                             dksAlphaToDigits(field.text.toString(), ack)
-                        } else if (option.fields[i].alpha.equals(LINEAR, true)) {
+                        } else if (type.equals(LINEAR, true)) {
                             linearAlphaToDigits(field.text.toString())
-                        }
-                        else {
+                        } else {
                             field.text.toString()
                         }))
             }

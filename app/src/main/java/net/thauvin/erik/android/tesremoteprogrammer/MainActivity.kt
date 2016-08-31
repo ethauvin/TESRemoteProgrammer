@@ -347,6 +347,12 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 errors.append(getString(R.string.validate_missing_param, "name"))
             }
 
+            if (params.type.isBlank()) {
+                errors.append(getString(R.string.validate_missing_param, "type"))
+            } else if (!Dtmf.isValidType(params.type)) {
+                errors.append(getString(R.string.validate_invalid_param, "type"))
+            }
+
             if (params.size < 1) {
                 errors.append(getString(R.string.validate_invalid_param, "size"))
             }
@@ -387,11 +393,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                         errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "digits"))
                     }
 
-                    if (!Dtmf.isValidAlpha(field.alpha)) {
-                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "alpha"))
-                    }
-
-                    if (field.alpha.isBlank()) {
+                    if (!field.alpha) {
                         if (field.min >= 0 || field.max >= 0) {
                             if (field.max < 1) {
                                 errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "max"))

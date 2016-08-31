@@ -1,6 +1,7 @@
 {
   "params": {
     "name": "DKS 1802",
+    "type": "dks",
     "ack": "*",
     "alt": "#",
     "end": "0 + #",

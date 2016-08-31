@@ -98,11 +98,11 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                             val editText = editText() {
                                 hint = field.hint
 
-                                if (field.alpha.isNotBlank()) {
-                                    if (field.alpha.equals(Dtmf.DKS, true)) {
+                                if (field.alpha) {
+                                    if (params.type.equals(Dtmf.DKS, true)) {
                                         inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
                                         inputFilters.add(AlphaFilter(Dtmf.DKS_EXTRAS))
-                                    } else if (field.alpha.equals(Dtmf.LINEAR, true)) {
+                                    } else if (params.type.equals(Dtmf.LINEAR, true)) {
                                         inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
                                         inputFilters.add(AlphaFilter(Dtmf.LINEAR_EXTRAS))
                                     }
@@ -153,7 +153,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
 
                     onClick {
                         if (validateFields(fields, option)) {
-                            val dtmf = Dtmf.build(params.master, params.ack, option, fields)
+                            val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
                             if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}")) {
                                 val begin = if (params.begin.isNotBlank()) {
                                     "${params.begin}${MainActivity.PAUSE}"
@@ -198,7 +198,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     imageResource = R.drawable.fab_ic_call
                     onClick {
                         if (validateFields(fields, option)) {
-                            val dtmf = Dtmf.build(params.master, params.ack, option, fields)
+                            val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
                             if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}")) {
                                 ProgrammingActivityPermissionsDispatcher.callWithCheck(
                                         this@ProgrammingActivity, params.phone, dtmf)
@@ -250,7 +250,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                 } else {
                     option.fields[i].size
                 }
-                if (option.fields[i].alpha.isBlank() &&
+                if (!option.fields[i].alpha &&
                         !validateSize(v.length(), option.fields[i].minSize, option.fields[i].size)) {
                     v.error = getString(R.string.error_invalid_size, size,
                             resources.getQuantityString(R.plurals.error_digit, size))

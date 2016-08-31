@@ -1,6 +1,7 @@
 {
   "params": {
     "name": "Linear AE-500",
+    "type": "linear",
     "ack": "#",
     "begin": "0 + 2",
     "size": 6
@@ -22,7 +23,7 @@
         {
           "hint": "Name",
           "size": 16,
-          "alpha": "linear"
+          "alpha": true
         },
         {
           "hint": "Phone",
@@ -51,7 +52,7 @@
         {
           "hint": "Name",
           "size": 16,
-          "alpha": "linear"
+          "alpha": true
         },
         {
           "hint": "Phone",
@@ -166,12 +167,12 @@
         {
           "hint": "Line 1",
           "size": 16,
-          "alpha": "linear"
+          "alpha": true
         },
         {
           "hint": "Line 2",
           "size": 16,
-          "alpha": "linear"
+          "alpha": true
         }
       ],
       "dtmf": "[FIELD:1]#,[MASTER]#,57#,[FIELD:2]#,[FIELD:3]#,99#"

@@ -47,7 +47,7 @@ Parameters define the configuration's global settings.
 ```json
 "params": {
   "name": "DKS 1802-EPD",
-  "type": "dks"
+  "type": "dks",
   "ack": "*",
   "alt": "#",
   "end": "0 + #",

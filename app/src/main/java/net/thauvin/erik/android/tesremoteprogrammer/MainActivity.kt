@@ -74,6 +74,33 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         val PAUSE = ','
     }
 
+    fun initConfigs() {
+        try {
+            ObjectInputStream(openFileInput(current_config_data)).use {
+                config = it.readObject() as Config
+            }
+        } catch (ex: FileNotFoundException) {
+            val confs = Configurations()
+
+            defaultConfigs.forEach {
+                config = Gson().fromJson(InputStreamReader(resources.openRawResource(it)),
+                        Config::class.java)
+
+                if (BuildConfig.DEBUG) {
+                    val errors = StringBuilder()
+                    if (!validateConfig(config, errors)) {
+                        info(">>> ${config.params.name}: " + Html.fromHtml(errors.toString()))
+                    }
+                }
+
+                confs.configs.put(config.params.name, config)
+            }
+
+            saveConfigurations(confs)
+            saveConfig(false)
+        }
+    }
+
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun importConfig(intent: Intent) {
         val errors = StringBuilder()
@@ -119,7 +146,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         val fields = arrayListOf<EditText>()
 
-        loadConfig()
+        initConfigs()
 
         verticalLayout {
             padding = dip(20)
@@ -291,33 +318,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             }
         } catch (ex: FileNotFoundException) {
             return Configurations()
-        }
-    }
-
-    fun loadConfig() {
-        try {
-            ObjectInputStream(openFileInput(current_config_data)).use {
-                config = it.readObject() as Config
-            }
-        } catch (ex: FileNotFoundException) {
-            val confs = Configurations()
-
-            defaultConfigs.forEach {
-                config = Gson().fromJson(InputStreamReader(resources.openRawResource(it)),
-                        Config::class.java)
-
-                if (BuildConfig.DEBUG) {
-                    val errors = StringBuilder()
-                    if (!validateConfig(config, errors)) {
-                        info(">>> ${config.params.name}: " + Html.fromHtml(errors.toString()))
-                    }
-                }
-
-                confs.configs.put(config.params.name, config)
-            }
-
-            saveConfigurations(confs)
-            saveConfig(false)
         }
     }
 

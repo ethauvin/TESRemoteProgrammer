@@ -65,9 +65,11 @@ Parameters define the configuration's global settings.
 |`end`     | The end programming manual sequence. (e.g. DSK uses `0` and `#` pressed together.)                | No       |
 |`size`    | The size (number of digits) of the master code. Most systems use 4 or 6.                          | Yes      |
 
+The `type` is used to determine how letters are converted to digits in alphanumeric (`alpha`) [fields](#fields), both DKS and Linear use different methodologies.
+
 ### Options
 
-Opts define the data used to create programming activity screens in the app.
+Options define the data used to create programming activity screens in the app.
 
 For example, the system's manual lists the steps to _Programming 7-digit Phone Numbers_ as:
 
@@ -139,7 +141,6 @@ Fields represent the data entry text fields on option screens.
 |`digits`  | Set digits that are allowed. (e.g. DKS uses `1234567` for days of the week: Sun=1... Sat=7)           | No       |
 |`alt`     | Set to `true` if the field accepts the `alt` [parameter](#parameters) value in place of a digit.      | No       |
 |`zeros`   | Set to `true` by default. Allows numeric values with leading zeros (e.g. `001`), based on the `size`. | No       |
-
 
 #### DTMF
 

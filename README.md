@@ -80,6 +80,8 @@ For example, the system's manual lists the steps to _Programming 7-digit Phone N
 
 which would translate into:
 
+![Options](images/options_example.png)
+
 ```json
 "opts": [
   {

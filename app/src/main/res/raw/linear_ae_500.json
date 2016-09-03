@@ -27,6 +27,7 @@
         },
         {
           "hint": "Phone",
+          "minSize": 7,
           "size": 14
         },
         {
@@ -56,6 +57,7 @@
         },
         {
           "hint": "Phone",
+          "minSize": 7,
           "size": 14
         },
         {

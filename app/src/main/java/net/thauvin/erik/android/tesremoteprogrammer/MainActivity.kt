@@ -58,9 +58,9 @@ import java.util.*
 @RuntimePermissions
 class MainActivity : AppCompatActivity(), AnkoLogger {
     lateinit var config: Config
-    val configurations_data = "configurations.dat"
-    val current_config_data = "config.dat"
-    val defaultConfigs = listOf(
+    val configurationsData = "configurations.dat"
+    val currentConfigData = "config.dat"
+    val defaultConfigurations = listOf(
             R.raw.dks_1802,
             R.raw.dks_1802_epd,
             R.raw.dks_1812,
@@ -68,21 +68,21 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             R.raw.linear_ae_100,
             R.raw.linear_ae_500,
             R.raw.dks_1803_1808_1810)
-    val read_request_code = 42
+    val readRequestCode = 42
 
     companion object {
         val PAUSE = ','
     }
 
-    fun initConfigs() {
+    fun initConfigurations() {
         try {
-            ObjectInputStream(openFileInput(current_config_data)).use {
+            ObjectInputStream(openFileInput(currentConfigData)).use {
                 config = it.readObject() as Config
             }
         } catch (ex: FileNotFoundException) {
             val confs = Configurations()
 
-            defaultConfigs.forEach {
+            defaultConfigurations.forEach {
                 config = Gson().fromJson(InputStreamReader(resources.openRawResource(it)),
                         Config::class.java)
 
@@ -134,7 +134,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == read_request_code && resultCode == Activity.RESULT_OK) {
+        if (requestCode == readRequestCode && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 MainActivityPermissionsDispatcher.importConfigWithCheck(this, data)
             }
@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         val fields = arrayListOf<EditText>()
 
-        initConfigs()
+        initConfigurations()
 
         verticalLayout {
             padding = dip(20)
@@ -265,8 +265,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                         .movementMethod = LinkMovementMethod.getInstance()
             }
             R.id.action_config -> {
-                val configs = loadConfigurations().configs.toSortedMap()
-                val keys = configs.keys
+                val confs = loadConfigurations().configs.toSortedMap()
+                val keys = confs.keys
                 val checked = keys.indexOf(config.params.name)
                 val alert = AlertDialog.Builder(this)
 
@@ -275,7 +275,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 alert.setSingleChoiceItems(keys.toTypedArray(), checked,
                         { dialogInterface, i ->
                             if (i != checked) {
-                                config = configs.getOrElse(keys.elementAt(i), defaultValue = { config })
+                                config = confs.getOrElse(keys.elementAt(i), defaultValue = { config })
                                 saveConfig()
                                 this.recreate()
                             }
@@ -293,7 +293,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                             val intent = Intent(Intent.ACTION_GET_CONTENT)
                             intent.addCategory(Intent.CATEGORY_OPENABLE)
                             intent.type = "application/json"
-                            startActivityForResult(intent, read_request_code)
+                            startActivityForResult(intent, readRequestCode)
                         })
 
 
@@ -313,7 +313,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
     fun loadConfigurations(): Configurations {
         try {
-            ObjectInputStream(openFileInput(configurations_data)).use {
+            ObjectInputStream(openFileInput(configurationsData)).use {
                 return it.readObject() as Configurations
             }
         } catch (ex: FileNotFoundException) {
@@ -322,7 +322,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     }
 
     fun saveConfigurations(confs: Configurations) {
-        ObjectOutputStream(openFileOutput(configurations_data, Context.MODE_PRIVATE)).use {
+        ObjectOutputStream(openFileOutput(configurationsData, Context.MODE_PRIVATE)).use {
             it.writeObject(confs)
         }
     }
@@ -334,7 +334,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             saveConfigurations(confs)
         }
 
-        ObjectOutputStream(openFileOutput(current_config_data, Context.MODE_PRIVATE)).use {
+        ObjectOutputStream(openFileOutput(currentConfigData, Context.MODE_PRIVATE)).use {
             it.writeObject(config)
         }
     }

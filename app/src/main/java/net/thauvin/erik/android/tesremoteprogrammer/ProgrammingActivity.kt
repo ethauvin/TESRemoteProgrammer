@@ -103,7 +103,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                                         inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
                                         inputFilters.add(AlphaFilter(Dtmf.DKS_EXTRAS))
                                     } else if (params.type.equals(Dtmf.LINEAR, true)) {
-                                        inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
+                                        inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
                                         inputFilters.add(AlphaFilter(Dtmf.LINEAR_EXTRAS))
                                     }
                                 } else {

@@ -41,6 +41,7 @@ import net.thauvin.erik.android.tesremoteprogrammer.filters.NumberFilter
 import net.thauvin.erik.android.tesremoteprogrammer.models.Option
 import net.thauvin.erik.android.tesremoteprogrammer.models.Params
 import net.thauvin.erik.android.tesremoteprogrammer.util.Dtmf
+import net.thauvin.erik.android.tesremoteprogrammer.util.isDKS
 import net.thauvin.erik.android.tesremoteprogrammer.widget.ScrollAwareFABBehavior
 import org.jetbrains.anko.*
 import org.jetbrains.anko.custom.ankoView
@@ -111,7 +112,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                                     inputFilters.add(NumberFilter(field.digits, if (field.alt) params.alt else ""))
                                     if (field.max != -1 && field.min != -1) {
                                         inputFilters.add(
-                                                MinMaxFilter(field.min, field.max, field.size, field.zeros))
+                                                MinMaxFilter(field.min, field.max, field.size, params.type.isDKS()))
                                     }
                                 }
 

@@ -97,7 +97,7 @@
           "size": 4
         },
         {
-          "hint": "Relay (1=A, 2=B, 3=AB, 4=A-ON/OFF 5=B-ON/OFF)",
+          "hint": "Relay (1=A, 2=B, 3=AB, ON/OFF: 4=A, 5=B)",
           "size": 1,
           "min": 1,
           "max": 5
@@ -106,8 +106,7 @@
           "hint": "Number of Uses",
           "size": 3,
           "min": 1,
-          "max": 250,
-          "nozeros": true
+          "max": 250
         }
       ],
       "dtmf": "[FIELD:1]#,[MASTER]#,31#,[FIELD:2]#,[FIELD:2]#,[FIELD:3]#,[FIELD:4],99#"
@@ -126,7 +125,7 @@
           "size": 4
         },
         {
-          "hint": "Relay (1=A, 2=B, 3=AB, 4=A-ON/OFF 5=B-ON/OFF)",
+          "hint": "Relay (1=A, 2=B, 3=AB, ON/OFF: 4=A, 5=B)",
           "size": 1,
           "min": 1,
           "max": 5
@@ -135,8 +134,7 @@
           "hint": "Number of Uses",
           "size": 3,
           "min": 1,
-          "max": 250,
-          "nozeros": true
+          "max": 250
         }
       ],
       "dtmf": "[FIELD:1]#,[MASTER]#,32#,[FIELD:2]#,[FIELD:3]#,[FIELD:4],99#"
@@ -207,7 +205,7 @@
           "max": 4
         },
         {
-          "hint": "Relay Channel: [A=1, B=2)",
+          "hint": "Relay Channel: {A=1, B=2)",
           "size": 1,
           "min": 1,
           "max": 2
@@ -232,15 +230,17 @@
         },
         {
           "hint": "Facility Code (0=None..15)",
+          "minSize": 1,
           "size": 2,
           "min": 0,
           "max": 15
         },
         {
           "hint": "First/Lowest Transmitter ID",
-          "size": 2,
-          "min": 2,
-          "max": 6
+          "minSize": 1,
+          "size": 5,
+          "min": 1,
+          "max": 65535
         }
       ],
       "dtmf": "[FIELD:1]#,[MASTER]#,41#,[FIELD:2]#,[FIELD:3]#,[FIELD:4]#,99#"
@@ -256,15 +256,17 @@
         },
         {
           "hint": "Facility Code (0=None..15)",
+          "minSize": 1,
           "size": 2,
           "min": 0,
           "max": 15
         },
         {
           "hint": "Transmitter ID",
-          "size": 2,
-          "min": 2,
-          "max": 6
+          "minSize": 1,
+          "size": 5,
+          "min": 1,
+          "max": 65535
         }
       ],
       "dtmf": "[FIELD:1]#,[MASTER]#,45#,[FIELD:2]#,[FIELD:3]#,99#"
@@ -280,15 +282,17 @@
         },
         {
           "hint": "Facility Code (0=None..15)",
+          "minSize": 1,
           "size": 2,
           "min": 0,
           "max": 15
         },
         {
           "hint": "Transmitter ID",
-          "size": 2,
-          "min": 2,
-          "max": 6
+          "minSize": 1,
+          "size": 5,
+          "min": 1,
+          "max": 65535
         }
       ],
       "dtmf": "[FIELD:1]#,[MASTER]#,43#,[FIELD:2]#,[FIELD:3]#,99#"
@@ -304,15 +308,17 @@
         },
         {
           "hint": "Facility Code (0=None..15)",
+          "minSize": 1,
           "size": 2,
           "min": 0,
           "max": 15
         },
         {
           "hint": "Transmitter ID",
-          "size": 2,
-          "min": 2,
-          "max": 6
+          "minSize": 1,
+          "size": 5,
+          "min": 1,
+          "max": 65535
         }
       ],
       "dtmf": "[FIELD:1]#,[MASTER]#,42#,[FIELD:2]#,[FIELD:3]#,99#"
@@ -328,15 +334,17 @@
         },
         {
           "hint": "Facility Code (0=None..15)",
+          "minSize": 1,
           "size": 2,
           "min": 0,
           "max": 15
         },
         {
           "hint": "Transmitter ID",
-          "size": 2,
-          "min": 2,
-          "max": 6
+          "minSize": 1,
+          "size": 5,
+          "min": 1,
+          "max": 65535
         }
       ],
       "dtmf": "[FIELD:1]#,[MASTER]#,47#,[FIELD:2]#,[FIELD:3]#,99#"

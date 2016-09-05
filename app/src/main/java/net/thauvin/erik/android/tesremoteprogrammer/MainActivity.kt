@@ -237,6 +237,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 isScrollbarFadingEnabled = false
                 onItemClickListener = AdapterView.OnItemClickListener { parent, v, position, id ->
                     if (validateFields(fields, config.params.size)) {
+                        saveConfig()
                         startActivity<ProgrammingActivity>(
                                 "net.thauvin.erik.android.tesremoteprogrammer.models.Params" to config.params,
                                 "net.thauvin.erik.android.tesremoteprogrammer.models.Option" to opts[position])

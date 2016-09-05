@@ -59,8 +59,6 @@ class MinMaxFilter : InputFilter, AnkoLogger {
             } else {
                 if (len > 1 && s.startsWith("0")) {
                     return false
-                } else if (len < max.toString().length) {
-                    i = s.padEnd(size, '0').toInt()
                 }
             }
 

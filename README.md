@@ -58,14 +58,14 @@ Parameters define the configuration's global settings.
 | Property | Description                                                                                       | Required |
 |:---------|:--------------------------------------------------------------------------------------------------|:---------|
 |`name`    | The name of the configuration.                                                                    | Yes      |
-|`type`    | The system's type, either `dks` or `linear`.                                                      | Yes      |
+|`type`    | The system's type, either `dks` or `linear`. See note below.                                      | Yes      |
 |`ack`     | The key used to acknowledge or terminate programming steps. Most systems use the `*` or `#` keys. | Yes      |
 |`alt`     | They key used to in place of numbers when applicable. DKS systems use the `#` key                 | No       |
 |`begin`   | The begin programming manual sequence. (e.g. Linear uses `0` and `2` pressed together)            | No       |
 |`end`     | The end programming manual sequence. (e.g. DSK uses `0` and `#` pressed together.)                | No       |
 |`size`    | The size (number of digits) of the master code. Most systems use 4 or 6.                          | Yes      |
 
-The `type` is used to determine how letters are converted to digits in alphanumeric (`alpha`) [fields](#fields), both DKS and Linear use different methodologies.
+The `type` is used to determine how letters are converted to digits in alphanumeric (`alpha`) [fields](#fields), both DKS and Linear use different methodologies. It is also used to allow numeric values with leading zeros (e.g. `001`) on DKS systems.
 
 ### Options
 
@@ -142,7 +142,6 @@ Fields represent the data entry text fields on option screens.
 |`alpha`   | Set to `true` for alphanumeric fields.                                                                | No       |
 |`digits`  | Set digits that are allowed. (e.g. DKS uses `1234567` for days of the week: Sun=1... Sat=7)           | No       |
 |`alt`     | Set to `true` if the field accepts the `alt` [parameter](#parameters) value in place of a digit.      | No       |
-|`zeros`   | Set to `true` by default. Allows numeric values with leading zeros (e.g. `001`), based on the `size`. | No       |
 
 #### DTMF
 

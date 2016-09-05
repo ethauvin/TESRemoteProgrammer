@@ -31,7 +31,7 @@ data class Config(var params: Params, var opts: List<Option>) : Parcelable, Seri
         }
     }
 
-    constructor() : this (Params(), emptyList<Option>())
+    constructor() : this(Params(), emptyList<Option>())
 
     constructor(source: Parcel) : this(
             source.readParcelable<Params>(Params::class.java.classLoader),

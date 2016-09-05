@@ -37,7 +37,7 @@
         {
           "hint": "Area Code Ref Number",
           "size": 2,
-          "min": 1,
+          "min": 0,
           "max": 15
         },
         {
@@ -54,7 +54,7 @@
         {
           "hint": "Area Code",
           "size": 2,
-          "min": 1,
+          "min": 0,
           "max": 15
         },
         {

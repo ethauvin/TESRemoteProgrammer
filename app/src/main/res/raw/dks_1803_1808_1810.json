@@ -17,6 +17,7 @@
         },
         {
           "hint": "Phone Number",
+          "minSize": 7,
           "size": 16,
           "alt": true
         }

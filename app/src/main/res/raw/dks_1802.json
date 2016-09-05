@@ -32,6 +32,7 @@
         },
         {
           "hint": "Phone Number",
+          "minSize": 7,
           "size": 16,
           "alt": true
         }
@@ -218,7 +219,7 @@
         {
           "hint": "2-Digit Area Code Ref Number",
           "size": 2,
-          "min": 1,
+          "min": 0,
           "max": 15
         },
         {
@@ -511,7 +512,7 @@
         {
           "hint": "Area Code",
           "size": 2,
-          "min": 1,
+          "min": 0,
           "max": 15
         },
         {

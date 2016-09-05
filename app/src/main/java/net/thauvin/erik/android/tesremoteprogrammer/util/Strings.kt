@@ -17,7 +17,7 @@
  */
 package net.thauvin.erik.android.tesremoteprogrammer.util
 
-fun String.isDigits() : Boolean {
+fun String.isDigits(): Boolean {
     if (isBlank()) {
         return false
     }
@@ -29,6 +29,10 @@ fun String.isDigits() : Boolean {
     }
 
     return true
+}
+
+fun String.isDKS(): Boolean {
+    return this.equals(Dtmf.DKS, true)
 }
 
 fun String.replaceAll(replace: Array<Pair<String, String>>): String {

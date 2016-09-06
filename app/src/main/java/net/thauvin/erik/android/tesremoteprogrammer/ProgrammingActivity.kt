@@ -112,7 +112,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                                     inputFilters.add(NumberFilter(field.digits, if (field.alt) params.alt else ""))
                                     if (field.max != -1 && field.min != -1) {
                                         inputFilters.add(
-                                                MinMaxFilter(field.min, field.max, field.size, params.type.isDKS()))
+                                                MinMaxFilter(field.min, field.max, field.size, params.type.isDKS() || field.zeros))
                                     }
                                 }
 

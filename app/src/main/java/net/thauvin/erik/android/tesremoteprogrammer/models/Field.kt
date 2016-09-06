@@ -25,6 +25,7 @@ data class Field(var hint: String,
                  var digits: String,
                  var alpha: Boolean,
                  val alt: Boolean,
+                 val zeros: Boolean,
                  var minSize: Int,
                  var size: Int,
                  var min: Int,
@@ -39,11 +40,12 @@ data class Field(var hint: String,
         }
     }
 
-    constructor() : this("", "", false, false, -1, -1, -1, -1)
+    constructor() : this("", "", false, false, false, -1, -1, -1, -1)
 
     constructor(source: Parcel) : this(
             source.readString(),
             source.readString(),
+            1.equals(source.readInt()),
             1.equals(source.readInt()),
             1.equals(source.readInt()),
             source.readInt(),
@@ -58,6 +60,7 @@ data class Field(var hint: String,
         dest?.writeString(digits)
         dest?.writeInt((if (alpha) 1 else 0))
         dest?.writeInt((if (alt) 1 else 0))
+        dest?.writeInt((if (zeros) 1 else 0))
         dest?.writeInt(minSize)
         dest?.writeInt(size)
         dest?.writeInt(min)

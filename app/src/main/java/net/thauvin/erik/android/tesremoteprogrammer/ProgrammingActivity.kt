@@ -153,7 +153,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     }
 
                     onClick {
-                        if (validateFields(fields, option)) {
+                        if (validateFields(params.type, fields, option)) {
                             val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
                             if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}")) {
                                 val begin = if (params.begin.isNotBlank()) {
@@ -198,7 +198,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                 floatingActionButton {
                     imageResource = R.drawable.fab_ic_call
                     onClick {
-                        if (validateFields(fields, option)) {
+                        if (validateFields(params.type, fields, option)) {
                             val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
                             if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}")) {
                                 ProgrammingActivityPermissionsDispatcher.callWithCheck(
@@ -238,23 +238,32 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
         makeCall("$phone${MainActivity.PAUSE}${MainActivity.PAUSE}$dtmf")
     }
 
-    fun validateFields(fields: ArrayList<EditText>, option: Option): Boolean {
+    fun validateFields(type: String, fields: ArrayList<EditText>, option: Option): Boolean {
         var isValid = true
 
         fields.forEachIndexed { i, v ->
-            if (v.text.isNullOrBlank()) {
-                v.error = getString(R.string.error_required)
-                isValid = false
-            } else {
-                val size = if (option.fields[i].minSize > 0) {
-                    option.fields[i].minSize
-                } else {
-                    option.fields[i].size
+            if (!option.fields[i].alpha) {
+                if (v.text.isNullOrBlank()) {
+                    v.error = getString(R.string.error_required)
+                    isValid = false
                 }
-                if (!option.fields[i].alpha &&
-                        !validateSize(v.length(), option.fields[i].minSize, option.fields[i].size)) {
-                    v.error = getString(R.string.error_invalid_size, size,
-                            resources.getQuantityString(R.plurals.error_digit, size))
+
+                val min = if ((!type.isDKS() && !option.fields[i].zeros) && option.fields[i].min > 0) {
+                    option.fields[i].min.toString().length
+                } else {
+                    option.fields[i].minSize
+                }
+
+                if (!validateSize(v.length(), min, option.fields[i].size)) {
+                    if (option.fields[i].minSize > 0) {
+                        v.error = getString(R.string.error_invalid_size, option.fields[i].minSize,
+                                resources.getQuantityString(R.plurals.error_digit, option.fields[i].minSize),
+                                getString(R.string.error_minimum))
+                    } else {
+                        v.error = getString(R.string.error_invalid_size, option.fields[i].size,
+                                resources.getQuantityString(R.plurals.error_digit, option.fields[i].size), "")
+                    }
+
                     isValid = false
                 }
 
@@ -269,6 +278,9 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                         isValid = false
                     }
                 }
+            } else if (option.fields[i].minSize < 0 && v.text.isNullOrBlank()) {
+                v.error = getString(R.string.error_required)
+                isValid = false
             }
         }
 

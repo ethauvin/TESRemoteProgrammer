@@ -381,27 +381,55 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
                 option.fields.forEachIndexed { j, field ->
                     if (field.size <= 0) {
-                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "size"))
-                    }
-
-                    if (field.minSize == 0) {
-                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "minSize"))
-                    } else if (field.minSize > 0 && field.minSize > field.size) {
-                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "minSize/size"))
+                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
+                                "size=${field.size}"))
                     }
 
                     if (field.digits.isNotBlank() && !field.digits.isDigits()) {
                         errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "digits"))
                     }
 
+                    if (field.minSize >= 0 && field.minSize > field.size) {
+                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
+                                "minSize=${field.minSize}/size-${field.size}"))
+                    }
+
                     if (!field.alpha) {
+                        if (field.minSize == 0) {
+                            errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
+                                    "minSize=${field.minSize}"))
+                        }
+
                         if (field.min >= 0 || field.max >= 0) {
                             if (field.max < 1) {
-                                errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "max"))
-                            } else if (field.min < 0) {
-                                errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "min"))
-                            } else if (field.min > field.max) {
-                                errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "max/min"))
+                                errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
+                                        "max=${field.max}"))
+                            }
+
+                            if (field.min < 0) {
+                                errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
+                                        "min=${field.min}"))
+                            }
+
+                            if (field.min > field.max) {
+                                errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
+                                        "min=${field.min}/max=${field.max}"))
+                            }
+
+                            if (!params.type.isDKS() && !field.zeros) {
+                                if (field.min > 0 && field.minSize > 0) {
+                                    if (field.min.toString().length != field.minSize) {
+                                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
+                                                "minSize=${field.minSize}/min=${field.min}"))
+                                    }
+                                }
+
+                                if (field.size > 0 && field.max > 0) {
+                                    if (field.max.toString().length != field.size) {
+                                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
+                                                "size=${field.size}/max=${field.max}"))
+                                    }
+                                }
                             }
                         }
                     }

@@ -88,7 +88,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
                 if (BuildConfig.DEBUG) {
                     val errors = StringBuilder()
-                    if (!validateConfig(config, errors)) {
+                    if (validateConfig(config, errors)) {
+                        info(">>> ${config.params.name}: successfully loaded")
+                    } else {
                         info(">>> ${config.params.name}: " + Html.fromHtml(errors.toString()))
                     }
                 }

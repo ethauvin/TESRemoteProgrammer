@@ -44,6 +44,7 @@ import com.google.gson.JsonSyntaxException
 import net.thauvin.erik.android.tesremoteprogrammer.models.Config
 import net.thauvin.erik.android.tesremoteprogrammer.models.Configurations
 import net.thauvin.erik.android.tesremoteprogrammer.util.Dtmf
+import net.thauvin.erik.android.tesremoteprogrammer.util.isDKS
 import net.thauvin.erik.android.tesremoteprogrammer.util.isDigits
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.textInputLayout
@@ -459,12 +460,11 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             if (it.text.isNullOrBlank()) {
                 it.error = getString(R.string.error_required)
                 isValid = false
+            } else if (size > 0 && (fields[1].text.length != size)) {
+                isValid = false
+                fields[1].error = getString(R.string.error_invalid_size, size,
+                        resources.getQuantityString(R.plurals.error_digit, size), "")
             }
-        }
-        if (size > 0 && (fields[1].text.length != size)) {
-            isValid = false
-            fields[1].error = getString(R.string.error_invalid_size, size,
-                    resources.getQuantityString(R.plurals.error_digit, size))
         }
 
         return isValid

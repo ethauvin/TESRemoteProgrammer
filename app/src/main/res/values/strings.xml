@@ -11,8 +11,9 @@
     </plurals>
     <string name="error_invalid_dtmf">Invalid DTMF: <xliff:g id="type">%1$s</xliff:g></string>
     <string name="error_invalid_field">Missing or invalid fields data.</string>
-    <string name="error_invalid_size">Invalid: <xliff:g id="size">%1$d</xliff:g> <xliff:g id="type">%2$s</xliff:g> required</string>
+    <string name="error_invalid_size">Invalid: <xliff:g id="size">%1$d</xliff:g> <xliff:g id="type">%2$s</xliff:g><xliff:g id="min">%3$s</xliff:g> required</string>
     <string name="error_invalid">Invalid</string>
+    <string name="error_minimum">" minimum"</string>
     <string name="error_required">Required</string>
     <string name="hint_master_code">Master Code</string>
     <string name="hint_phone_number">Phone Number</string>

@@ -138,6 +138,25 @@
       "dtmf": "[FIELD:1]#,[MASTER]#,57#,[FIELD:2]#,[FIELD:3]#,99#"
     },
     {
+      "title": "Latch Access Relay (Timed)",
+      "fields": [
+        {
+          "hint": "Unit Number (1..4)",
+          "size": 1,
+          "min": 1,
+          "max": 4
+        },
+        {
+          "hint": "Time in Hours (01-98)",
+          "size": 2,
+          "zeros": true,
+          "min": 1,
+          "max": 98
+        }
+      ],
+      "dtmf": "[FIELD:1]#,[MASTER]#,80#,[FIELD:2]#,99#"
+    },
+    {
       "title": "Latch Access Relay",
       "fields": [
         {

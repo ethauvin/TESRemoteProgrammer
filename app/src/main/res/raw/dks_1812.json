@@ -18,7 +18,7 @@
           "size": 1
         },
         {
-          "hint": "Strike Time (00=1/4...99 seconds)",
+          "hint": "Strike Time (00=1/4..99 seconds)",
           "min": 0,
           "max": 99,
           "size": 2
@@ -274,7 +274,7 @@
           "max": 2
         },
         {
-          "hint": "Active Day of Month",
+          "hint": "Active Day of Month (01..31)",
           "size": 2,
           "min": 1,
           "max": 31

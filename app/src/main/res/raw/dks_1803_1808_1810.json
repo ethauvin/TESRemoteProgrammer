@@ -54,7 +54,7 @@
           "size": 1
         },
         {
-          "hint": "Strike Time (00=1/4...99 seconds)",
+          "hint": "Strike Time (00=1/4..99 seconds)",
           "min": 0,
           "max": 99,
           "size": 2
@@ -108,7 +108,7 @@
       "title": "Set PBX Line Access Code",
       "fields": [
         {
-          "hint": "Line Access Code Number",
+          "hint": "Line Access Code Number (1..9)",
           "size": 1,
           "min": 1,
           "max": 9
@@ -314,7 +314,7 @@
           "max": 8
         },
         {
-          "hint": "Active Day of Month",
+          "hint": "Active Day of Month (01..31)",
           "size": 2,
           "min": 1,
           "max": 31

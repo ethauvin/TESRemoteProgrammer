@@ -12,7 +12,7 @@
       "title": "Set Relay Strike Time",
       "fields": [
         {
-          "hint": "Strike Time (00=1/4...99 seconds)",
+          "hint": "Strike Time (00=1/4..99 seconds)",
           "min": 0,
           "max": 99,
           "size": 2

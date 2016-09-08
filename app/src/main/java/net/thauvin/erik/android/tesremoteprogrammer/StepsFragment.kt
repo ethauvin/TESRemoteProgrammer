@@ -22,7 +22,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import kotlinx.android.synthetic.main.fragment_steps.*
 import java.util.*
 
 class StepsFragment : Fragment() {
@@ -53,11 +53,12 @@ class StepsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_steps, container, false) as ViewGroup
+        return inflater.inflate(R.layout.fragment_steps, container, false) as ViewGroup
+    }
 
-        (rootView.findViewById(R.id.frag_steps_title) as TextView).text =
-                getString(R.string.title_template_step, pageNumber + 1, steps.size)
-        (rootView.findViewById(R.id.frag_steps) as TextView).text = steps[pageNumber]
-        return rootView
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        frag_steps_title.text = getString(R.string.title_template_step, pageNumber + 1, steps.size)
+        frag_steps.text = steps[pageNumber]
     }
 }

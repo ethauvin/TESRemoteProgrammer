@@ -22,8 +22,7 @@ import android.app.FragmentManager
 import android.os.Bundle
 import android.support.v13.app.FragmentStatePagerAdapter
 import android.support.v4.app.FragmentActivity
-import android.support.v4.view.ViewPager
-import com.viewpagerindicator.UnderlinePageIndicator
+import kotlinx.android.synthetic.main.activity_steps.*
 import java.util.*
 
 class StepsActivity : FragmentActivity() {
@@ -35,11 +34,9 @@ class StepsActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_steps)
 
-        val pager = findViewById(R.id.pager) as ViewPager
         pager.adapter = StepsAdapter(fragmentManager, intent.extras.getStringArrayList(EXTRA_STEPS))
-        val pageIndicator = findViewById(R.id.indicator) as UnderlinePageIndicator
-        pageIndicator.setViewPager(pager, pager.currentItem - 1)
-        pageIndicator.fades = false
+        indicator.setViewPager(pager, pager.currentItem - 1)
+        indicator.fades = false
     }
 
     private inner class StepsAdapter(fm: FragmentManager,

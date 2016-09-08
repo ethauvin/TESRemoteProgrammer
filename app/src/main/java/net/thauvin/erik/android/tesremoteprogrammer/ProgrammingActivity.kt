@@ -56,6 +56,7 @@ import java.util.*
 
 @RuntimePermissions
 class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
+    val empty = ""
 
     inline fun ViewManager.autofitTextView(theme: Int = 0, init: AutoResizeTextView.() -> Unit) = ankoView({ AutoResizeTextView(it) }, theme, init)
 
@@ -166,19 +167,20 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                                 val begin = if (params.begin.isNotBlank()) {
                                     "${params.begin}${MainActivity.PAUSE}"
                                 } else {
-                                    ""
+                                    empty
                                 }
 
                                 val end = if (params.end.isNotBlank()) {
                                     "${MainActivity.PAUSE}${params.end}"
                                 } else {
-                                    ""
+                                    empty
                                 }
 
                                 startActivity<StepsActivity>(
                                         StepsActivity.EXTRA_STEPS to "$begin$dtmf$end".split(','))
                             } else {
-                                Snackbar.make(this@coordinatorLayout, getString(R.string.error_invalid_dtmf, dtmf),
+                                Snackbar.make(this@coordinatorLayout,
+                                        getString(R.string.error_invalid_dtmf, dtmf),
                                         Snackbar.LENGTH_LONG).show()
                             }
                         } else {

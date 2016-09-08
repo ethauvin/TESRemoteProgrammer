@@ -32,11 +32,11 @@ fun String.isDigits(): Boolean {
 }
 
 fun String.isDKS(): Boolean {
-    return this.equals(Dtmf.DKS, true)
+    return equals(Dtmf.DKS, true)
 }
 
 fun String.isLinear(): Boolean {
-    return this.equals(Dtmf.LINEAR, true)
+    return equals(Dtmf.LINEAR, true)
 }
 
 fun String.replaceAll(replace: Array<Pair<String, String>>): String {

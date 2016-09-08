@@ -214,7 +214,8 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                                 ProgrammingActivityPermissionsDispatcher.callWithCheck(
                                         this@ProgrammingActivity, params.phone, dtmf)
                             } else {
-                                Snackbar.make(this@coordinatorLayout, getString(R.string.error_invalid_dtmf, dtmf),
+                                Snackbar.make(this@coordinatorLayout,
+                                        getString(R.string.error_invalid_dtmf, dtmf),
                                         Snackbar.LENGTH_LONG).show()
                             }
                         } else {

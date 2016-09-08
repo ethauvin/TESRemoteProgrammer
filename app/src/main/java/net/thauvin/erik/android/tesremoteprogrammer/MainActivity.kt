@@ -265,10 +265,11 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     icon(R.mipmap.ic_launcher)
                     okButton {}
                 }.show()
+
                 (alert.dialog?.findViewById(android.R.id.message) as TextView)
                         .movementMethod = LinkMovementMethod.getInstance()
             }
-            R.id.action_config -> {
+            R.id.action_confs -> {
                 val confs = loadConfigurations().configs.toSortedMap()
                 val keys = confs.keys
                 val checked = keys.indexOf(config.params.name)
@@ -299,7 +300,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                             intent.type = "application/json"
                             startActivityForResult(intent, readRequestCode)
                         })
-
 
                 alert.show()
 

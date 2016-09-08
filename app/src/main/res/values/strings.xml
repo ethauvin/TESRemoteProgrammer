@@ -23,12 +23,13 @@
     <string name="hint_phone_number">Phone Number</string>
     <string name="programming_heading">PROGRAMMING</string>
     <string name="title_template_step">Step <xliff:g id="step_number">%1$d</xliff:g> of <xliff:g id="steps_count">%2$d</xliff:g></string>
-    <string name="validate_invalid_attr">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>, &lt;b>fields[<xliff:g id="field">%2$d</xliff:g>]&lt;/b>: &lt;font color=\"red\"><xliff:g id="attr">%3$s</xliff:g>&lt;/font> invalid</string>
-    <string name="validate_invalid_dtmf">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>, &lt;font color=\"red\">dtmf&lt;/font> invalid:&lt;br>&#160;&#160;&#160;&#160;&lt;font color=\"red\">&lt;small><xliff:g id="dtmf">%2$s</xliff:g>&lt;/small>&lt;/font>&lt;/p></string>
-    <string name="validate_invalid_option">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>: &lt;font color=\"red\"><xliff:g id="attr">%2$s</xliff:g>&lt;/font> invalid</string>
-    <string name="validate_invalid_param">&lt;p>&lt;b>params&lt;/b>: &lt;font color=\"red\"><xliff:g id="param">%1$s</xliff:g>&lt;/font> invalid&lt;/p></string>
-    <string name="validate_missing_fields">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>: &lt;font color=\"red\">fields&lt;/font> missing</string>
+    <string name="validate_invalid_option">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>: invalid &lt;font color=\"red\"><xliff:g id="prop">%2$s</xliff:g>&lt;/font>&lt;/p></string>
+    <string name="validate_invalid_param">&lt;p>&lt;b>params&lt;/b>: invalid &lt;font color=\"red\"><xliff:g id="param">%1$s</xliff:g>&lt;/font>&lt;/p></string>
+    <string name="validate_invalid_field_prop">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>, &lt;b>fields[<xliff:g id="field">%2$d</xliff:g>]&lt;/b>, invalid &lt;font color=\"red\"><xliff:g id="prop">%3$s</xliff:g>&lt;/font>:&lt;br>&#160;&#160;&#160;&#160;&lt;font color=\"red\"><xliff:g id="attr">%4$s</xliff:g>&lt;/font>&lt;/p></string>
+    <string name="validate_invalid_opts_prop">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>&lt;/b>, invalid &lt;font color=\"red\"><xliff:g id="prop">%2$s</xliff:g>&lt;/font>:&lt;br>&#160;&#160;&#160;&#160;&lt;font color=\"red\"><xliff:g id="val">%3$s</xliff:g>&lt;/font>&lt;/p></string>
+    <string name="validate_missing_opts_prop">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>: missing &lt;font color=\"red\"><xliff:g id="prop">%2$s</xliff:g>&lt;/font>&lt;/p></string>
     <string name="validate_missing_param">&lt;p>&lt;p>&lt;b>params&lt;/b>: &lt;font color=\"red\"><xliff:g id="param">%1$s</xliff:g>&lt;/font> missing&lt;/p></string>
-    <string name="validate_missing_opts">&lt;p>&lt;font color=\"red\">opts&lt;/font> missing.&lt;/p></string>
+    <string name="validate_missing_opts">&lt;p>&lt;font color=\"red\">opts[]&lt;/font> missing&lt;/p></string>
+    <string name="validate_syntax_error">&lt;p>&lt;b>Syntax error&lt;/b> after &lt;font color=\"red\"><xliff:g id="obj">%1$s</xliff:g>&lt;/font>: trailing comma.</string>
     <string name="validate_unused_field">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>, &lt;font color=\"red\">fields[<xliff:g id="field">%2$d</xliff:g>]&lt;/font>: unused&lt;/p></string>
 </resources>

@@ -252,46 +252,57 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
         var isValid = true
 
         fields.forEachIndexed { i, v ->
-            if (!option.fields[i].alpha) {
-                if (v.text.isNullOrBlank()) {
-                    v.error = getString(R.string.error_required)
-                    isValid = false
-                }
-
-                val min = if ((!type.isDKS() && !option.fields[i].zeros) && option.fields[i].min > 0) {
-                    option.fields[i].min.toString().length
-                } else {
-                    option.fields[i].minSize
-                }
-
-                if (!validateSize(v.length(), min, option.fields[i].size)) {
-                    if (option.fields[i].minSize > 0) {
-                        v.error = getString(R.string.error_invalid_size, option.fields[i].minSize,
-                                resources.getQuantityString(R.plurals.error_digit, option.fields[i].minSize),
-                                getString(R.string.error_minimum))
-                    } else {
-                        v.error = getString(R.string.error_invalid_size, option.fields[i].size,
-                                resources.getQuantityString(R.plurals.error_digit, option.fields[i].size), "")
+            with(option.fields[i]!!) {
+                if (alpha) { // alphanumeric fields
+                    if (minSize < 0 && v.text.isNullOrBlank()) {
+                        v.error = getString(R.string.error_required)
+                        isValid = false
+                    }
+                } else { // numeric fields
+                    if (v.text.isNullOrBlank()) {
+                        v.error = getString(R.string.error_required)
+                        isValid = false
                     }
 
-                    isValid = false
-                }
+                    val min = if ((!type.isDKS() && !zeros) && min >= 0) {
+                        min.toString().length
+                    } else {
+                        minSize
+                    }
 
-                if (option.fields[i].min > 0 && option.fields[i].max > 0) {
-                    try {
-                        if (v.text.toString().toInt() !in IntRange(option.fields[i].min, option.fields[i].max)) {
+                    if (!validateSize(v.length(), min, size)) {
+                        if (minSize > 0) {
+                            v.error = getString(
+                                    R.string.error_invalid_size,
+                                    minSize,
+                                    resources.getQuantityString(R.plurals.error_digit, minSize),
+                                    getString(R.string.error_minimum))
+                        } else {
+                            v.error = getString(
+                                    R.string.error_invalid_size,
+                                    size,
+                                    resources.getQuantityString(R.plurals.error_digit, size),
+                                    empty)
+                        }
+
+                        isValid = false
+                    }
+
+                    if (min > 0 && max > 0) {
+                        try {
+                            if (v.text.toString().toInt() !in IntRange(min, max)) {
+                                v.error = getString(R.string.error_invalid)
+                                isValid = false
+                            }
+                        } catch (nfe: NumberFormatException) {
                             v.error = getString(R.string.error_invalid)
                             isValid = false
                         }
-                    } catch (nfe: NumberFormatException) {
-                        v.error = getString(R.string.error_invalid)
-                        isValid = false
+
                     }
                 }
-            } else if (option.fields[i].minSize < 0 && v.text.isNullOrBlank()) {
-                v.error = getString(R.string.error_required)
-                isValid = false
             }
+
         }
 
         return isValid

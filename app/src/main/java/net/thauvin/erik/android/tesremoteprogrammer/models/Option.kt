@@ -22,7 +22,7 @@ import android.os.Parcelable
 import java.io.Serializable
 
 data class Option(var title: String,
-                  var fields: List<Field>,
+                  var fields: List<Field?>,
                   var nodial: Boolean,
                   var nosteps: Boolean,
                   var dtmf: String) : Parcelable, Serializable, Comparable<Option> {

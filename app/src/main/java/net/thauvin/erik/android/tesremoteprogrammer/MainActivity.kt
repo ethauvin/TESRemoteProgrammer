@@ -147,106 +147,114 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val fields = arrayListOf<EditText>()
+        // editText, size
+        val fields = arrayListOf<Pair<EditText, Int>>()
 
         initConfigurations()
 
-        verticalLayout {
-            padding = dip(20)
+        with(config.params) {
+            verticalLayout {
+                padding = dip(20)
 
-            textView {
-                text = config.params.name.toUpperCase()
-                bottomPadding = dip(5)
-                typeface = Typeface.DEFAULT_BOLD
-                setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24f)
-                isFocusableInTouchMode = true
-                singleLine = true
-                ellipsize = TextUtils.TruncateAt.END
-            }
+                // config name
+                textView {
+                    text = name.toUpperCase()
+                    bottomPadding = dip(5)
+                    typeface = Typeface.DEFAULT_BOLD
+                    setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24f)
+                    isFocusableInTouchMode = true
+                    singleLine = true
+                    ellipsize = TextUtils.TruncateAt.END
+                }
 
-            textInputLayout {
-                horizontalPadding = dip(40)
-                val phone = editText() {
-                    lparams(width = matchParent)
-                    inputType = InputType.TYPE_CLASS_PHONE
-                    hint = getString(R.string.hint_phone_number)
+                // phone
+                textInputLayout {
+                    horizontalPadding = dip(40)
+                    val edtPhone = editText() {
+                        lparams(width = matchParent)
+                        inputType = InputType.TYPE_CLASS_PHONE
+                        hint = getString(R.string.hint_phone_number)
 
-                    if (config.params.phone.isNotBlank()) {
-                        setText(config.params.phone)
+                        if (phone.isNotBlank()) {
+                            setText(phone)
+                        }
+
+                        setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_call_black_24dp, 0)
+                        setOnFocusChangeListener { view, hasFocus ->
+                            if (!hasFocus) {
+                                phone = (view as EditText).text.toString()
+                                saveConfig()
+                            }
+                        }
+                    }
+                    fields.add(Pair(edtPhone, 0))
+                }
+
+                // master code
+                textInputLayout {
+                    horizontalPadding = dip(40)
+                    val edtMasterCode = editText() {
+                        lparams(width = matchParent)
+                        inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
+                        hint = getString(R.string.hint_master_code)
+                        filters = arrayOf(InputFilter.LengthFilter(size))
+                        setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_verified_user_black_24dp, 0)
+                        imeOptions = EditorInfo.IME_ACTION_DONE
+
+                        if (master.isNotBlank()) {
+                            setText(master)
+                        }
+
+                        setOnFocusChangeListener { view, hasFocus ->
+                            if (!hasFocus) {
+                                master = (view as EditText).text.toString()
+                                saveConfig()
+                            }
+                        }
+
+                        setOnEditorActionListener { v, id, event ->
+                            if (id == EditorInfo.IME_ACTION_DONE) {
+                                clearFocus()
+                                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                                imm.hideSoftInputFromWindow(windowToken, 0)
+                                true
+                            } else {
+                                false
+                            }
+                        }
+                    }
+                    fields.add(Pair(edtMasterCode, size))
+                }
+
+                // programming title
+                textView {
+                    topPadding = dip(10)
+                    text = getString(R.string.programming_heading)
+                    setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18f)
+                    typeface = Typeface.DEFAULT_BOLD
+                }.lparams(width = matchParent)
+
+                // options list
+                listView {
+                    val opts = config.opts.sorted()
+                    val titles = arrayListOf<String>()
+                    opts.all {
+                        titles.add(it.title)
                     }
 
-                    setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_call_black_24dp, 0)
-                    setOnFocusChangeListener { view, hasFocus ->
-                        if (!hasFocus) {
-                            config.params.phone = (view as EditText).text.toString()
+                    adapter = ArrayAdapter<String>(this@MainActivity, android.R.layout.simple_list_item_1, titles)
+                    isTextFilterEnabled = true
+                    isScrollbarFadingEnabled = false
+                    onItemClickListener = AdapterView.OnItemClickListener { parent, v, position, id ->
+                        if (validateFields(fields)) {
                             saveConfig()
+                            startActivity<ProgrammingActivity>(
+                                    "net.thauvin.erik.android.tesremoteprogrammer.models.Params" to config.params,
+                                    "net.thauvin.erik.android.tesremoteprogrammer.models.Option" to opts[position])
                         }
                     }
-                }
-                fields.add(phone)
+                }.lparams(width = matchParent)
             }
-
-            textInputLayout {
-                horizontalPadding = dip(40)
-                val masterCode = editText() {
-                    lparams(width = matchParent)
-                    inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
-                    hint = getString(R.string.hint_master_code)
-                    filters = arrayOf(InputFilter.LengthFilter(config.params.size))
-                    setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_verified_user_black_24dp, 0)
-                    imeOptions = EditorInfo.IME_ACTION_DONE
-
-                    if (config.params.master.isNotBlank()) {
-                        setText(config.params.master)
-                    }
-
-                    setOnFocusChangeListener { view, hasFocus ->
-                        if (!hasFocus) {
-                            config.params.master = (view as EditText).text.toString()
-                            saveConfig()
-                        }
-                    }
-
-                    setOnEditorActionListener { v, id, event ->
-                        if (id == EditorInfo.IME_ACTION_DONE) {
-                            clearFocus()
-                            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                            imm.hideSoftInputFromWindow(windowToken, 0)
-                            true
-                        } else {
-                            false
-                        }
-                    }
-                }
-                fields.add(masterCode)
-            }
-
-            textView {
-                topPadding = dip(10)
-                text = getString(R.string.programming_heading)
-                setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18f)
-                typeface = Typeface.DEFAULT_BOLD
-            }.lparams(width = matchParent)
-
-            val opts = config.opts.sorted()
-            val titles = arrayListOf<String>()
-            opts.all {
-                titles.add(it.title)
-            }
-
-            listView {
-                adapter = ArrayAdapter<String>(this@MainActivity, android.R.layout.simple_list_item_1, titles)
-                isTextFilterEnabled = true
-                isScrollbarFadingEnabled = false
-                onItemClickListener = AdapterView.OnItemClickListener { parent, v, position, id ->
-                    if (validateFields(fields, config.params.size)) {
-                        saveConfig()
-                        startActivity<ProgrammingActivity>(
-                                "net.thauvin.erik.android.tesremoteprogrammer.models.Params" to config.params,
-                                "net.thauvin.erik.android.tesremoteprogrammer.models.Option" to opts[position])
-                    }
-                }
-            }.lparams(width = matchParent)
         }
     }
 
@@ -347,105 +355,203 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         val len = errors.length
 
         with(config) {
-            if (params.name.isBlank()) {
-                errors.append(getString(R.string.validate_missing_param, "name"))
+            // params
+            with(params) {
+                // name
+                if (name.isBlank()) {
+                    errors.append(getString(R.string.validate_missing_param, "name"))
+                }
+
+                // type
+                if (type.isBlank()) {
+                    errors.append(getString(R.string.validate_missing_param, "type"))
+                } else if (!Dtmf.isValidType(type)) {
+                    errors.append(getString(R.string.validate_invalid_param, "type"))
+
+                }
+
+                // size
+                if (size < 1) {
+                    errors.append(getString(R.string.validate_invalid_param, "size"))
+                }
+
+                // ack
+                if (ack.isBlank()) {
+                    errors.append(getString(R.string.validate_missing_param, "ack"))
+                }
             }
 
-            if (params.type.isBlank()) {
-                errors.append(getString(R.string.validate_missing_param, "type"))
-            } else if (!Dtmf.isValidType(params.type)) {
-                errors.append(getString(R.string.validate_invalid_param, "type"))
-            }
-
-            if (params.size < 1) {
-                errors.append(getString(R.string.validate_invalid_param, "size"))
-            }
-
-            if (params.ack.isBlank()) {
-                errors.append(getString(R.string.validate_missing_param, "ack"))
-            }
-
+            // options
             if (opts.size == 0) {
                 errors.append(getString(R.string.validate_missing_opts))
-            }
-
-            opts.forEachIndexed { i, option ->
-                if (option.fields.size == 0) {
-                    errors.append(getString(R.string.validate_missing_fields, i + 1))
-                }
-
-                if (option.nosteps && option.nodial) {
-                    errors.append(getString(R.string.validate_invalid_option, i + 1, "nodial/nosteps"))
-                }
-
-                if (option.dtmf.isBlank()) {
-                    errors.append(getString(R.string.validate_invalid_dtmf, i + 1, "''"))
-                }
-
-                option.fields.forEachIndexed { j, field ->
-                    if (field.size <= 0) {
-                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
-                                "size=${field.size}"))
-                    }
-
-                    if (field.digits.isNotBlank() && !field.digits.isDigits()) {
-                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1, "digits"))
-                    }
-
-                    if (field.minSize >= 0 && field.minSize > field.size) {
-                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
-                                "minSize=${field.minSize}/size-${field.size}"))
-                    }
-
-                    if (!field.alpha) {
-                        if (field.minSize == 0) {
-                            errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
-                                    "minSize=${field.minSize}"))
-                        }
-
-                        if (field.min >= 0 || field.max >= 0) {
-                            if (field.max < 1) {
-                                errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
-                                        "max=${field.max}"))
+            } else {
+                opts.forEachIndexed { i, option ->
+                    // gson will create a null object on trailing comma
+                    // see: https://github.com/google/gson/issues/494
+                    if (option == null) {
+                        errors.append(getString(R.string.validate_syntax_error, "opts[]"))
+                    } else {
+                        with(option) {
+                            // title
+                            if (title.isBlank()) {
+                                errors.append(getString(
+                                        R.string.validate_missing_opts_prop,
+                                        i + 1,
+                                        "title"))
                             }
 
-                            if (field.min < 0) {
-                                errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
-                                        "min=${field.min}"))
+                            // nosteps/nodial
+                            if (nosteps && nodial) {
+                                errors.append(getString(
+                                        R.string.validate_invalid_option,
+                                        i + 1,
+                                        "nodial/nosteps"))
                             }
 
-                            if (field.min > field.max) {
-                                errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
-                                        "min=${field.min}/max=${field.max}"))
-                            }
+                            // dtmf
+                            if (dtmf.isBlank()) {
+                                errors.append(getString(
+                                        R.string.validate_missing_opts_prop,
+                                        i + 1,
+                                        "dtmf"))
+                            } else if (fields.size == 0) { // fields missing
+                                errors.append(getString(
+                                        R.string.validate_missing_opts_prop,
+                                        i + 1,
+                                        "fields"))
+                            } else {
+                                val blank = "\\0"
+                                val mock = Dtmf.mock(option, blank)
 
-                            if (!params.type.isDKS() && !field.zeros) {
-                                if (field.min > 0 && field.minSize > 0) {
-                                    if (field.min.toString().length != field.minSize) {
-                                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
-                                                "minSize=${field.minSize}/min=${field.min}"))
-                                    }
-                                }
-
-                                if (field.size > 0 && field.max > 0) {
-                                    if (field.max.toString().length != field.size) {
-                                        errors.append(getString(R.string.validate_invalid_attr, i + 1, j + 1,
-                                                "size=${field.size}/max=${field.max}"))
-                                    }
+                                if (!Dtmf.validate(mock,
+                                        "${MainActivity.PAUSE}${params.ack}${params.alt}$blank")) {
+                                    errors.append(getString(
+                                            R.string.validate_invalid_opts_prop,
+                                            i + 1,
+                                            "dtmf",
+                                            mock.replace(blank, "&#10003;")))
                                 }
                             }
+
+                            // fields
+                            fields.forEachIndexed { j, field ->
+                                if (field == null) {
+                                    errors.append(getString(
+                                            R.string.validate_syntax_error,
+                                            "opts[${i+j}], field[$j]"))
+                                } else {
+                                    with(field) {
+                                        // size
+                                        if (size <= 0) {
+                                            errors.append(getString(
+                                                    R.string.validate_invalid_field_prop,
+                                                    i + 1,
+                                                    j + 1,
+                                                    resources.getQuantityString(R.plurals.error_prop, 1),
+                                                    "size=$size"))
+                                        }
+
+                                        // digits
+                                        if (digits.isNotBlank() && !digits.isDigits()) {
+                                            errors.append(getString(
+                                                    R.string.validate_invalid_field_prop,
+                                                    i + 1,
+                                                    j + 1,
+                                                    resources.getQuantityString(R.plurals.error_prop, 1),
+                                                    "digits='$digits'"))
+                                        }
+
+                                        // minSize
+                                        if (minSize >= 0 && minSize > size) {
+                                            errors.append(getString(
+                                                    R.string.validate_invalid_field_prop,
+                                                    i + 1,
+                                                    j + 1,
+                                                    resources.getQuantityString(R.plurals.error_prop, 2),
+                                                    "minSize=$minSize > size=$size"))
+                                        }
+
+                                        // numeric fields only
+                                        if (!alpha) {
+                                            if (minSize == 0) {
+                                                errors.append(getString(
+                                                        R.string.validate_invalid_field_prop,
+                                                        i + 1,
+                                                        j + 1,
+                                                        resources.getQuantityString(R.plurals.error_prop, 1),
+                                                        "minSize=$minSize"))
+                                            }
+
+                                            // min/max
+                                            if (min >= 0 || max >= 0) {
+                                                if (max < 1) {
+                                                    errors.append(getString(
+                                                            R.string.validate_invalid_field_prop,
+                                                            i + 1,
+                                                            j + 1,
+                                                            resources.getQuantityString(R.plurals.error_prop, 1),
+                                                            "max=$max"))
+                                                }
+
+                                                if (min < 0) {
+                                                    errors.append(getString(
+                                                            R.string.validate_invalid_field_prop,
+                                                            i + 1,
+                                                            j + 1,
+                                                            resources.getQuantityString(R.plurals.error_prop, 1),
+                                                            "min=$min"))
+                                                }
+
+                                                if (min > max) {
+                                                    errors.append(getString(
+                                                            R.string.validate_invalid_field_prop,
+                                                            i + 1,
+                                                            j + 1,
+                                                            resources.getQuantityString(R.plurals.error_prop, 2),
+                                                            "min=$min > max=$max"))
+                                                }
+                                            }
+
+                                            // no leading zeros
+                                            if (!params.type.isDKS() && !zeros) {
+                                                // minSize/min
+                                                if (min >= 0 && minSize > 0) {
+                                                    if (min.toString().length != minSize) {
+                                                        errors.append(getString(
+                                                                R.string.validate_invalid_field_prop,
+                                                                i + 1,
+                                                                j + 1,
+                                                                resources.getQuantityString(R.plurals.error_prop, 2),
+                                                                "minSize=$minSize/min=$min"))
+                                                    }
+                                                }
+
+                                                // size/max
+                                                if (size > 0 && max > 0) {
+                                                    if (max.toString().length != size) {
+                                                        errors.append(getString(
+                                                                R.string.validate_invalid_field_prop,
+                                                                i + 1,
+                                                                j + 1,
+                                                                resources.getQuantityString(R.plurals.error_prop, 2),
+                                                                "size=$size/max=$max"))
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        // unused fields
+                                        if (!dtmf.contains(Dtmf.DTMF_FIELD.format(j + 1))) {
+                                            errors.append(getString(
+                                                    R.string.validate_unused_field,
+                                                    i + 1,
+                                                    j + 1))
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
-
-                    if (!option.dtmf.contains(Dtmf.DTMF_FIELD.format(j + 1))) {
-                        errors.append(getString(R.string.validate_unused_field, i + 1, j + 1))
-                    }
-                }
-
-                val blank = "\\0"
-                val dtmf = Dtmf.mock(option, blank)
-                if (!Dtmf.validate(dtmf, "${MainActivity.Companion.PAUSE}${params.ack}${params.alt}$blank")) {
-                    errors.append(getString(R.string.validate_invalid_dtmf, i + 1, dtmf.replace(blank, "&#10003;")))
                 }
             }
         }
@@ -453,17 +559,19 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         return errors.length == len
     }
 
-    fun validateFields(fields: ArrayList<EditText>, size: Int): Boolean {
+    fun validateFields(fields: ArrayList<Pair<EditText, Int>>): Boolean {
         var isValid = true
 
         fields.forEach {
-            if (it.text.isNullOrBlank()) {
-                it.error = getString(R.string.error_required)
-                isValid = false
-            } else if (size > 0 && (fields[1].text.length != size)) {
-                isValid = false
-                fields[1].error = getString(R.string.error_invalid_size, size,
-                        resources.getQuantityString(R.plurals.error_digit, size), "")
+            with(it) {
+                if (first.text.isNullOrBlank()) {
+                    first.error = getString(R.string.error_required)
+                    isValid = false
+                } else if (second > 0 && first.text.length != second) {
+                    first.error = getString(R.string.error_invalid_size, second,
+                            resources.getQuantityString(R.plurals.error_digit, second), "")
+                    isValid = false
+                }
             }
         }
 

@@ -131,10 +131,12 @@
         },
         {
           "hint": "Line 2",
+          "minSize": 0,
           "size": 16,
           "alpha": true
         }
       ],
+      "nodial": true,
       "dtmf": "[FIELD:1]#,[MASTER]#,57#,[FIELD:2]#,[FIELD:3]#,99#"
     },
     {

@@ -42,6 +42,7 @@ import net.thauvin.erik.android.tesremoteprogrammer.models.Option
 import net.thauvin.erik.android.tesremoteprogrammer.models.Params
 import net.thauvin.erik.android.tesremoteprogrammer.util.Dtmf
 import net.thauvin.erik.android.tesremoteprogrammer.util.isDKS
+import net.thauvin.erik.android.tesremoteprogrammer.util.isLinear
 import net.thauvin.erik.android.tesremoteprogrammer.widget.ScrollAwareFABBehavior
 import org.jetbrains.anko.*
 import org.jetbrains.anko.custom.ankoView
@@ -97,22 +98,26 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                             val inputFilters: ArrayList<InputFilter> = ArrayList()
 
                             val editText = editText() {
-                                hint = field.hint
+                                hint = field!!.hint
 
                                 if (field.alpha) {
-                                    if (params.type.equals(Dtmf.DKS, true)) {
+                                    if (params.type.isDKS()) {
                                         inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
                                         inputFilters.add(AlphaFilter(Dtmf.DKS_EXTRAS))
-                                    } else if (params.type.equals(Dtmf.LINEAR, true)) {
+                                    } else if (params.type.isLinear()) {
                                         inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
                                         inputFilters.add(AlphaFilter(Dtmf.LINEAR_EXTRAS))
                                     }
                                 } else {
                                     inputType = InputType.TYPE_CLASS_PHONE
-                                    inputFilters.add(NumberFilter(field.digits, if (field.alt) params.alt else ""))
+                                    inputFilters.add(NumberFilter(field.digits, if (field.alt) params.alt else empty))
                                     if (field.max != -1 && field.min != -1) {
                                         inputFilters.add(
-                                                MinMaxFilter(field.min, field.max, field.size, params.type.isDKS() || field.zeros))
+                                                MinMaxFilter(
+                                                        field.min,
+                                                        field.max,
+                                                        field.size,
+                                                        params.type.isDKS() || field.zeros))
                                     }
                                 }
 

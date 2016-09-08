@@ -161,9 +161,9 @@ class Dtmf {
 
             fields.forEachIndexed { i, field ->
                 replace.add(Pair(DTMF_FIELD.format(i + 1),
-                        if (option.fields[i].alpha && type.equals(DKS, true)) {
+                        if (option.fields[i]!!.alpha && type.isDKS()) {
                             dksAlphaToDigits(field.text.toString(), ack)
-                        } else if (option.fields[i].alpha && type.equals(LINEAR, true)) {
+                        } else if (option.fields[i]!!.alpha && type.isLinear()) {
                             linearAlphaToDigits(field.text.toString())
                         } else {
                             field.text.toString()

@@ -67,7 +67,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
         val fields = arrayListOf<EditText>()
 
         coordinatorLayout {
-
+            // option title
             autofitTextView {
                 padding = dip(20)
                 text = option.title
@@ -87,6 +87,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                 verticalLayout {
                     lparams(width = matchParent, height = wrapContent)
 
+                    // fields
                     val it = option.fields.iterator()
                     while (it.hasNext()) {
                         val field = it.next()
@@ -149,6 +150,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                 }
             }.lparams(width = matchParent, height = matchParent)
 
+            // dialpad FAB
             if (!option.nosteps) {
                 floatingActionButton {
                     imageResource = R.drawable.ic_menu_dialpad_lt
@@ -199,6 +201,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                 }
             }
 
+            // call FAB
             if (!option.nodial) {
                 floatingActionButton {
                     imageResource = R.drawable.fab_ic_call

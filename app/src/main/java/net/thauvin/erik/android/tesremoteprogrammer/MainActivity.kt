@@ -438,7 +438,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                                 if (field == null) {
                                     errors.append(getString(
                                             R.string.validate_syntax_error,
-                                            "opts[${i+j}], field[$j]"))
+                                            "opts[${i+1}], field[$j]"))
                                 } else {
                                     with(field) {
                                         // size

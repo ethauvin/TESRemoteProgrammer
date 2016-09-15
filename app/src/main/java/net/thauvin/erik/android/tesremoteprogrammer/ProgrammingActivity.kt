@@ -263,15 +263,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     if (v.text.isNullOrBlank()) {
                         v.error = getString(R.string.error_required)
                         isValid = false
-                    }
-
-                    val min = if ((!type.isDKS() && !zeros) && min >= 0) {
-                        min.toString().length
-                    } else {
-                        minSize
-                    }
-
-                    if (!validateSize(v.length(), min, size)) {
+                    } else if (!validateSize(v.length(), if ((!type.isDKS() && !zeros) && min >= 0) min.toString().length else minSize, size)) {
                         if (minSize > 0) {
                             v.error = getString(
                                     R.string.error_invalid_size,
@@ -285,11 +277,8 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                                     resources.getQuantityString(R.plurals.error_digit, size),
                                     empty)
                         }
-
                         isValid = false
-                    }
-
-                    if (min > 0 && max > 0) {
+                    } else {
                         try {
                             if (v.text.toString().toInt() !in IntRange(min, max)) {
                                 v.error = getString(R.string.error_invalid)
@@ -299,11 +288,9 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                             v.error = getString(R.string.error_invalid)
                             isValid = false
                         }
-
                     }
                 }
             }
-
         }
 
         return isValid

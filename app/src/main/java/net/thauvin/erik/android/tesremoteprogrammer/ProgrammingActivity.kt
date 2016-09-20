@@ -177,7 +177,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                                 }
 
                                 startActivity<StepsActivity>(
-                                        StepsActivity.EXTRA_STEPS to "$begin$dtmf$end".split(','))
+                                        StepsActivity.EXTRA_STEPS to "$begin$dtmf$end".split(MainActivity.PAUSE))
                             } else {
                                 Snackbar.make(this@coordinatorLayout,
                                         getString(R.string.error_invalid_dtmf, dtmf),

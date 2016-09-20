@@ -23,6 +23,7 @@
     <string name="hint_phone_number">Phone Number</string>
     <string name="programming_heading">PROGRAMMING</string>
     <string name="title_template_step">Step <xliff:g id="step_number">%1$d</xliff:g> of <xliff:g id="steps_count">%2$d</xliff:g></string>
+    <string name="validate_dtmf_nopause">Missing pause between steps</string>
     <string name="validate_invalid_option">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>: invalid &lt;font color=\"red\"><xliff:g id="prop">%2$s</xliff:g>&lt;/font>&lt;/p></string>
     <string name="validate_invalid_param">&lt;p>&lt;b>params&lt;/b>: invalid &lt;font color=\"red\"><xliff:g id="param">%1$s</xliff:g>&lt;/font>&lt;/p></string>
     <string name="validate_invalid_field_prop">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>, &lt;b>fields[<xliff:g id="field">%2$d</xliff:g>]&lt;/b>, invalid &lt;font color=\"red\"><xliff:g id="prop">%3$s</xliff:g>&lt;/font>:&lt;br>&#160;&#160;&#160;&#160;&lt;font color=\"red\"><xliff:g id="attr">%4$s</xliff:g>&lt;/font>&lt;/p></string>

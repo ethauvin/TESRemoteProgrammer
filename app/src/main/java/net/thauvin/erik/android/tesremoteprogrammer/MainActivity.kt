@@ -423,6 +423,14 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                                 val blank = "\\0"
                                 val mock = Dtmf.mock(option, blank)
 
+                                if (!mock.contains(MainActivity.PAUSE)) { // no pause
+                                    errors.append(getString(
+                                            R.string.validate_invalid_opts_prop,
+                                            i + 1,
+                                            "dtmf",
+                                            getString(R.string.validate_dtmf_nopause)))
+                                }
+
                                 if (!Dtmf.validate(mock,
                                         "${MainActivity.PAUSE}${params.ack}${params.alt}$blank")) {
                                     errors.append(getString(

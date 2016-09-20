@@ -217,9 +217,9 @@
       "title": "Set Area Code",
       "fields": [
         {
-          "hint": "Area Code Ref Number (00..15)",
+          "hint": "Area Code Ref Number (01..15)",
           "size": 2,
-          "min": 0,
+          "min": 1,
           "max": 15
         },
         {
@@ -510,9 +510,9 @@
           "size": 3
         },
         {
-          "hint": "Area Code (00..15)",
+          "hint": "Area Code Ref Number (01..15)",
           "size": 2,
-          "min": 0,
+          "min": 1,
           "max": 15
         },
         {

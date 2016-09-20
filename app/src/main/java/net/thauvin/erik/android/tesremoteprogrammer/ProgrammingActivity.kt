@@ -278,7 +278,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                                     empty)
                         }
                         isValid = false
-                    } else {
+                    } else if (min >= 0 && max > 0) {
                         try {
                             if (v.text.toString().toInt() !in IntRange(min, max)) {
                                 v.error = getString(R.string.error_invalid)

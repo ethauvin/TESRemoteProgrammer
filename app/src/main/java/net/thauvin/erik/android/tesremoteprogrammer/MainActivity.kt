@@ -23,12 +23,10 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.text.Html
-import android.text.InputFilter
-import android.text.InputType
-import android.text.TextUtils
+import android.text.*
 import android.text.method.LinkMovementMethod
 import android.util.TypedValue
 import android.view.Menu
@@ -75,6 +73,14 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         val PAUSE = ','
     }
 
+    fun fromHtml(s: String) : Spanned {
+        if (Build.VERSION.SDK_INT >= 24) {
+            return Html.fromHtml(s, Html.FROM_HTML_MODE_LEGACY)
+        } else {
+            return Html.fromHtml(s)
+        }
+    }
+
     fun initConfigurations() {
         try {
             ObjectInputStream(openFileInput(currentConfigData)).use {
@@ -92,7 +98,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     if (validateConfig(config, errors)) {
                         info(">>> ${config.params.name}: successfully loaded")
                     } else {
-                        info(">>> ${config.params.name}: " + Html.fromHtml(errors.toString()))
+                        info(">>> ${config.params.name}: " + fromHtml(errors.toString()))
                     }
                 }
 
@@ -130,7 +136,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         if (errors.length > 0) {
             alert {
                 title(R.string.alert_config_error)
-                message(Html.fromHtml("$errors"))
+                message(fromHtml("$errors"))
                 cancelButton { }
             }.show()
         }
@@ -170,7 +176,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 // phone
                 textInputLayout {
                     horizontalPadding = dip(40)
-                    val edtPhone = editText() {
+                    val editText = editText() {
                         lparams(width = matchParent)
                         inputType = InputType.TYPE_CLASS_PHONE
                         hint = getString(R.string.hint_phone_number)
@@ -187,13 +193,13 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                             }
                         }
                     }
-                    fields.add(Pair(edtPhone, 0))
+                    fields.add(Pair(editText, 0))
                 }
 
                 // master code
                 textInputLayout {
                     horizontalPadding = dip(40)
-                    val edtMasterCode = editText() {
+                    val editText = editText() {
                         lparams(width = matchParent)
                         inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
                         hint = getString(R.string.hint_master_code)
@@ -223,7 +229,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                             }
                         }
                     }
-                    fields.add(Pair(edtMasterCode, size))
+                    fields.add(Pair(editText, size))
                 }
 
                 // programming title
@@ -268,8 +274,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             R.id.action_about -> {
                 val alert = alert {
                     title(R.string.app_name)
-                    message(Html.fromHtml(
-                            getString(R.string.about_message, BuildConfig.VERSION_NAME)))
+                    message(fromHtml(getString(R.string.about_message, BuildConfig.VERSION_NAME)))
                     icon(R.mipmap.ic_launcher)
                     okButton {}
                 }.show()

@@ -25,12 +25,14 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
+import android.support.design.widget.TextInputEditText
 import android.support.v7.app.AppCompatActivity
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
+import android.view.ViewManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
@@ -45,6 +47,7 @@ import net.thauvin.erik.android.tesremoteprogrammer.util.Dtmf
 import net.thauvin.erik.android.tesremoteprogrammer.util.isDKS
 import net.thauvin.erik.android.tesremoteprogrammer.util.isDigits
 import org.jetbrains.anko.*
+import org.jetbrains.anko.custom.ankoView
 import org.jetbrains.anko.design.textInputLayout
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
@@ -72,6 +75,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     companion object {
         val PAUSE = ','
     }
+
+    inline fun ViewManager.textInputEditText(theme: Int = 0, init: TextInputEditText.() -> Unit) = ankoView({ TextInputEditText(it) }, theme, init)
 
     fun fromHtml(s: String) : Spanned {
         if (Build.VERSION.SDK_INT >= 24) {
@@ -176,7 +181,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 // phone
                 textInputLayout {
                     horizontalPadding = dip(40)
-                    val editText = editText() {
+                    val editText = textInputEditText() {
                         lparams(width = matchParent)
                         inputType = InputType.TYPE_CLASS_PHONE
                         hint = getString(R.string.hint_phone_number)
@@ -199,7 +204,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 // master code
                 textInputLayout {
                     horizontalPadding = dip(40)
-                    val editText = editText() {
+                    val editText = textInputEditText() {
                         lparams(width = matchParent)
                         inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
                         hint = getString(R.string.hint_master_code)

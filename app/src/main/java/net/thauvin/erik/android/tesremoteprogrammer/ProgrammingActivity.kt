@@ -24,6 +24,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.design.widget.TextInputEditText
 import android.support.v7.app.AppCompatActivity
 import android.text.InputFilter
 import android.text.InputType
@@ -59,6 +60,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
     val empty = ""
 
     inline fun ViewManager.autofitTextView(theme: Int = 0, init: AutoResizeTextView.() -> Unit) = ankoView({ AutoResizeTextView(it) }, theme, init)
+    inline fun ViewManager.textInputEditText(theme: Int = 0, init: TextInputEditText.() -> Unit) = ankoView({ TextInputEditText(it) }, theme, init)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,7 +101,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
 
                             val inputFilters: ArrayList<InputFilter> = ArrayList()
 
-                            val editText = editText() {
+                            val editText = textInputEditText() {
                                 hint = field!!.hint
 
                                 if (field.alpha) {

@@ -21,18 +21,7 @@ import android.text.InputFilter
 import android.text.Spanned
 import org.jetbrains.anko.AnkoLogger
 
-class MinMaxFilter : InputFilter, AnkoLogger {
-    private val min: Int
-    private val max: Int
-    private val size: Int
-    private val zeros: Boolean
-
-    constructor(min: Int, max: Int, size: Int, zeros: Boolean) {
-        this.min = min
-        this.max = max
-        this.size = size
-        this.zeros = zeros
-    }
+class MinMaxFilter(private val min: Int, private val max: Int, private val size: Int, private val zeros: Boolean) : InputFilter, AnkoLogger {
 
     override fun filter(source: CharSequence, start: Int, end: Int, dest: Spanned, dstart: Int, dend: Int): CharSequence? {
         val input = (dest.toString() + source.toString())

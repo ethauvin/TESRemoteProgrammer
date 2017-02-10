@@ -41,8 +41,8 @@ data class Option(var title: String,
     constructor(source: Parcel) : this(
             source.readString(),
             source.createTypedArrayList(Field.CREATOR),
-            1.equals(source.readInt()),
-            1.equals(source.readInt()),
+            1 == source.readInt(),
+            1 == source.readInt(),
             source.readString())
 
     override fun compareTo(other: Option): Int {

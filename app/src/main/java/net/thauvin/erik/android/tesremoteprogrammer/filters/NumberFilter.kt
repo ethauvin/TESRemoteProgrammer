@@ -23,17 +23,9 @@ import android.text.Spanned
 import net.thauvin.erik.android.tesremoteprogrammer.util.isDigits
 import org.jetbrains.anko.AnkoLogger
 
-class NumberFilter : InputFilter, AnkoLogger {
+class NumberFilter(allowed: String, alt: String) : InputFilter, AnkoLogger {
     private val allowed: String
     private val digits = "0123456789"
-
-    constructor(allowed: String, alt: String) {
-        this.allowed = if (allowed.isDigits()) {
-            "$allowed$alt"
-        } else {
-            "$digits$alt"
-        }
-    }
 
     override fun filter(source: CharSequence,
                         start: Int,
@@ -52,13 +44,19 @@ class NumberFilter : InputFilter, AnkoLogger {
             return source
         } else {
             val sb = StringBuilder()
-            for (i in start..end - 1) {
-                val c = source[i]
-                if (allowed.contains(c)) {
-                    sb.append(c.toUpperCase())
-                }
-            }
+            (start..end - 1)
+                    .map { source[it] }
+                    .filter { allowed.contains(it) }
+                    .forEach { sb.append(it.toUpperCase()) }
             return sb.toString()
+        }
+    }
+
+    init {
+        this.allowed = if (allowed.isDigits()) {
+            "$allowed$alt"
+        } else {
+            "$digits$alt"
         }
     }
 }

@@ -157,7 +157,7 @@ class Dtmf {
                   ack: String,
                   option: Option,
                   fields: ArrayList<EditText>): String {
-            val replace = arrayListOf(Pair("$DTMF_MASTER", master))
+            val replace = arrayListOf(Pair(DTMF_MASTER, master))
 
             fields.forEachIndexed { i, field ->
                 replace.add(Pair(DTMF_FIELD.format(i + 1),
@@ -175,7 +175,7 @@ class Dtmf {
 
         fun validate(dtmf: String, extra: String): Boolean {
             dtmf.forEach {
-                if (!(it.isDigit() || it.equals(',') || extra.contains(it))) {
+                if (!(it.isDigit() || it == ',' || extra.contains(it))) {
                     return false
                 }
             }
@@ -183,7 +183,7 @@ class Dtmf {
         }
 
         fun mock(option: Option, blank: String): String {
-            val replace = arrayListOf(Pair("$DTMF_MASTER", blank))
+            val replace = arrayListOf(Pair(DTMF_MASTER, blank))
 
             option.fields.forEachIndexed { i, field ->
                 replace.add(Pair(DTMF_FIELD.format(i + 1), blank))

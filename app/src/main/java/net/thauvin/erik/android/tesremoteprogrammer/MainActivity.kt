@@ -138,7 +138,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             recreate()
         }
 
-        if (errors.length > 0) {
+        if (errors.isNotEmpty()) {
             alert {
                 title(R.string.alert_config_error)
                 message(fromHtml("$errors"))
@@ -392,7 +392,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             }
 
             // options
-            if (opts.size == 0) {
+            if (opts.isEmpty()) {
                 errors.append(getString(R.string.validate_missing_opts))
             } else {
                 opts.forEachIndexed { i, option ->
@@ -424,7 +424,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                                         R.string.validate_missing_opts_prop,
                                         i + 1,
                                         "dtmf"))
-                            } else if (fields.size == 0) { // fields missing
+                            } else if (fields.isEmpty()) { // fields missing
                                 errors.append(getString(
                                         R.string.validate_missing_opts_prop,
                                         i + 1,

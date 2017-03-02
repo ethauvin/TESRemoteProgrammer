@@ -76,9 +76,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         val PAUSE = ','
     }
 
-    inline fun ViewManager.textInputEditText(theme: Int = 0, init: TextInputEditText.() -> Unit) = ankoView({ TextInputEditText(it) }, theme, init)
+    inline fun ViewManager.textInputEditText(theme: Int = 0, init: TextInputEditText.() -> Unit) = ankoView(::TextInputEditText, theme, init)
 
-    fun fromHtml(s: String) : Spanned {
+    fun fromHtml(s: String): Spanned {
         if (Build.VERSION.SDK_INT >= 24) {
             return Html.fromHtml(s, Html.FROM_HTML_MODE_LEGACY)
         } else {
@@ -181,7 +181,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 // phone
                 textInputLayout {
                     horizontalPadding = dip(40)
-                    val editText = textInputEditText() {
+                    val editText = textInputEditText {
                         lparams(width = matchParent)
                         inputType = InputType.TYPE_CLASS_PHONE
                         hint = getString(R.string.hint_phone_number)
@@ -204,7 +204,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 // master code
                 textInputLayout {
                     horizontalPadding = dip(40)
-                    val editText = textInputEditText() {
+                    val editText = textInputEditText {
                         lparams(width = matchParent)
                         inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
                         hint = getString(R.string.hint_master_code)
@@ -456,7 +456,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                                 if (field == null) {
                                     errors.append(getString(
                                             R.string.validate_syntax_error,
-                                            "opts[${i+1}], field[$j]"))
+                                            "opts[${i + 1}], field[$j]"))
                                 } else {
                                     with(field) {
                                         // size

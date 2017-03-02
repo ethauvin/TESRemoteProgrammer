@@ -356,6 +356,7 @@
           "max": 50
         }
       ],
+      "nodial": true,
       "dtmf": "*02[MASTER],[FIELD:1]*,####*"
     }
   ]

@@ -47,6 +47,7 @@
           "size": 3
         }
       ],
+      "nodial": true,
       "dtmf": "*01[MASTER],[FIELD:1]*,#######*"
     },
     {

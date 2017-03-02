@@ -63,6 +63,17 @@
       "dtmf": "*03[MASTER],[FIELD:1]*,[FIELD:2]*"
     },
     {
+      "title": "Display Phone Number",
+      "fields": [
+        {
+          "hint": "Directory Code",
+          "size": 3
+        }
+      ],
+      "nodial": true,
+      "dtmf": "*06[MASTER],[FIELD:1]*"
+    },
+    {
       "title": "Delete 4-Digit Entry Code",
       "fields": [
         {

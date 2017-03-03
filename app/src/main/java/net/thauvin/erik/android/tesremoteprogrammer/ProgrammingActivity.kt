@@ -91,63 +91,72 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     lparams(width = matchParent, height = wrapContent)
 
                     // fields
-                    val it = option.fields.iterator()
-                    while (it.hasNext()) {
-                        val field = it.next()
+                    if (option.fields.isEmpty()) {
+                        // no configurations
+                        autofitTextView {
+                            text = getString(R.string.no_conf_req)
+                            typeface = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC)
+                        }.lparams(width = matchParent, height = matchParent)
 
-                        textInputLayout {
-                            horizontalPadding = dip(40)
-                            lparams(width = matchParent)
+                    } else {
+                        val it = option.fields.iterator()
+                        while (it.hasNext()) {
+                            val field = it.next()
 
-                            val inputFilters: ArrayList<InputFilter> = ArrayList()
+                            textInputLayout {
+                                horizontalPadding = dip(40)
+                                lparams(width = matchParent)
 
-                            val editText = textInputEditText() {
-                                hint = field!!.hint
+                                val inputFilters: ArrayList<InputFilter> = ArrayList()
 
-                                if (field.alpha) {
-                                    if (params.type.isDKS()) {
-                                        inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
-                                        inputFilters.add(AlphaFilter(Dtmf.DKS_EXTRAS))
-                                    } else if (params.type.isLinear()) {
-                                        inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
-                                        inputFilters.add(AlphaFilter(Dtmf.LINEAR_EXTRAS))
+                                val editText = textInputEditText() {
+                                    hint = field!!.hint
+
+                                    if (field.alpha) {
+                                        if (params.type.isDKS()) {
+                                            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+                                            inputFilters.add(AlphaFilter(Dtmf.DKS_EXTRAS))
+                                        } else if (params.type.isLinear()) {
+                                            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
+                                            inputFilters.add(AlphaFilter(Dtmf.LINEAR_EXTRAS))
+                                        }
+                                    } else {
+                                        inputType = InputType.TYPE_CLASS_PHONE
+                                        inputFilters.add(NumberFilter(field.digits, if (field.alt) params.alt else empty))
+                                        if (field.max != -1 && field.min != -1) {
+                                            inputFilters.add(
+                                                    MinMaxFilter(
+                                                            field.min,
+                                                            field.max,
+                                                            field.size,
+                                                            params.type.isDKS() || field.zeros))
+                                        }
                                     }
-                                } else {
-                                    inputType = InputType.TYPE_CLASS_PHONE
-                                    inputFilters.add(NumberFilter(field.digits, if (field.alt) params.alt else empty))
-                                    if (field.max != -1 && field.min != -1) {
-                                        inputFilters.add(
-                                                MinMaxFilter(
-                                                        field.min,
-                                                        field.max,
-                                                        field.size,
-                                                        params.type.isDKS() || field.zeros))
+
+                                    if (field.size != -1) {
+                                        inputFilters.add(InputFilter.LengthFilter(field.size))
                                     }
-                                }
 
-                                if (field.size != -1) {
-                                    inputFilters.add(InputFilter.LengthFilter(field.size))
-                                }
+                                    if (inputFilters.isNotEmpty()) {
+                                        filters = inputFilters.toTypedArray()
+                                    }
 
-                                if (inputFilters.isNotEmpty()) {
-                                    filters = inputFilters.toTypedArray()
-                                }
-
-                                if (!it.hasNext()) {
-                                    imeOptions = EditorInfo.IME_ACTION_DONE
-                                    setOnEditorActionListener { v, id, event ->
-                                        if (id == EditorInfo.IME_ACTION_DONE) {
-                                            clearFocus()
-                                            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                                            imm.hideSoftInputFromWindow(windowToken, 0)
-                                            true
-                                        } else {
-                                            false
+                                    if (!it.hasNext()) {
+                                        imeOptions = EditorInfo.IME_ACTION_DONE
+                                        setOnEditorActionListener { v, id, event ->
+                                            if (id == EditorInfo.IME_ACTION_DONE) {
+                                                clearFocus()
+                                                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                                                imm.hideSoftInputFromWindow(windowToken, 0)
+                                                true
+                                            } else {
+                                                false
+                                            }
                                         }
                                     }
                                 }
+                                fields.add(editText)
                             }
-                            fields.add(editText)
                         }
                     }
                 }
@@ -165,7 +174,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     onClick {
                         if (validateFields(params.type, fields, option)) {
                             val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
-                            if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}")) {
+                            if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}", option.nodial)) {
                                 val begin = if (params.begin.isNotBlank()) {
                                     "${params.begin}${MainActivity.PAUSE}"
                                 } else {
@@ -179,7 +188,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                                 }
 
                                 startActivity<StepsActivity>(
-                                        StepsActivity.EXTRA_STEPS to "$begin$dtmf$end".split(MainActivity.PAUSE))
+                                        StepsActivity.EXTRA_STEPS to "$begin${dtmf.replace(MainActivity.QUOTE, empty)}$end".split(MainActivity.PAUSE))
                             } else {
                                 Snackbar.make(this@coordinatorLayout,
                                         getString(R.string.error_invalid_dtmf, dtmf),
@@ -212,7 +221,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     onClick {
                         if (validateFields(params.type, fields, option)) {
                             val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
-                            if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}")) {
+                            if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}", option.nodial)) {
                                 ProgrammingActivityPermissionsDispatcher.callWithCheck(
                                         this@ProgrammingActivity, params.phone, dtmf)
                             } else {

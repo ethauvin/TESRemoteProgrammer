@@ -173,10 +173,14 @@ class Dtmf {
             return option.dtmf.replaceAll(replace.toTypedArray())
         }
 
-        fun validate(dtmf: String, extra: String): Boolean {
-            dtmf.forEach {
-                if (!(it.isDigit() || it == ',' || extra.contains(it))) {
-                    return false
+        fun validate(dtmf: String, extra: String, nodial: Boolean): Boolean {
+            dtmf.split(MainActivity.PAUSE).forEach {
+                if (!(nodial && it.endsWith(MainActivity.QUOTE) && it.startsWith(MainActivity.QUOTE))) {
+                    it.forEach {
+                        if (!(it.isDigit() || it == ',' || extra.contains(it))) {
+                            return false
+                        }
+                    }
                 }
             }
             return true

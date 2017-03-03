@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
     companion object {
         val PAUSE = ','
+        val QUOTE = "'"
     }
 
     inline fun ViewManager.textInputEditText(theme: Int = 0, init: TextInputEditText.() -> Unit) = ankoView(::TextInputEditText, theme, init)
@@ -424,7 +425,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                                         R.string.validate_missing_opts_prop,
                                         i + 1,
                                         "dtmf"))
-                            } else if (fields.isEmpty()) { // fields missing
+                            } else if (!nodial && fields.isEmpty()) { // fields missing
                                 errors.append(getString(
                                         R.string.validate_missing_opts_prop,
                                         i + 1,
@@ -442,7 +443,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                                 }
 
                                 if (!Dtmf.validate(mock,
-                                        "${MainActivity.PAUSE}${params.ack}${params.alt}$blank")) {
+                                        "${MainActivity.PAUSE}${params.ack}${params.alt}$blank", nodial)) {
                                     errors.append(getString(
                                             R.string.validate_invalid_opts_prop,
                                             i + 1,

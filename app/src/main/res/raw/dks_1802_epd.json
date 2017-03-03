@@ -536,6 +536,12 @@
       "dtmf": "*41[MASTER],[FIELD:1]*,[FIELD:2]*,[FIELD:3]*"
     },
     {
+      "title": "Delete Name",
+      "fields": [],
+      "nodial": true,
+      "dtmf": "*65[MASTER],'NEXT=* or ERASE=0'"
+    },
+    {
       "title": "Add Name",
       "fields": [
         {

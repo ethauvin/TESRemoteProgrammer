@@ -21,6 +21,7 @@
     <string name="error_required">Required</string>
     <string name="hint_master_code">Master Code</string>
     <string name="hint_phone_number">Phone Number</string>
+    <string name="no_conf_req">No configuration required.</string>
     <string name="programming_heading">PROGRAMMING</string>
     <string name="title_template_step">Step <xliff:g id="step_number">%1$d</xliff:g> of <xliff:g id="steps_count">%2$d</xliff:g></string>
     <string name="validate_dtmf_nopause">Missing pause between steps</string>

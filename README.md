@@ -156,11 +156,11 @@ DTMF represent the dialing sequence for the programming steps. A comma (`,`) sho
 
 The following markers will be substituted by their actual values upon dialing.
 
-| Marker        | Description                                                                               |
-|:--------------|:------------------------------------------------------------------------------------------|
-|`[MASTER]`     | Substituted with the Master Code                                                          |
-|`[FIELD:X]`    | Substituted with the field's value, where X is the field number in the array.             |
-|`'Some text'`  | Displays the enclosed text as a manual step. The 'nodial' [option](#options) must be set. |
+| Marker     | Description                                                                               |
+|:-----------|:------------------------------------------------------------------------------------------|
+|`[MASTER]`  | Substituted with the Master Code                                                          |
+|`[FIELD:X]` | Substituted with the field's value, where X is the field number in the array.             |
+|`'Foo bar'` | Displays the enclosed text as a manual step. The `nodial` [option](#options) must be set. |
 
 #### Validation
 

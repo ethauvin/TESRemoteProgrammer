@@ -1,11 +1,14 @@
 language: android
+jdk:
+  - oraclejdk8
+before_install:
+  - chmod +x gradlew
 android:
   components:
-    - tools # to get the new `repository-11.xml`
-    - tools # see https://github.com/travis-ci/travis-ci/issues/6040#issuecomment-219367943)
+    - tools
     - platform-tools
     - build-tools-25.0.2
     - android-25
-
+    - extra-google-m2repository
 script:
    - ./gradlew build connectedCheck

@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "net.thauvin.erik.android.tesremoteprogrammer"
@@ -29,14 +29,14 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
 
-    compile 'com.android.support:support-v13:25.2.0'
-    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.android.support:support-v13:25.3.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'org.jetbrains.anko:anko-sdk23:0.9.1'
     compile 'org.jetbrains.anko:anko-appcompat-v7:0.9.1'
     compile 'org.jetbrains.anko:anko-support-v4:0.9.1'
     compile 'org.jetbrains.anko:anko-design:0.9.1'
-    compile 'com.android.support:design:25.2.0'
+    compile 'com.android.support:design:25.3.1'
     compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
 
     // https://github.com/JakeWharton/ViewPagerIndicator

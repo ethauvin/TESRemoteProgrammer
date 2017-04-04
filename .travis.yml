@@ -2,9 +2,6 @@ language: android
 jdk:
   - oraclejdk8
 
-before_install:
-  - chmod +x gradlew
-
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -27,6 +24,12 @@ android:
     - android-sdk-preview-license-.+
     - android-sdk-license-.+
     - google-gdk-license-.+
+
+before_install:
+  - chmod +x gradlew
+
+after_failure:
+  - cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml
 
 script:
   - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace

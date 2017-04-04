@@ -83,6 +83,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         if (Build.VERSION.SDK_INT >= 24) {
             return Html.fromHtml(s, Html.FROM_HTML_MODE_LEGACY)
         } else {
+            @Suppress("DEPRECATION")
             return Html.fromHtml(s)
         }
     }
@@ -224,6 +225,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                             }
                         }
 
+                        @Suppress("UNUSED_PARAMETER")
                         setOnEditorActionListener { v, id, event ->
                             if (id == EditorInfo.IME_ACTION_DONE) {
                                 clearFocus()
@@ -257,6 +259,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     adapter = ArrayAdapter<String>(this@MainActivity, android.R.layout.simple_list_item_1, titles)
                     isTextFilterEnabled = true
                     isScrollbarFadingEnabled = false
+                    @Suppress("UNUSED_PARAMETER")
                     onItemClickListener = AdapterView.OnItemClickListener { parent, v, position, id ->
                         if (validateFields(fields)) {
                             saveConfig()
@@ -306,11 +309,13 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                             dialogInterface.dismiss()
                         })
 
+                @Suppress("UNUSED_PARAMETER")
                 alert.setNegativeButton(android.R.string.cancel,
                         { dialogInterface, i ->
                             dialogInterface.dismiss()
                         })
 
+                @Suppress("UNUSED_PARAMETER")
                 alert.setNeutralButton(R.string.dialog_import,
                         { dialogInterface, i ->
                             dialogInterface.dismiss()

@@ -143,6 +143,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
 
                                     if (!it.hasNext()) {
                                         imeOptions = EditorInfo.IME_ACTION_DONE
+                                        @Suppress("UNUSED_PARAMETER")
                                         setOnEditorActionListener { v, id, event ->
                                             if (id == EditorInfo.IME_ACTION_DONE) {
                                                 clearFocus()

@@ -55,6 +55,7 @@ import java.io.FileNotFoundException
 import java.io.InputStreamReader
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
+import java.text.SimpleDateFormat
 import java.util.*
 
 @RuntimePermissions
@@ -283,7 +284,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             R.id.action_about -> {
                 val alert = alert {
                     title(R.string.app_name)
-                    message(fromHtml(getString(R.string.about_message, BuildConfig.VERSION_NAME)))
+                    message(fromHtml(getString(R.string.about_message, BuildConfig.VERSION_NAME,
+                            SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date(BuildConfig.TIMESTAMP)))))
                     icon(R.mipmap.ic_launcher)
                     okButton {}
                 }.show()

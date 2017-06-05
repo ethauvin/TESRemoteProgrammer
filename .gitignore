@@ -1,11 +1,12 @@
 *.iml
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
+*.sublime-*
 .DS_Store
+.gradle
+/.idea/libraries
+/.idea/workspace.xml
 /build
 /captures
-Thumbs.db
+/local.properties
 ehthumbs.db
 res.lnk
+Thumbs.db

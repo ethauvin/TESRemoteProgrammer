@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/android-Privacy%20Policy-orange.svg)](http://thauv.in/apps-privacy)
 
 
-[![TES Remote Programmer](images/github_graphic.png)](http://mobile.thauvin.net/android/)
+![TES Remote Programmer](images/github_graphic.png)](http://mobile.thauvin.net/android/)
 
 Program your Telephone Entry System remotely (off-site) using your phone.
 

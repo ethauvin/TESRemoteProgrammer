@@ -22,6 +22,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
@@ -38,7 +39,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.TextView
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import net.thauvin.erik.android.tesremoteprogrammer.models.Config
@@ -143,8 +143,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         if (errors.isNotEmpty()) {
             alert {
-                title(R.string.alert_config_error)
-                message(fromHtml("$errors"))
+                title = getString(R.string.alert_config_error)
+                message = fromHtml("$errors")
                 cancelButton { }
             }.show()
         }
@@ -283,15 +283,24 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         when (item?.itemId) {
             R.id.action_about -> {
                 val alert = alert {
-                    title(R.string.app_name)
-                    message(fromHtml(getString(R.string.about_message, BuildConfig.VERSION_NAME,
-                            SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date(BuildConfig.TIMESTAMP)))))
-                    icon(R.mipmap.ic_launcher)
+                    title = getString(R.string.app_name)
+                    icon = getDrawable(R.mipmap.ic_launcher)
+                    customView {
+                        linearLayout {
+                            topPadding = dip(16)
+                            rightPadding = topPadding
+                            leftPadding = topPadding * 2
+                            textView(fromHtml(getString(R.string.about_message,
+                                    BuildConfig.VERSION_NAME,
+                                    SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date(BuildConfig.TIMESTAMP))))) {
+                                movementMethod = LinkMovementMethod.getInstance()
+                                setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18f)
+                                setTextColor(Color.BLACK)
+                            }
+                        }
+                    }
                     okButton {}
                 }.show()
-
-                (alert.dialog?.findViewById(android.R.id.message) as TextView)
-                        .movementMethod = LinkMovementMethod.getInstance()
             }
             R.id.action_confs -> {
                 val confs = loadConfigurations().configs.toSortedMap()

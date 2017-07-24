@@ -1,5 +1,5 @@
 <resources xmlns:xliff="http://schemas.android.com/tools">
-    <string name="about_message">&lt;p>&lt;b>Version <xliff:g id="type">%1$s</xliff:g>&lt;/b> &lt;small>(<xliff:g id="date">%2$s</xliff:g>)&lt;/small>&lt;/p>&lt;p>Developed by &lt;a href=\"http://erik.thauvin.net/\">&lt;b>Erik C. Thauvin&lt;/b>&lt;/a>. See all my apps &lt;a href=\"http://mobile.thauvin.net/android/\">&lt;b>here&lt;/b>&lt;/a>.&lt;/p>&lt;a href=\"http://thauv.in/TESRemote\">&lt;b>thauv.in/TESRemote&lt;/b>&lt;/a></string>
+    <string name="about_message">&lt;p>&lt;b>Version <xliff:g id="type">%1$s</xliff:g>&lt;/b> &lt;small>(<xliff:g id="date">%2$s</xliff:g>)&lt;/small>&lt;/p>&lt;p>Developed by &lt;a href=\"https://erik.thauvin.net/\">&lt;b>Erik C. Thauvin&lt;/b>&lt;/a>. See all my apps &lt;a href=\"http://mobile.thauvin.net/android/\">&lt;b>here&lt;/b>&lt;/a>.&lt;/p>&lt;a href=\"http://thauv.in/TESRemote\">&lt;b>thauv.in/TESRemote&lt;/b>&lt;/a></string>
     <string name="action_about">About</string>
     <string name="action_config">Configurations</string>
     <string name="alert_config_error">Configuration Errors</string>

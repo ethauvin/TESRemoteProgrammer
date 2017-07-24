@@ -59,8 +59,8 @@ import java.util.*
 class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
     val empty = ""
 
-    inline fun ViewManager.autofitTextView(theme: Int = 0, init: AutoResizeTextView.() -> Unit) = ankoView({ AutoResizeTextView(it) }, theme, init)
-    inline fun ViewManager.textInputEditText(theme: Int = 0, init: TextInputEditText.() -> Unit) = ankoView({ TextInputEditText(it) }, theme, init)
+    inline fun ViewManager.autofitTextView(theme: Int = 0, init: AutoResizeTextView.() -> Unit) = ankoView(::AutoResizeTextView, theme, init)
+    inline fun ViewManager.textInputEditText(theme: Int = 0, init: TextInputEditText.() -> Unit) = ankoView(::TextInputEditText, theme, init)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,7 +109,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
 
                                 val inputFilters: ArrayList<InputFilter> = ArrayList()
 
-                                val editText = textInputEditText() {
+                                val editText = textInputEditText {
                                     hint = field!!.hint
 
                                     if (field.alpha) {
@@ -171,35 +171,6 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     if (!option.nodial) {
                         backgroundTintList = ColorStateList.valueOf(Color.GRAY)
                     }
-
-                    onClick {
-                        if (validateFields(params.type, fields, option)) {
-                            val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
-                            if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}", option.nodial)) {
-                                val begin = if (params.begin.isNotBlank()) {
-                                    "${params.begin}${MainActivity.PAUSE}"
-                                } else {
-                                    empty
-                                }
-
-                                val end = if (params.end.isNotBlank()) {
-                                    "${MainActivity.PAUSE}${params.end}"
-                                } else {
-                                    empty
-                                }
-
-                                startActivity<StepsActivity>(
-                                        StepsActivity.EXTRA_STEPS to "$begin${dtmf.replace(MainActivity.QUOTE, empty)}$end".split(MainActivity.PAUSE))
-                            } else {
-                                Snackbar.make(this@coordinatorLayout,
-                                        getString(R.string.error_invalid_dtmf, dtmf),
-                                        Snackbar.LENGTH_LONG).show()
-                            }
-                        } else {
-                            Snackbar.make(this@coordinatorLayout, R.string.error_invalid_field,
-                                    Snackbar.LENGTH_LONG).show()
-                        }
-                    }
                 }.lparams(width = wrapContent, height = wrapContent) {
                     if (option.nodial) {
                         gravity = BOTTOM or END
@@ -212,6 +183,33 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     bottomMargin = dip(16)
                     elevation = dip(6).toFloat()
                     behavior = ScrollAwareFABBehavior()
+                }.setOnClickListener {
+                    if (validateFields(params.type, fields, option)) {
+                        val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
+                        if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}", option.nodial)) {
+                            val begin = if (params.begin.isNotBlank()) {
+                                "${params.begin}${MainActivity.PAUSE}"
+                            } else {
+                                empty
+                            }
+
+                            val end = if (params.end.isNotBlank()) {
+                                "${MainActivity.PAUSE}${params.end}"
+                            } else {
+                                empty
+                            }
+
+                            startActivity<StepsActivity>(
+                                    StepsActivity.EXTRA_STEPS to "$begin${dtmf.replace(MainActivity.QUOTE, empty)}$end".split(MainActivity.PAUSE))
+                        } else {
+                            Snackbar.make(this@coordinatorLayout,
+                                    getString(R.string.error_invalid_dtmf, dtmf),
+                                    Snackbar.LENGTH_LONG).show()
+                        }
+                    } else {
+                        Snackbar.make(this@coordinatorLayout, R.string.error_invalid_field,
+                                Snackbar.LENGTH_LONG).show()
+                    }
                 }
             }
 
@@ -219,28 +217,27 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
             if (!option.nodial) {
                 floatingActionButton {
                     imageResource = R.drawable.fab_ic_call
-                    onClick {
-                        if (validateFields(params.type, fields, option)) {
-                            val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
-                            if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}", option.nodial)) {
-                                ProgrammingActivityPermissionsDispatcher.callWithCheck(
-                                        this@ProgrammingActivity, params.phone, dtmf)
-                            } else {
-                                Snackbar.make(this@coordinatorLayout,
-                                        getString(R.string.error_invalid_dtmf, dtmf),
-                                        Snackbar.LENGTH_LONG).show()
-                            }
-                        } else {
-                            Snackbar.make(this@coordinatorLayout, R.string.error_invalid_field,
-                                    Snackbar.LENGTH_LONG).show()
-                        }
-                    }
                 }.lparams(width = wrapContent, height = wrapContent) {
                     gravity = BOTTOM or END
                     bottomMargin = dip(16)
                     rightMargin = dip(16)
                     elevation = dip(6).toFloat()
                     behavior = ScrollAwareFABBehavior()
+                }.setOnClickListener {
+                    if (validateFields(params.type, fields, option)) {
+                        val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
+                        if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}", option.nodial)) {
+                            ProgrammingActivityPermissionsDispatcher.callWithCheck(
+                                    this@ProgrammingActivity, params.phone, dtmf)
+                        } else {
+                            Snackbar.make(this@coordinatorLayout,
+                                    getString(R.string.error_invalid_dtmf, dtmf),
+                                    Snackbar.LENGTH_LONG).show()
+                        }
+                    } else {
+                        Snackbar.make(this@coordinatorLayout, R.string.error_invalid_field,
+                                Snackbar.LENGTH_LONG).show()
+                    }
                 }
             }
         }

@@ -41,7 +41,13 @@ class ScrollAwareFABBehavior() : FloatingActionButton.Behavior() {
                                 dyUnconsumed: Int) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed)
         if (dyConsumed > 0 && child!!.visibility == View.VISIBLE) {
-            child.hide()
+            // see: https://stackoverflow.com/a/42082313/5640587
+            child.hide(object : FloatingActionButton.OnVisibilityChangedListener() {
+                override fun onHidden(fab: FloatingActionButton?) {
+                    super.onHidden(fab)
+                    fab!!.visibility = View.INVISIBLE
+                }
+            })
         } else if (dyConsumed < 0 && child!!.visibility != View.VISIBLE) {
             child.show()
         }

@@ -44,7 +44,7 @@ class NumberFilter(allowed: String, alt: String) : InputFilter, AnkoLogger {
             return source
         } else {
             val sb = StringBuilder()
-            (start..end - 1)
+            (start until end)
                     .map { source[it] }
                     .filter { allowed.contains(it) }
                     .forEach { sb.append(it.toUpperCase()) }

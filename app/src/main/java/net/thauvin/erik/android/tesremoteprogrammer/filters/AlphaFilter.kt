@@ -39,7 +39,7 @@ class AlphaFilter(private val extras: String) : InputFilter {
             return source
         } else {
             val sb = StringBuilder()
-            (start..end - 1)
+            (start until end)
                     .map { source[it] }
                     .filter { it.isLetterOrDigit() || extras.contains(it) }
                     .forEach { sb.append(it) }

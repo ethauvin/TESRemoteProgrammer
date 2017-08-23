@@ -37,9 +37,7 @@ data class Config(var params: Params, var opts: List<Option>) : Parcelable, Seri
             source.readParcelable<Params>(Params::class.java.classLoader),
             source.createTypedArrayList(Option.CREATOR))
 
-    override fun compareTo(other: Config): Int {
-        return params.name.compareTo(other.params.name)
-    }
+    override fun compareTo(other: Config): Int = params.name.compareTo(other.params.name)
 
     override fun describeContents() = 0
 

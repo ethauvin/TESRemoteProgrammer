@@ -87,9 +87,7 @@ class Dtmf {
             return result.toString()
         }
 
-        fun isValidType(type: String): Boolean {
-            return type.equals(DKS, true) || type.equals(LINEAR, true)
-        }
+        fun isValidType(type: String): Boolean = type.equals(DKS, true) || type.equals(LINEAR, true)
 
 
         private fun linearAlphaToDigits(text: String): String {
@@ -189,8 +187,7 @@ class Dtmf {
         fun mock(option: Option, blank: String): String {
             val replace = arrayListOf(Pair(DTMF_MASTER, blank))
 
-            @Suppress("UNUSED_PARAMETER")
-            option.fields.forEachIndexed { i, field ->
+            option.fields.forEachIndexed { i, _ ->
                 replace.add(Pair(DTMF_FIELD.format(i + 1), blank))
             }
 

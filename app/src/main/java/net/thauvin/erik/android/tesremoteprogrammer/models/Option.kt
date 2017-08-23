@@ -45,9 +45,7 @@ data class Option(var title: String,
             1 == source.readInt(),
             source.readString())
 
-    override fun compareTo(other: Option): Int {
-        return title.compareTo(other.title)
-    }
+    override fun compareTo(other: Option): Int = title.compareTo(other.title)
 
     override fun describeContents() = 0
 

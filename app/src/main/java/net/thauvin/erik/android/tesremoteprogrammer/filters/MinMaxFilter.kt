@@ -39,10 +39,10 @@ class MinMaxFilter(private val min: Int, private val max: Int, private val size:
 
             if (zeros) {
                 if (size > 1 && len != size) {
-                    if (i == 0) {
+                    i = if (i == 0) {
                         return true
                     } else {
-                        i = s.padEnd(size, '0').toInt()
+                        s.padEnd(size, '0').toInt()
                     }
                 }
             } else {

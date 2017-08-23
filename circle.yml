@@ -14,5 +14,7 @@ dependencies:
 
 test:
     override:
-        - (./gradlew assemble):
+        - (./gradlew check):
             timeout: 360
+
+        - cp -r app/build/outputs $CIRCLE_ARTIFACTS

@@ -1,10 +1,4 @@
 <resources xmlns:xliff="http://schemas.android.com/tools">
-    <string name="about_message">&lt;p>&lt;b>Version <xliff:g id="type">%1$s</xliff:g>&lt;/b> &lt;small>(<xliff:g id="date">%2$s</xliff:g>)&lt;/small>&lt;/p>&lt;p>Developed by &lt;a href=\"https://erik.thauvin.net/\">&lt;b>Erik C. Thauvin&lt;/b>&lt;/a>. See all my apps &lt;a href=\"http://mobile.thauvin.net/android/\">&lt;b>here&lt;/b>&lt;/a>.&lt;/p>&lt;a href=\"http://thauv.in/TESRemote\">&lt;b>thauv.in/TESRemote&lt;/b>&lt;/a></string>
-    <string name="action_about">About</string>
-    <string name="action_config">Configurations</string>
-    <string name="alert_config_error">Configuration Errors</string>
-    <string name="app_name">TES Remote Programmer</string>
-    <string name="dialog_import">Import</string>
     <plurals name="error_digit">
         <item quantity="one">digit</item>
         <item quantity="other">digits</item>
@@ -13,25 +7,37 @@
         <item quantity="one">property</item>
         <item quantity="other">properties</item>
     </plurals>
+    <string name="action_about">About</string>
+    <string name="action_config">Configurations</string>
+    <string name="alert_config_error">Configuration Errors</string>
+    <string name="app_name">TES Remote Programmer</string>
+    <string name="cancel">Cancel</string>
+    <string name="crash_dialog_comment_prompt">You may add your comments about the problem below:</string>
+    <string name="crash_dialog_text">An unexpected error occurred forcing the app to stop. Would you like to e-mail a crash report to help fix the issue?</string>
+    <string name="crash_dialog_title">%1$s has crashed</string>
+    <string name="crash_report_subject">%1$s Crash Report</string>
+    <string name="crash_toast_text">Generating Crash Report</string>
+    <string name="dialog_import">Import</string>
+    <string name="error_invalid">Invalid</string>
     <string name="error_invalid_dtmf">Invalid DTMF: <xliff:g id="type">%1$s</xliff:g></string>
     <string name="error_invalid_field">Missing or invalid data.</string>
     <string name="error_invalid_size">Invalid: <xliff:g id="size">%1$d</xliff:g> <xliff:g id="type">%2$s</xliff:g><xliff:g id="min">%3$s</xliff:g> required</string>
-    <string name="error_invalid">Invalid</string>
     <string name="error_minimum">" minimum"</string>
     <string name="error_required">Required</string>
     <string name="hint_master_code">Master Code</string>
     <string name="hint_phone_number">Phone Number</string>
     <string name="no_conf_req">No configuration required.</string>
+    <string name="ok">OK</string>
     <string name="programming_heading">PROGRAMMING</string>
     <string name="title_template_step">Step <xliff:g id="step_number">%1$d</xliff:g> of <xliff:g id="steps_count">%2$d</xliff:g></string>
     <string name="validate_dtmf_nopause">Missing pause between steps</string>
-    <string name="validate_invalid_option">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>: invalid &lt;font color=\"red\"><xliff:g id="prop">%2$s</xliff:g>&lt;/font>&lt;/p></string>
-    <string name="validate_invalid_param">&lt;p>&lt;b>params&lt;/b>: invalid &lt;font color=\"red\"><xliff:g id="param">%1$s</xliff:g>&lt;/font>&lt;/p></string>
     <string name="validate_invalid_field_prop">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>, &lt;b>fields[<xliff:g id="field">%2$d</xliff:g>]&lt;/b>, invalid &lt;font color=\"red\"><xliff:g id="prop">%3$s</xliff:g>&lt;/font>:&lt;br>&#160;&#160;&#160;&#160;&lt;font color=\"red\"><xliff:g id="attr">%4$s</xliff:g>&lt;/font>&lt;/p></string>
+    <string name="validate_invalid_option">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>: invalid &lt;font color=\"red\"><xliff:g id="prop">%2$s</xliff:g>&lt;/font>&lt;/p></string>
     <string name="validate_invalid_opts_prop">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>&lt;/b>, invalid &lt;font color=\"red\"><xliff:g id="prop">%2$s</xliff:g>&lt;/font>:&lt;br>&#160;&#160;&#160;&#160;&lt;font color=\"red\"><xliff:g id="val">%3$s</xliff:g>&lt;/font>&lt;/p></string>
+    <string name="validate_invalid_param">&lt;p>&lt;b>params&lt;/b>: invalid &lt;font color=\"red\"><xliff:g id="param">%1$s</xliff:g>&lt;/font>&lt;/p></string>
+    <string name="validate_missing_opts">&lt;p>&lt;font color=\"red\">opts[]&lt;/font> missing&lt;/p></string>
     <string name="validate_missing_opts_prop">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>: missing &lt;font color=\"red\"><xliff:g id="prop">%2$s</xliff:g>&lt;/font>&lt;/p></string>
     <string name="validate_missing_param">&lt;p>&lt;p>&lt;b>params&lt;/b>: &lt;font color=\"red\"><xliff:g id="param">%1$s</xliff:g>&lt;/font> missing&lt;/p></string>
-    <string name="validate_missing_opts">&lt;p>&lt;font color=\"red\">opts[]&lt;/font> missing&lt;/p></string>
     <string name="validate_syntax_error">&lt;p>&lt;b>Syntax error&lt;/b> after &lt;font color=\"red\"><xliff:g id="obj">%1$s</xliff:g>&lt;/font>: trailing comma.</string>
     <string name="validate_unused_field">&lt;p>&lt;b>opts[<xliff:g id="opts">%1$d</xliff:g>]&lt;/b>, &lt;font color=\"red\">fields[<xliff:g id="field">%2$d</xliff:g>]&lt;/font>: unused&lt;/p></string>
 </resources>

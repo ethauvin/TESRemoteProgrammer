@@ -143,8 +143,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
 
                                     if (!it.hasNext()) {
                                         imeOptions = EditorInfo.IME_ACTION_DONE
-                                        @Suppress("UNUSED_PARAMETER")
-                                        setOnEditorActionListener { v, id, event ->
+                                        setOnEditorActionListener { _, id, _ ->
                                             if (id == EditorInfo.IME_ACTION_DONE) {
                                                 clearFocus()
                                                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -305,11 +304,9 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
         return isValid
     }
 
-    fun validateSize(size: Int, min: Int, max: Int): Boolean {
-        if (min > 0) {
-            return size in IntRange(min, max)
-        } else {
-            return size == max
-        }
+    fun validateSize(size: Int, min: Int, max: Int): Boolean = if (min > 0) {
+        size in IntRange(min, max)
+    } else {
+        size == max
     }
 }

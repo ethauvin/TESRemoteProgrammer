@@ -226,8 +226,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                             }
                         }
 
-                        @Suppress("UNUSED_PARAMETER")
-                        setOnEditorActionListener { v, id, event ->
+                        setOnEditorActionListener { _, id, _ ->
                             if (id == EditorInfo.IME_ACTION_DONE) {
                                 clearFocus()
                                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -260,8 +259,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     adapter = ArrayAdapter<String>(this@MainActivity, android.R.layout.simple_list_item_1, titles)
                     isTextFilterEnabled = true
                     isScrollbarFadingEnabled = false
-                    @Suppress("UNUSED_PARAMETER")
-                    onItemClickListener = AdapterView.OnItemClickListener { parent, v, position, id ->
+                    onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
                         if (validateFields(fields)) {
                             saveConfig()
                             startActivity<ProgrammingActivity>(
@@ -320,15 +318,13 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                             dialogInterface.dismiss()
                         })
 
-                @Suppress("UNUSED_PARAMETER")
                 alert.setNegativeButton(android.R.string.cancel,
-                        { dialogInterface, i ->
+                        { dialogInterface, _ ->
                             dialogInterface.dismiss()
                         })
 
-                @Suppress("UNUSED_PARAMETER")
                 alert.setNeutralButton(R.string.dialog_import,
-                        { dialogInterface, i ->
+                        { dialogInterface, _ ->
                             dialogInterface.dismiss()
                             val intent = Intent(Intent.ACTION_GET_CONTENT)
                             intent.addCategory(Intent.CATEGORY_OPENABLE)
@@ -360,11 +356,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    fun saveConfigurations(confs: Configurations) {
-        ObjectOutputStream(openFileOutput(configurationsData, Context.MODE_PRIVATE)).use {
-            it.writeObject(confs)
-        }
-    }
+    fun saveConfigurations(confs: Configurations) =
+            ObjectOutputStream(openFileOutput(configurationsData, Context.MODE_PRIVATE)).use {
+                it.writeObject(confs)
+            }
 
     fun saveConfig(backup: Boolean = true) {
         if (backup) {

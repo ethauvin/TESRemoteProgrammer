@@ -53,12 +53,8 @@ class CrashEmail(private val config: ACRAConfiguration) : ReportSender {
             fields = ImmutableSet(*ACRAConstants.DEFAULT_MAIL_REPORT_FIELDS)
         }
         val builder = StringBuilder()
-        for (field in fields) {
-            if (field == ReportField.USER_COMMENT || field == ReportField.STACK_TRACE) {
-                builder.append("-- ").append(field.toString()).append("  --\n")
-            } else {
-                builder.append(field.toString()).append('=')
-            }
+        fields.forEach { field ->
+            builder.append(field.toString()).append('=')
             val value = errorContent[field]
             if (value != null) {
                 builder.append(TextUtils.join("\n\t", value.flatten()))

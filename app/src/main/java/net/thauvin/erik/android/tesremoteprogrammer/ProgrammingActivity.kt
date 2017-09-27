@@ -96,6 +96,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                         autofitTextView {
                             text = getString(R.string.no_conf_req)
                             typeface = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC)
+                            freezesText = true
                         }.lparams(width = matchParent, height = matchParent)
 
                     } else {
@@ -111,6 +112,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
 
                                 val editText = textInputEditText {
                                     hint = field!!.hint
+                                    freezesText = true
 
                                     if (field.alpha) {
                                         if (params.type.isDKS()) {

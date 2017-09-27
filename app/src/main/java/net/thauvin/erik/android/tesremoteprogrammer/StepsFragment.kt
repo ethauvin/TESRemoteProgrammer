@@ -57,7 +57,11 @@ class StepsFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        frag_steps_title.text = getString(R.string.title_template_step, pageNumber + 1, steps.size)
-        frag_steps.text = steps[pageNumber]
+        if (steps.isEmpty()) {
+            activity.finish()
+        } else {
+            frag_steps_title.text = getString(R.string.title_template_step, pageNumber + 1, steps.size)
+            frag_steps.text = steps[pageNumber]
+        }
     }
 }

@@ -55,9 +55,7 @@ class CrashReportActivity : BaseCrashReportDialog(), DialogInterface.OnDismissLi
         }
     }
 
-    override fun onDismiss(dialog: DialogInterface) {
-        finish()
-    }
+    override fun onDismiss(dialog: DialogInterface) = finish()
 
     override fun onClick(dialog: DialogInterface, which: Int) {
         if (which == DialogInterface.BUTTON_POSITIVE) {

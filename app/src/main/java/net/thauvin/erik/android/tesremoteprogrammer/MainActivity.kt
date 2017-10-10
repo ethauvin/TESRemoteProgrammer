@@ -22,14 +22,12 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.TextInputEditText
 import android.support.v7.app.AppCompatActivity
 import android.text.*
-import android.text.method.LinkMovementMethod
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
@@ -39,6 +37,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import com.eggheadgames.aboutbox.AboutConfig
+import com.eggheadgames.aboutbox.activity.AboutActivity
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import net.thauvin.erik.android.tesremoteprogrammer.models.Config
@@ -55,12 +55,13 @@ import java.io.FileNotFoundException
 import java.io.InputStreamReader
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
-import java.text.SimpleDateFormat
+import java.text.DateFormat
 import java.util.*
 
 @RuntimePermissions
 class MainActivity : AppCompatActivity(), AnkoLogger {
     lateinit var config: Config
+    val aboutConfig: AboutConfig = AboutConfig.getInstance()
     val configurationsData = "configurations.dat"
     val currentConfigData = "config.dat"
     val defaultConfigurations = listOf(
@@ -115,6 +116,38 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
             saveConfigurations(confs)
             saveConfig(false)
+        }
+
+        // About dialog configuration
+        with(aboutConfig) {
+            appName = getString(R.string.app_name)
+            appIcon = R.mipmap.ic_launcher
+
+            version = BuildConfig.VERSION_NAME
+
+            author = "Erik C. Thauvin"
+
+            extraTitle = "Last Update"
+            extra = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault()).format(
+                    Date(BuildConfig.TIMESTAMP)).toString()
+
+            emailAddress = "erik@thauvin.net"
+            emailSubject = "${getString(R.string.app_name)} ${BuildConfig.VERSION_NAME} Support"
+            emailBody = ""
+
+            packageName = applicationContext.packageName
+            buildType = AboutConfig.BuildType.GOOGLE
+            shareMessage = "https://play.google.com/store/apps/details?id=$packageName"
+
+            appPublisher = "6626207141685878216"
+            aboutLabelTitle = "About Erik C. Thauvin"
+            companyHtmlPath = "https://m.thauvin.net/"
+
+            twitterUserName = "ethauvin"
+            webHomePage = "https://thauv.in/TESRemote"
+
+            privacyHtmlPath = "https://m.thauvin.net/apps-privacy.shtml"
+            acknowledgmentHtmlPath = "https://m.thauvin.net/android/TESRemoteProgrammer/licenses.shtml"
         }
     }
 
@@ -280,25 +313,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_about -> {
-                val alert = alert {
-                    title = getString(R.string.app_name)
-                    icon = getDrawable(R.mipmap.ic_launcher)
-                    customView {
-                        linearLayout {
-                            topPadding = dip(16)
-                            rightPadding = topPadding
-                            leftPadding = topPadding * 2
-                            textView(fromHtml(getString(R.string.about_message,
-                                    BuildConfig.VERSION_NAME,
-                                    SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date(BuildConfig.TIMESTAMP))))) {
-                                movementMethod = LinkMovementMethod.getInstance()
-                                setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18f)
-                                setTextColor(Color.BLACK)
-                            }
-                        }
-                    }
-                    okButton {}
-                }.show()
+                AboutActivity.launch(this)
             }
             R.id.action_confs -> {
                 val confs = loadConfigurations().configs.toSortedMap()

@@ -18,6 +18,7 @@
 package net.thauvin.erik.android.tesremoteprogrammer
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -228,8 +229,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     if (validateFields(params.type, fields, option)) {
                         val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
                         if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}", option.nodial)) {
-                            ProgrammingActivityPermissionsDispatcher.callWithCheck(
-                                    this@ProgrammingActivity, params.phone, dtmf)
+                            callWithPermissionCheck(params.phone, dtmf)
                         } else {
                             Snackbar.make(this@coordinatorLayout,
                                     getString(R.string.error_invalid_dtmf, dtmf),
@@ -244,11 +244,12 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
+    @SuppressLint("NeedOnRequestPermissionsResult")
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<out String>,
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        ProgrammingActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults)
+        onRequestPermissionsResult(requestCode, grantResults)
     }
 
     @NeedsPermission(Manifest.permission.CALL_PHONE)

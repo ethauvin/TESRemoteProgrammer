@@ -18,6 +18,7 @@
 package net.thauvin.erik.android.tesremoteprogrammer
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -186,7 +187,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == readRequestCode && resultCode == Activity.RESULT_OK) {
             if (data != null) {
-                MainActivityPermissionsDispatcher.importConfigWithCheck(this, data)
+                importConfigWithPermissionCheck(data)
             }
         }
     }
@@ -354,11 +355,12 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         return super.onOptionsItemSelected(item)
     }
 
+    @SuppressLint("NeedOnRequestPermissionsResult")
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<out String>,
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults)
+        onRequestPermissionsResult(requestCode, grantResults)
     }
 
     fun loadConfigurations(): Configurations {

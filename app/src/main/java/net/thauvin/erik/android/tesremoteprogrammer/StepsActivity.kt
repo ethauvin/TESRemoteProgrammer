@@ -27,7 +27,7 @@ import java.util.*
 
 class StepsActivity : FragmentActivity() {
     companion object {
-        val EXTRA_STEPS = "steps"
+        const val EXTRA_STEPS = "steps"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

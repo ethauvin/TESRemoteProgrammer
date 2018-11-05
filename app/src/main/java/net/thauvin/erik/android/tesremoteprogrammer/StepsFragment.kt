@@ -29,7 +29,7 @@ class StepsFragment : Fragment() {
     private var pageNumber: Int = 0
 
     companion object {
-        val ARG_PAGE = "page"
+        const val ARG_PAGE = "page"
         private val steps = ArrayList<String>()
 
         fun create(pageNumber: Int, steps: ArrayList<String>): StepsFragment {

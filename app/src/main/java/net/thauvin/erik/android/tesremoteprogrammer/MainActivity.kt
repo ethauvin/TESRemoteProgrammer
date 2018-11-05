@@ -59,11 +59,11 @@ import java.util.*
 
 @RuntimePermissions
 class MainActivity : AppCompatActivity(), AnkoLogger {
-    lateinit var config: Config
-    val aboutConfig: AboutConfig = AboutConfig.getInstance()
-    val configurationsData = "configurations.dat"
-    val currentConfigData = "config.dat"
-    val defaultConfigurations = listOf(
+    private lateinit var config: Config
+    private val aboutConfig: AboutConfig = AboutConfig.getInstance()
+    private val configurationsData = "configurations.dat"
+    private val currentConfigData = "config.dat"
+    private val defaultConfigurations = listOf(
             R.raw.dks_1802,
             R.raw.dks_1802_epd,
             R.raw.dks_1812,
@@ -71,14 +71,14 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             R.raw.linear_ae_100,
             R.raw.linear_ae_500,
             R.raw.dks_1803_1808_1810)
-    val readRequestCode = 42
+    private val readRequestCode = 42
 
     companion object {
-        val PAUSE = ','
-        val QUOTE = "'"
+        const val PAUSE = ','
+        const val QUOTE = "'"
     }
 
-    fun fromHtml(s: String): Spanned {
+    private fun fromHtml(s: String): Spanned {
         if (Build.VERSION.SDK_INT >= 24) {
             return Html.fromHtml(s, Html.FROM_HTML_MODE_LEGACY)
         } else {
@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    fun initConfigurations() {
+    private fun initConfigurations() {
         try {
             ObjectInputStream(openFileInput(currentConfigData)).use {
                 config = it.readObject() as Config
@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     }
                 }
 
-                confs.configs.put(config.params.name, config)
+                confs.configs[config.params.name] = config
             }
 
             saveConfigurations(confs)
@@ -318,29 +318,26 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
                 alert.setTitle(R.string.action_config)
 
-                alert.setSingleChoiceItems(keys.toTypedArray(), checked,
-                        { dialogInterface, i ->
-                            if (i != checked) {
-                                config = confs.getOrElse(keys.elementAt(i), defaultValue = { config })
-                                saveConfig()
-                                this.recreate()
-                            }
-                            dialogInterface.dismiss()
-                        })
+                alert.setSingleChoiceItems(keys.toTypedArray(), checked) { dialogInterface, i ->
+                    if (i != checked) {
+                        config = confs.getOrElse(keys.elementAt(i), defaultValue = { config })
+                        saveConfig()
+                        this.recreate()
+                    }
+                    dialogInterface.dismiss()
+                }
 
-                alert.setNegativeButton(android.R.string.cancel,
-                        { dialogInterface, _ ->
-                            dialogInterface.dismiss()
-                        })
+                alert.setNegativeButton(android.R.string.cancel) { dialogInterface, _ ->
+                    dialogInterface.dismiss()
+                }
 
-                alert.setNeutralButton(R.string.dialog_import,
-                        { dialogInterface, _ ->
-                            dialogInterface.dismiss()
-                            val intent = Intent(Intent.ACTION_GET_CONTENT)
-                            intent.addCategory(Intent.CATEGORY_OPENABLE)
-                            intent.type = "application/json"
-                            startActivityForResult(intent, readRequestCode)
-                        })
+                alert.setNeutralButton(R.string.dialog_import) { dialogInterface, _ ->
+                    dialogInterface.dismiss()
+                    val intent = Intent(Intent.ACTION_GET_CONTENT)
+                    intent.addCategory(Intent.CATEGORY_OPENABLE)
+                    intent.type = "application/json"
+                    startActivityForResult(intent, readRequestCode)
+                }
 
                 alert.show()
 
@@ -357,7 +354,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         onRequestPermissionsResult(requestCode, grantResults)
     }
 
-    fun loadConfigurations(): Configurations {
+    private fun loadConfigurations(): Configurations {
         try {
             ObjectInputStream(openFileInput(configurationsData)).use {
                 return it.readObject() as Configurations
@@ -367,15 +364,15 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    fun saveConfigurations(confs: Configurations) =
+    private fun saveConfigurations(confs: Configurations) =
             ObjectOutputStream(openFileOutput(configurationsData, Context.MODE_PRIVATE)).use {
                 it.writeObject(confs)
             }
 
-    fun saveConfig(backup: Boolean = true) {
+    private fun saveConfig(backup: Boolean = true) {
         if (backup) {
             val confs = loadConfigurations()
-            confs.configs.put(config.params.name, config)
+            confs.configs[config.params.name] = config
             saveConfigurations(confs)
         }
 
@@ -384,7 +381,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    fun validateConfig(config: Config, errors: StringBuilder): Boolean {
+    private fun validateConfig(config: Config, errors: StringBuilder): Boolean {
         val len = errors.length
 
         with(config) {
@@ -421,6 +418,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 opts.forEachIndexed { i, option ->
                     // gson will create a null object on trailing comma
                     // see: https://github.com/google/gson/issues/494
+                    @Suppress("SENSELESS_COMPARISON")
                     if (option == null) {
                         errors.append(getString(R.string.validate_syntax_error, "opts[]"))
                     } else {
@@ -600,7 +598,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         return errors.length == len
     }
 
-    fun validateFields(fields: ArrayList<Pair<EditText, Int>>): Boolean {
+    private fun validateFields(fields: ArrayList<Pair<EditText, Int>>): Boolean {
         var isValid = true
 
         fields.forEach {

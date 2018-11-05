@@ -26,13 +26,11 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
-import android.support.design.widget.TextInputEditText
 import android.support.v7.app.AppCompatActivity
 import android.text.*
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
@@ -48,7 +46,7 @@ import net.thauvin.erik.android.tesremoteprogrammer.util.Dtmf
 import net.thauvin.erik.android.tesremoteprogrammer.util.isDKS
 import net.thauvin.erik.android.tesremoteprogrammer.util.isDigits
 import org.jetbrains.anko.*
-import org.jetbrains.anko.custom.ankoView
+import org.jetbrains.anko.design.textInputEditText
 import org.jetbrains.anko.design.textInputLayout
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
@@ -79,8 +77,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         val PAUSE = ','
         val QUOTE = "'"
     }
-
-    inline fun ViewManager.textInputEditText(theme: Int = 0, init: TextInputEditText.() -> Unit) = ankoView(::TextInputEditText, theme, init)
 
     fun fromHtml(s: String): Spanned {
         if (Build.VERSION.SDK_INT >= 24) {
@@ -219,7 +215,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 textInputLayout {
                     horizontalPadding = dip(40)
                     val editText = textInputEditText {
-                        lparams(width = matchParent)
                         inputType = InputType.TYPE_CLASS_PHONE
                         hint = getString(R.string.hint_phone_number)
 
@@ -242,7 +237,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 textInputLayout {
                     horizontalPadding = dip(40)
                     val editText = textInputEditText {
-                        lparams(width = matchParent)
                         inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
                         hint = getString(R.string.hint_master_code)
                         filters = arrayOf(InputFilter.LengthFilter(size))
@@ -280,7 +274,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     text = getString(R.string.programming_heading)
                     setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18f)
                     typeface = Typeface.DEFAULT_BOLD
-                }.lparams(width = matchParent)
+                }
 
                 // options list
                 listView {
@@ -301,7 +295,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                                     "net.thauvin.erik.android.tesremoteprogrammer.models.Option" to opts[position])
                         }
                     }
-                }.lparams(width = matchParent)
+                }
             }
         }
     }
@@ -471,7 +465,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                                 }
 
                                 if (!Dtmf.validate(mock,
-                                        "${MainActivity.PAUSE}${params.ack}${params.alt}$blank", nodial)) {
+                                                "${MainActivity.PAUSE}${params.ack}${params.alt}$blank", nodial)) {
                                     errors.append(getString(
                                             R.string.validate_invalid_opts_prop,
                                             i + 1,

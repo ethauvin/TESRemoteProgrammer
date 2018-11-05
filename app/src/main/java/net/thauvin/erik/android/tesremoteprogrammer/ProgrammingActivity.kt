@@ -25,11 +25,12 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.design.widget.TextInputEditText
 import android.support.v7.app.AppCompatActivity
 import android.text.InputFilter
 import android.text.InputType
+import android.text.SpannableString
 import android.text.TextUtils
+import android.text.style.ImageSpan
 import android.util.TypedValue
 import android.view.Gravity.*
 import android.view.ViewManager
@@ -59,9 +60,9 @@ import java.util.*
 
 @RuntimePermissions
 class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
-    val empty = ""
+    private val empty = ""
 
-    inline fun ViewManager.autofitTextView(theme: Int = 0, init: AutoResizeTextView.() -> Unit) = ankoView(::AutoResizeTextView, theme, init)
+    private inline fun ViewManager.autofitTextView(theme: Int = 0, init: AutoResizeTextView.() -> Unit) = ankoView(::AutoResizeTextView, theme, init)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -226,18 +227,24 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     elevation = dip(6).toFloat()
                     behavior = ScrollAwareFABBehavior()
                 }.setOnClickListener {
-                    if (validateFields(params.type, fields, option)) {
-                        val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
-                        if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}", option.nodial)) {
-                            callWithPermissionCheck(params.phone, dtmf)
+                    if (validateFieldsForCall(params.type, fields)) {
+                        if (validateFields(params.type, fields, option)) {
+                            val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
+                            if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}", option.nodial)) {
+                                callWithPermissionCheck(params.phone, dtmf)
+                            } else {
+                                Snackbar.make(this@coordinatorLayout,
+                                        getString(R.string.error_invalid_dtmf, dtmf),
+                                        Snackbar.LENGTH_LONG).show()
+                            }
                         } else {
-                            Snackbar.make(this@coordinatorLayout,
-                                    getString(R.string.error_invalid_dtmf, dtmf),
+                            Snackbar.make(this@coordinatorLayout, R.string.error_invalid_field,
                                     Snackbar.LENGTH_LONG).show()
                         }
                     } else {
-                        Snackbar.make(this@coordinatorLayout, R.string.error_invalid_field,
-                                Snackbar.LENGTH_LONG).show()
+                        val text = SpannableString(getString(R.string.error_invalid_field_for_call) + "   ")
+                        text.setSpan(ImageSpan(context, R.drawable.ic_menu_dialpad_lt), text.length - 1, text.length, 0)
+                        Snackbar.make(this@coordinatorLayout, text, Snackbar.LENGTH_LONG).show()
                     }
                 }
             }
@@ -260,7 +267,18 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
         makeCall("$phone${MainActivity.PAUSE}${MainActivity.PAUSE}$dtmf")
     }
 
-    fun validateFields(type: String, fields: ArrayList<EditText>, option: Option): Boolean {
+    private fun validateFieldsForCall(type: String, fields: ArrayList<EditText>): Boolean {
+        if (type.isDKS()) {
+            fields.forEach {
+                if (it.text.contains('#')) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+
+    private fun validateFields(type: String, fields: ArrayList<EditText>, option: Option): Boolean {
         var isValid = true
 
         fields.forEachIndexed { i, v ->
@@ -307,7 +325,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
         return isValid
     }
 
-    fun validateSize(size: Int, min: Int, max: Int): Boolean = if (min > 0) {
+    private fun validateSize(size: Int, min: Int, max: Int): Boolean = if (min > 0) {
         size in IntRange(min, max)
     } else {
         size == max

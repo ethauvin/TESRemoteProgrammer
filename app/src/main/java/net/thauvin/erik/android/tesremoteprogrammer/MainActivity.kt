@@ -27,7 +27,11 @@ import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.text.*
+import android.text.Html
+import android.text.InputFilter
+import android.text.InputType
+import android.text.Spanned
+import android.text.TextUtils
 import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
@@ -45,9 +49,22 @@ import net.thauvin.erik.android.tesremoteprogrammer.models.Configurations
 import net.thauvin.erik.android.tesremoteprogrammer.util.Dtmf
 import net.thauvin.erik.android.tesremoteprogrammer.util.isDKS
 import net.thauvin.erik.android.tesremoteprogrammer.util.isDigits
-import org.jetbrains.anko.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.bottomPadding
+import org.jetbrains.anko.cancelButton
 import org.jetbrains.anko.design.textInputEditText
 import org.jetbrains.anko.design.textInputLayout
+import org.jetbrains.anko.dip
+import org.jetbrains.anko.horizontalPadding
+import org.jetbrains.anko.info
+import org.jetbrains.anko.listView
+import org.jetbrains.anko.padding
+import org.jetbrains.anko.singleLine
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.textView
+import org.jetbrains.anko.topPadding
+import org.jetbrains.anko.verticalLayout
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 import java.io.FileNotFoundException
@@ -55,7 +72,9 @@ import java.io.InputStreamReader
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.text.DateFormat
-import java.util.*
+import java.util.ArrayList
+import java.util.Date
+import java.util.Locale
 
 @RuntimePermissions
 class MainActivity : AppCompatActivity(), AnkoLogger {
@@ -64,13 +83,13 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     private val configurationsData = "configurations.dat"
     private val currentConfigData = "config.dat"
     private val defaultConfigurations = listOf(
-            R.raw.dks_1802,
-            R.raw.dks_1802_epd,
-            R.raw.dks_1812,
-            R.raw.dks_1819,
-            R.raw.linear_ae_100,
-            R.raw.linear_ae_500,
-            R.raw.dks_1803_1808_1810)
+        R.raw.dks_1802,
+        R.raw.dks_1802_epd,
+        R.raw.dks_1812,
+        R.raw.dks_1819,
+        R.raw.linear_ae_100,
+        R.raw.linear_ae_500,
+        R.raw.dks_1803_1808_1810)
     private val readRequestCode = 42
 
     companion object {
@@ -97,7 +116,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
             defaultConfigurations.forEach {
                 config = Gson().fromJson(InputStreamReader(resources.openRawResource(it)),
-                        Config::class.java)
+                    Config::class.java)
 
                 if (BuildConfig.DEBUG) {
                     val errors = StringBuilder()
@@ -126,7 +145,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
             extraTitle = "Last Update"
             extra = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault()).format(
-                    Date(BuildConfig.TIMESTAMP)).toString()
+                Date(BuildConfig.TIMESTAMP)).toString()
 
             emailAddress = "erik@thauvin.net"
             emailSubject = "${getString(R.string.app_name)} ${BuildConfig.VERSION_NAME} Support"
@@ -154,7 +173,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         val tmp: Config? = try {
             Gson().fromJson(InputStreamReader(contentResolver.openInputStream(intent.data)),
-                    Config::class.java)
+                Config::class.java)
         } catch (jse: JsonSyntaxException) {
             val cause = jse.cause
             if (cause != null) {
@@ -291,8 +310,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                         if (validateFields(fields)) {
                             saveConfig()
                             startActivity<ProgrammingActivity>(
-                                    "net.thauvin.erik.android.tesremoteprogrammer.models.Params" to config.params,
-                                    "net.thauvin.erik.android.tesremoteprogrammer.models.Option" to opts[position])
+                                "net.thauvin.erik.android.tesremoteprogrammer.models.Params" to config.params,
+                                "net.thauvin.erik.android.tesremoteprogrammer.models.Option" to opts[position])
                         }
                     }
                 }
@@ -340,16 +359,17 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 }
 
                 alert.show()
-
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
     @SuppressLint("NeedOnRequestPermissionsResult")
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<out String>,
-                                            grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         onRequestPermissionsResult(requestCode, grantResults)
     }
@@ -365,9 +385,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     }
 
     private fun saveConfigurations(confs: Configurations) =
-            ObjectOutputStream(openFileOutput(configurationsData, Context.MODE_PRIVATE)).use {
-                it.writeObject(confs)
-            }
+        ObjectOutputStream(openFileOutput(configurationsData, Context.MODE_PRIVATE)).use {
+            it.writeObject(confs)
+        }
 
     private fun saveConfig(backup: Boolean = true) {
         if (backup) {
@@ -397,7 +417,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     errors.append(getString(R.string.validate_missing_param, "type"))
                 } else if (!Dtmf.isValidType(type)) {
                     errors.append(getString(R.string.validate_invalid_param, "type"))
-
                 }
 
                 // size
@@ -426,49 +445,49 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                             // title
                             if (title.isBlank()) {
                                 errors.append(getString(
-                                        R.string.validate_missing_opts_prop,
-                                        i + 1,
-                                        "title"))
+                                    R.string.validate_missing_opts_prop,
+                                    i + 1,
+                                    "title"))
                             }
 
                             // nosteps/nodial
                             if (nosteps && nodial) {
                                 errors.append(getString(
-                                        R.string.validate_invalid_option,
-                                        i + 1,
-                                        "nodial/nosteps"))
+                                    R.string.validate_invalid_option,
+                                    i + 1,
+                                    "nodial/nosteps"))
                             }
 
                             // dtmf
                             if (dtmf.isBlank()) {
                                 errors.append(getString(
-                                        R.string.validate_missing_opts_prop,
-                                        i + 1,
-                                        "dtmf"))
+                                    R.string.validate_missing_opts_prop,
+                                    i + 1,
+                                    "dtmf"))
                             } else if (!nodial && fields.isEmpty()) { // fields missing
                                 errors.append(getString(
-                                        R.string.validate_missing_opts_prop,
-                                        i + 1,
-                                        "fields"))
+                                    R.string.validate_missing_opts_prop,
+                                    i + 1,
+                                    "fields"))
                             } else {
                                 val blank = "\\0"
                                 val mock = Dtmf.mock(option, blank)
 
                                 if (!mock.contains(MainActivity.PAUSE)) { // no pause
                                     errors.append(getString(
-                                            R.string.validate_invalid_opts_prop,
-                                            i + 1,
-                                            "dtmf",
-                                            getString(R.string.validate_dtmf_nopause)))
+                                        R.string.validate_invalid_opts_prop,
+                                        i + 1,
+                                        "dtmf",
+                                        getString(R.string.validate_dtmf_nopause)))
                                 }
 
                                 if (!Dtmf.validate(mock,
-                                                "${MainActivity.PAUSE}${params.ack}${params.alt}$blank", nodial)) {
+                                        "${MainActivity.PAUSE}${params.ack}${params.alt}$blank", nodial)) {
                                     errors.append(getString(
-                                            R.string.validate_invalid_opts_prop,
-                                            i + 1,
-                                            "dtmf",
-                                            mock.replace(blank, "&#10003;")))
+                                        R.string.validate_invalid_opts_prop,
+                                        i + 1,
+                                        "dtmf",
+                                        mock.replace(blank, "&#10003;")))
                                 }
                             }
 
@@ -476,78 +495,78 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                             fields.forEachIndexed { j, field ->
                                 if (field == null) {
                                     errors.append(getString(
-                                            R.string.validate_syntax_error,
-                                            "opts[${i + 1}], field[$j]"))
+                                        R.string.validate_syntax_error,
+                                        "opts[${i + 1}], field[$j]"))
                                 } else {
                                     with(field) {
                                         // size
                                         if (size <= 0) {
                                             errors.append(getString(
-                                                    R.string.validate_invalid_field_prop,
-                                                    i + 1,
-                                                    j + 1,
-                                                    resources.getQuantityString(R.plurals.error_prop, 1),
-                                                    "size=$size"))
+                                                R.string.validate_invalid_field_prop,
+                                                i + 1,
+                                                j + 1,
+                                                resources.getQuantityString(R.plurals.error_prop, 1),
+                                                "size=$size"))
                                         }
 
                                         // digits
                                         if (digits.isNotBlank() && !digits.isDigits()) {
                                             errors.append(getString(
-                                                    R.string.validate_invalid_field_prop,
-                                                    i + 1,
-                                                    j + 1,
-                                                    resources.getQuantityString(R.plurals.error_prop, 1),
-                                                    "digits='$digits'"))
+                                                R.string.validate_invalid_field_prop,
+                                                i + 1,
+                                                j + 1,
+                                                resources.getQuantityString(R.plurals.error_prop, 1),
+                                                "digits='$digits'"))
                                         }
 
                                         // minSize
                                         if (minSize >= 0 && minSize > size) {
                                             errors.append(getString(
-                                                    R.string.validate_invalid_field_prop,
-                                                    i + 1,
-                                                    j + 1,
-                                                    resources.getQuantityString(R.plurals.error_prop, 2),
-                                                    "minSize=$minSize > size=$size"))
+                                                R.string.validate_invalid_field_prop,
+                                                i + 1,
+                                                j + 1,
+                                                resources.getQuantityString(R.plurals.error_prop, 2),
+                                                "minSize=$minSize > size=$size"))
                                         }
 
                                         // numeric fields only
                                         if (!alpha) {
                                             if (minSize == 0) {
                                                 errors.append(getString(
-                                                        R.string.validate_invalid_field_prop,
-                                                        i + 1,
-                                                        j + 1,
-                                                        resources.getQuantityString(R.plurals.error_prop, 1),
-                                                        "minSize=$minSize"))
+                                                    R.string.validate_invalid_field_prop,
+                                                    i + 1,
+                                                    j + 1,
+                                                    resources.getQuantityString(R.plurals.error_prop, 1),
+                                                    "minSize=$minSize"))
                                             }
 
                                             // min/max
                                             if (min >= 0 || max >= 0) {
                                                 if (max < 1) {
                                                     errors.append(getString(
-                                                            R.string.validate_invalid_field_prop,
-                                                            i + 1,
-                                                            j + 1,
-                                                            resources.getQuantityString(R.plurals.error_prop, 1),
-                                                            "max=$max"))
+                                                        R.string.validate_invalid_field_prop,
+                                                        i + 1,
+                                                        j + 1,
+                                                        resources.getQuantityString(R.plurals.error_prop, 1),
+                                                        "max=$max"))
                                                 }
 
                                                 if (min < 0) {
                                                     errors.append(getString(
-                                                            R.string.validate_invalid_field_prop,
-                                                            i + 1,
-                                                            j + 1,
-                                                            resources.getQuantityString(R.plurals.error_prop, 1),
-                                                            "min=$min"))
+                                                        R.string.validate_invalid_field_prop,
+                                                        i + 1,
+                                                        j + 1,
+                                                        resources.getQuantityString(R.plurals.error_prop, 1),
+                                                        "min=$min"))
                                                 }
 
                                                 if (min > max) {
                                                     errors.append(getString(
-                                                            R.string.validate_invalid_field_prop,
-                                                            i + 1,
-                                                            j + 1,
-                                                            resources.getQuantityString(R.plurals.error_prop, 2),
-                                                            "min=$min > max=$max"))
+                                                        R.string.validate_invalid_field_prop,
+                                                        i + 1,
+                                                        j + 1,
+                                                        resources.getQuantityString(R.plurals.error_prop, 2),
+                                                        "min=$min > max=$max"))
                                                 }
                                             }
 
@@ -557,11 +576,11 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                                                 if (min >= 0 && minSize > 0) {
                                                     if (min.toString().length != minSize) {
                                                         errors.append(getString(
-                                                                R.string.validate_invalid_field_prop,
-                                                                i + 1,
-                                                                j + 1,
-                                                                resources.getQuantityString(R.plurals.error_prop, 2),
-                                                                "minSize=$minSize/min=$min"))
+                                                            R.string.validate_invalid_field_prop,
+                                                            i + 1,
+                                                            j + 1,
+                                                            resources.getQuantityString(R.plurals.error_prop, 2),
+                                                            "minSize=$minSize/min=$min"))
                                                     }
                                                 }
 
@@ -569,11 +588,11 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                                                 if (size > 0 && max > 0) {
                                                     if (max.toString().length != size) {
                                                         errors.append(getString(
-                                                                R.string.validate_invalid_field_prop,
-                                                                i + 1,
-                                                                j + 1,
-                                                                resources.getQuantityString(R.plurals.error_prop, 2),
-                                                                "size=$size/max=$max"))
+                                                            R.string.validate_invalid_field_prop,
+                                                            i + 1,
+                                                            j + 1,
+                                                            resources.getQuantityString(R.plurals.error_prop, 2),
+                                                            "size=$size/max=$max"))
                                                     }
                                                 }
                                             }
@@ -582,9 +601,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                                         // unused fields
                                         if (!dtmf.contains(Dtmf.DTMF_FIELD.format(j + 1))) {
                                             errors.append(getString(
-                                                    R.string.validate_unused_field,
-                                                    i + 1,
-                                                    j + 1))
+                                                R.string.validate_unused_field,
+                                                i + 1,
+                                                j + 1))
                                         }
                                     }
                                 }
@@ -608,7 +627,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     isValid = false
                 } else if (second > 0 && first.text.length != second) {
                     first.error = getString(R.string.error_invalid_size, second,
-                            resources.getQuantityString(R.plurals.error_digit, second), "")
+                        resources.getQuantityString(R.plurals.error_digit, second), "")
                     isValid = false
                 }
             }

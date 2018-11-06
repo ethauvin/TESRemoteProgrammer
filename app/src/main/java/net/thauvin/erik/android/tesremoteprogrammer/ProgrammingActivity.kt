@@ -32,7 +32,9 @@ import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ImageSpan
 import android.util.TypedValue
-import android.view.Gravity.*
+import android.view.Gravity.BOTTOM
+import android.view.Gravity.END
+import android.view.Gravity.START
 import android.view.ViewManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -47,16 +49,29 @@ import net.thauvin.erik.android.tesremoteprogrammer.util.Dtmf
 import net.thauvin.erik.android.tesremoteprogrammer.util.isDKS
 import net.thauvin.erik.android.tesremoteprogrammer.util.isLinear
 import net.thauvin.erik.android.tesremoteprogrammer.widget.ScrollAwareFABBehavior
-import org.jetbrains.anko.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.bottomPadding
 import org.jetbrains.anko.custom.ankoView
 import org.jetbrains.anko.design.coordinatorLayout
 import org.jetbrains.anko.design.floatingActionButton
 import org.jetbrains.anko.design.textInputEditText
 import org.jetbrains.anko.design.textInputLayout
+import org.jetbrains.anko.dip
+import org.jetbrains.anko.horizontalPadding
+import org.jetbrains.anko.imageResource
+import org.jetbrains.anko.info
+import org.jetbrains.anko.makeCall
+import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.padding
+import org.jetbrains.anko.singleLine
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.nestedScrollView
+import org.jetbrains.anko.topPadding
+import org.jetbrains.anko.verticalLayout
+import org.jetbrains.anko.wrapContent
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
-import java.util.*
+import java.util.ArrayList
 
 @RuntimePermissions
 class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
@@ -100,7 +115,6 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                             typeface = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC)
                             freezesText = true
                         }.lparams(width = matchParent, height = matchParent)
-
                     } else {
                         val it = option.fields.iterator()
                         while (it.hasNext()) {
@@ -129,11 +143,11 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                                         inputFilters.add(NumberFilter(field.digits, if (field.alt) params.alt else empty))
                                         if (field.max != -1 && field.min != -1) {
                                             inputFilters.add(
-                                                    MinMaxFilter(
-                                                            field.min,
-                                                            field.max,
-                                                            field.size,
-                                                            params.type.isDKS() || field.zeros))
+                                                MinMaxFilter(
+                                                    field.min,
+                                                    field.max,
+                                                    field.size,
+                                                    params.type.isDKS() || field.zeros))
                                         }
                                     }
 
@@ -203,15 +217,15 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                             }
 
                             startActivity<StepsActivity>(
-                                    StepsActivity.EXTRA_STEPS to "$begin${dtmf.replace(MainActivity.QUOTE, empty)}$end".split(MainActivity.PAUSE))
+                                StepsActivity.EXTRA_STEPS to "$begin${dtmf.replace(MainActivity.QUOTE, empty)}$end".split(MainActivity.PAUSE))
                         } else {
                             Snackbar.make(this@coordinatorLayout,
-                                    getString(R.string.error_invalid_dtmf, dtmf),
-                                    Snackbar.LENGTH_LONG).show()
+                                getString(R.string.error_invalid_dtmf, dtmf),
+                                Snackbar.LENGTH_LONG).show()
                         }
                     } else {
                         Snackbar.make(this@coordinatorLayout, R.string.error_invalid_field,
-                                Snackbar.LENGTH_LONG).show()
+                            Snackbar.LENGTH_LONG).show()
                     }
                 }
             }
@@ -234,12 +248,12 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                                 callWithPermissionCheck(params.phone, dtmf)
                             } else {
                                 Snackbar.make(this@coordinatorLayout,
-                                        getString(R.string.error_invalid_dtmf, dtmf),
-                                        Snackbar.LENGTH_LONG).show()
+                                    getString(R.string.error_invalid_dtmf, dtmf),
+                                    Snackbar.LENGTH_LONG).show()
                             }
                         } else {
                             Snackbar.make(this@coordinatorLayout, R.string.error_invalid_field,
-                                    Snackbar.LENGTH_LONG).show()
+                                Snackbar.LENGTH_LONG).show()
                         }
                     } else {
                         val text = SpannableString(getString(R.string.error_invalid_field_for_call) + "   ")
@@ -252,9 +266,11 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
     }
 
     @SuppressLint("NeedOnRequestPermissionsResult")
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<out String>,
-                                            grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         onRequestPermissionsResult(requestCode, grantResults)
     }
@@ -295,16 +311,16 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     } else if (!validateSize(v.length(), if ((!type.isDKS() && !zeros) && min >= 0) min.toString().length else minSize, size)) {
                         if (minSize > 0) {
                             v.error = getString(
-                                    R.string.error_invalid_size,
-                                    minSize,
-                                    resources.getQuantityString(R.plurals.error_digit, minSize),
-                                    getString(R.string.error_minimum))
+                                R.string.error_invalid_size,
+                                minSize,
+                                resources.getQuantityString(R.plurals.error_digit, minSize),
+                                getString(R.string.error_minimum))
                         } else {
                             v.error = getString(
-                                    R.string.error_invalid_size,
-                                    size,
-                                    resources.getQuantityString(R.plurals.error_digit, size),
-                                    empty)
+                                R.string.error_invalid_size,
+                                size,
+                                resources.getQuantityString(R.plurals.error_digit, size),
+                                empty)
                         }
                         isValid = false
                     } else if (min >= 0 && max > 0) {

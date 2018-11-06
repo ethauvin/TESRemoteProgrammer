@@ -1,3 +1,7 @@
+plugins {
+    id "org.jlleitschuh.gradle.ktlint" version "6.2.1"
+}
+
 //noinspection GradleCompatible
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'

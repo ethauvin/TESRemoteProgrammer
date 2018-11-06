@@ -23,26 +23,30 @@ import android.support.v4.view.ViewCompat
 import android.view.View
 
 class ScrollAwareFABBehavior : FloatingActionButton.Behavior() {
-    override fun onStartNestedScroll(coordinatorLayout: CoordinatorLayout,
-                                     child: FloatingActionButton,
-                                     directTargetChild: View,
-                                     target: View,
-                                     nestedScrollAxes: Int,
-                                     type: Int): Boolean =
-            nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL ||
-                    super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target,
-                            nestedScrollAxes, type)
+    override fun onStartNestedScroll(
+        coordinatorLayout: CoordinatorLayout,
+        child: FloatingActionButton,
+        directTargetChild: View,
+        target: View,
+        nestedScrollAxes: Int,
+        type: Int
+    ): Boolean =
+        nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL ||
+            super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target,
+                nestedScrollAxes, type)
 
-    override fun onNestedScroll(coordinatorLayout: CoordinatorLayout,
-                                child: FloatingActionButton,
-                                target: View,
-                                dxConsumed: Int,
-                                dyConsumed: Int,
-                                dxUnconsumed: Int,
-                                dyUnconsumed: Int,
-                                type: Int) {
+    override fun onNestedScroll(
+        coordinatorLayout: CoordinatorLayout,
+        child: FloatingActionButton,
+        target: View,
+        dxConsumed: Int,
+        dyConsumed: Int,
+        dxUnconsumed: Int,
+        dyUnconsumed: Int,
+        type: Int
+    ) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed,
-                dxUnconsumed, dyUnconsumed, type)
+            dxUnconsumed, dyUnconsumed, type)
         if (dyConsumed > 0 && child.visibility == View.VISIBLE) {
             // see: https://stackoverflow.com/a/42082313/5640587
             child.hide(object : FloatingActionButton.OnVisibilityChangedListener() {

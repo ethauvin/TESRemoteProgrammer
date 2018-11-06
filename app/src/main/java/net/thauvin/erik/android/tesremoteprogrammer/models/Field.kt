@@ -21,20 +21,23 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.io.Serializable
 
-data class Field(var hint: String,
-                 var digits: String,
-                 var alpha: Boolean,
-                 val alt: Boolean,
-                 val zeros: Boolean,
-                 var minSize: Int,
-                 var size: Int,
-                 var min: Int,
-                 var max: Int) : Parcelable, Serializable {
-
+data class Field(
+    var hint: String,
+    var digits: String,
+    var alpha: Boolean,
+    val alt: Boolean,
+    val zeros: Boolean,
+    var minSize: Int,
+    var size: Int,
+    var min: Int,
+    var max: Int
+) : Parcelable, Serializable {
     companion object {
-        private @JvmStatic val serialVersionUID: Long = 1
+        @JvmStatic
+        private val serialVersionUID: Long = 1
 
-        @JvmField val CREATOR: Parcelable.Creator<Field> = object : Parcelable.Creator<Field> {
+        @JvmField
+        val CREATOR: Parcelable.Creator<Field> = object : Parcelable.Creator<Field> {
             override fun createFromParcel(source: Parcel): Field = Field(source)
             override fun newArray(size: Int): Array<Field?> = arrayOfNulls(size)
         }
@@ -43,15 +46,15 @@ data class Field(var hint: String,
     constructor() : this("", "", false, false, false, -1, -1, -1, -1)
 
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString(),
-            1 == source.readInt(),
-            1 == source.readInt(),
-            1 == source.readInt(),
-            source.readInt(),
-            source.readInt(),
-            source.readInt(),
-            source.readInt())
+        source.readString(),
+        source.readString(),
+        1 == source.readInt(),
+        1 == source.readInt(),
+        1 == source.readInt(),
+        source.readInt(),
+        source.readInt(),
+        source.readInt(),
+        source.readInt())
 
     override fun describeContents() = 0
 

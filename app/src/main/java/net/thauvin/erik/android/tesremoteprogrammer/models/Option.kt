@@ -21,16 +21,19 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.io.Serializable
 
-data class Option(var title: String,
-                  var fields: List<Field?>,
-                  var nodial: Boolean,
-                  var nosteps: Boolean,
-                  var dtmf: String) : Parcelable, Serializable, Comparable<Option> {
-
+data class Option(
+    var title: String,
+    var fields: List<Field?>,
+    var nodial: Boolean,
+    var nosteps: Boolean,
+    var dtmf: String
+) : Parcelable, Serializable, Comparable<Option> {
     companion object {
-        private @JvmStatic val serialVersionUID: Long = 1
+        @JvmStatic
+        private val serialVersionUID: Long = 1
 
-        @JvmField val CREATOR: Parcelable.Creator<Option> = object : Parcelable.Creator<Option> {
+        @JvmField
+        val CREATOR: Parcelable.Creator<Option> = object : Parcelable.Creator<Option> {
             override fun createFromParcel(source: Parcel): Option = Option(source)
             override fun newArray(size: Int): Array<Option?> = arrayOfNulls(size)
         }
@@ -39,11 +42,11 @@ data class Option(var title: String,
     constructor() : this("", emptyList(), false, false, "")
 
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.createTypedArrayList(Field.CREATOR),
-            1 == source.readInt(),
-            1 == source.readInt(),
-            source.readString())
+        source.readString(),
+        source.createTypedArrayList(Field.CREATOR),
+        1 == source.readInt(),
+        1 == source.readInt(),
+        source.readString())
 
     override fun compareTo(other: Option): Int = title.compareTo(other.title)
 
@@ -56,5 +59,4 @@ data class Option(var title: String,
         dest?.writeInt((if (nosteps) 1 else 0))
         dest?.writeString(dtmf)
     }
-
 }

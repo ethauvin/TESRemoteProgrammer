@@ -24,5 +24,5 @@ import org.acra.sender.ReportSenderFactory
 
 class CrashEmailFactory : ReportSenderFactory {
     override fun create(context: Context, config: ACRAConfiguration): ReportSender =
-            CrashEmail(config)
+        CrashEmail(config)
 }

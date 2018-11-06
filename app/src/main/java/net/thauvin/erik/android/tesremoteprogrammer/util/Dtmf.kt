@@ -20,7 +20,7 @@ package net.thauvin.erik.android.tesremoteprogrammer.util
 import android.widget.EditText
 import net.thauvin.erik.android.tesremoteprogrammer.MainActivity
 import net.thauvin.erik.android.tesremoteprogrammer.models.Option
-import java.util.*
+import java.util.ArrayList
 
 class Dtmf {
     companion object {
@@ -89,7 +89,6 @@ class Dtmf {
 
         fun isValidType(type: String): Boolean = type.equals(DKS, true) || type.equals(LINEAR, true)
 
-
         private fun linearAlphaToDigits(text: String): String {
             val result = StringBuffer()
 
@@ -150,22 +149,24 @@ class Dtmf {
             return result.toString()
         }
 
-        fun build(type: String,
-                  master: String,
-                  ack: String,
-                  option: Option,
-                  fields: ArrayList<EditText>): String {
+        fun build(
+            type: String,
+            master: String,
+            ack: String,
+            option: Option,
+            fields: ArrayList<EditText>
+        ): String {
             val replace = arrayListOf(Pair(DTMF_MASTER, master))
 
             fields.forEachIndexed { i, field ->
                 replace.add(Pair(DTMF_FIELD.format(i + 1),
-                        if (option.fields[i]!!.alpha && type.isDKS()) {
-                            dksAlphaToDigits(field.text.toString(), ack)
-                        } else if (option.fields[i]!!.alpha && type.isLinear()) {
-                            linearAlphaToDigits(field.text.toString())
-                        } else {
-                            field.text.toString()
-                        }))
+                    if (option.fields[i]!!.alpha && type.isDKS()) {
+                        dksAlphaToDigits(field.text.toString(), ack)
+                    } else if (option.fields[i]!!.alpha && type.isLinear()) {
+                        linearAlphaToDigits(field.text.toString())
+                    } else {
+                        field.text.toString()
+                    }))
             }
 
             return option.dtmf.replaceAll(replace.toTypedArray())

@@ -22,13 +22,14 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 
 class AlphaFilter(private val extras: String) : InputFilter {
-    override fun filter(source: CharSequence,
-                        start: Int,
-                        end: Int,
-                        dest: Spanned,
-                        dstart: Int,
-                        dend: Int): CharSequence? {
-
+    override fun filter(
+        source: CharSequence,
+        start: Int,
+        end: Int,
+        dest: Spanned,
+        dstart: Int,
+        dend: Int
+    ): CharSequence? {
         if (source is SpannableStringBuilder) {
             for (i in end - 1 downTo start) {
                 val c = source[i]
@@ -40,9 +41,9 @@ class AlphaFilter(private val extras: String) : InputFilter {
         } else {
             val sb = StringBuilder()
             (start until end)
-                    .map { source[it] }
-                    .filter { it.isLetterOrDigit() || extras.contains(it) }
-                    .forEach { sb.append(it) }
+                .map { source[it] }
+                .filter { it.isLetterOrDigit() || extras.contains(it) }
+                .forEach { sb.append(it) }
             return sb.toString()
         }
     }

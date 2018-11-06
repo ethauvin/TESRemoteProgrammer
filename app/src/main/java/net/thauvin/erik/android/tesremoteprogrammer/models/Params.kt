@@ -21,20 +21,23 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.io.Serializable
 
-data class Params(var name: String,
-                  var type: String,
-                  var phone: String,
-                  var master: String,
-                  var size: Int,
-                  var ack: String,
-                  var alt: String,
-                  var begin: String,
-                  var end: String) : Parcelable, Serializable {
-
+data class Params(
+    var name: String,
+    var type: String,
+    var phone: String,
+    var master: String,
+    var size: Int,
+    var ack: String,
+    var alt: String,
+    var begin: String,
+    var end: String
+) : Parcelable, Serializable {
     companion object {
-        private @JvmStatic val serialVersionUID: Long = 1
+        @JvmStatic
+        private val serialVersionUID: Long = 1
 
-        @JvmField val CREATOR: Parcelable.Creator<Params> = object : Parcelable.Creator<Params> {
+        @JvmField
+        val CREATOR: Parcelable.Creator<Params> = object : Parcelable.Creator<Params> {
             override fun createFromParcel(source: Parcel): Params = Params(source)
             override fun newArray(size: Int): Array<Params?> = arrayOfNulls(size)
         }
@@ -43,15 +46,15 @@ data class Params(var name: String,
     constructor() : this("", "", "", "", -1, "", "", "", "")
 
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readInt(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString())
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readInt(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString())
 
     override fun describeContents() = 0
 

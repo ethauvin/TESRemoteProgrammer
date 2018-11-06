@@ -18,11 +18,12 @@
 package net.thauvin.erik.android.tesremoteprogrammer.models
 
 import java.io.Serializable
-import java.util.*
+import java.util.HashMap
 
 class Configurations : Serializable {
     companion object {
-        private @JvmStatic val serialVersionUID: Long = 1
+        @JvmStatic
+        private val serialVersionUID: Long = 1
     }
 
     val configs = HashMap<String, Config>()

@@ -36,7 +36,7 @@ class CrashEmail(private val config: ACRAConfiguration) : ReportSender {
     override fun send(context: Context, errorContent: CrashReportData) {
 
         val subject = context.getString(R.string.crash_report_subject,
-                context.getString(R.string.app_name))
+            context.getString(R.string.app_name))
         val body = buildBody(errorContent)
 
         val emailIntent = Intent(android.content.Intent.ACTION_SENDTO)

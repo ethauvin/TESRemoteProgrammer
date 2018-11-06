@@ -28,7 +28,7 @@ import org.acra.dialog.BaseCrashReportDialog
 import org.jetbrains.anko.find
 
 class CrashReportActivity : BaseCrashReportDialog(), DialogInterface.OnDismissListener,
-        DialogInterface.OnClickListener {
+    DialogInterface.OnClickListener {
     private var comment: EditText? = null
 
     companion object {
@@ -39,11 +39,11 @@ class CrashReportActivity : BaseCrashReportDialog(), DialogInterface.OnDismissLi
         super.init(savedInstanceState)
 
         val dialog = AlertDialog.Builder(this)
-                .setTitle(getString(R.string.crash_dialog_title, getString(R.string.app_name)))
-                .setView(R.layout.crash_report_dialog)
-                .setPositiveButton(R.string.ok, this)
-                .setNegativeButton(R.string.cancel, this)
-                .create()
+            .setTitle(getString(R.string.crash_dialog_title, getString(R.string.app_name)))
+            .setView(R.layout.crash_report_dialog)
+            .setPositiveButton(R.string.ok, this)
+            .setNegativeButton(R.string.cancel, this)
+            .create()
 
         dialog.setCanceledOnTouchOutside(false)
         dialog.setOnDismissListener(this)

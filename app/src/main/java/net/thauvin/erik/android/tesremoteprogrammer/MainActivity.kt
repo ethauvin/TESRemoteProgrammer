@@ -240,7 +240,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                         inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
                         hint = getString(R.string.hint_master_code)
                         filters = arrayOf(InputFilter.LengthFilter(size))
-                        setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_verified_user_black_24dp, 0)
+                        setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_lock_question_black_24dp, 0)
                         imeOptions = EditorInfo.IME_ACTION_DONE
 
                         if (master.isNotBlank()) {

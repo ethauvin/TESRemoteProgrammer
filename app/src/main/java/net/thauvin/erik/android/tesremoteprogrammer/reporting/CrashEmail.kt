@@ -48,7 +48,7 @@ class CrashEmail(private val config: ACRAConfiguration) : ReportSender {
     }
 
     private fun buildBody(errorContent: CrashReportData): String {
-        var fields: Set<ReportField> = config.reportFields
+        var fields: Set<ReportField> = config.reportContent()
         if (fields.isEmpty()) {
             fields = ImmutableSet(*ACRAConstants.DEFAULT_MAIL_REPORT_FIELDS)
         }

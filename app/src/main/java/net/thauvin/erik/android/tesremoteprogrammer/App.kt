@@ -27,7 +27,7 @@ import org.acra.annotation.ReportsCrashes
 
 @ReportsCrashes(mailTo = "erik@thauvin.net",
     mode = ReportingInteractionMode.DIALOG,
-    reportSenderFactoryClasses = arrayOf(CrashEmailFactory::class),
+    reportSenderFactoryClasses = [CrashEmailFactory::class],
     reportDialogClass = CrashReportActivity::class)
 open class App : Application() {
     override fun attachBaseContext(base: Context) {

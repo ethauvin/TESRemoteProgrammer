@@ -29,7 +29,7 @@ In the main activity screen enter the entry system's phone number and master cod
 
 ![Programming Activity](images/screenshots/add_phone_number_framed_small.png) ![Programming Activity](images/screenshots/set_time_clock_framed_small.png)
 
-In the programming activity screen fill out the fields and click the ![Dial](images/call_fab.png) floating button (if available) to dial the programming in or the ![Dial](images/dialpad_fab.png) floating button to scroll through the manual (keypad) steps.
+In the programming activity screens fill out the fields and click the ![Dial](images/call_fab.png) floating button (if available) to dial the programming in or the ![Dial](images/dialpad_fab.png) floating button to scroll through the manual (keypad) steps.
 
 ## Configurations
 

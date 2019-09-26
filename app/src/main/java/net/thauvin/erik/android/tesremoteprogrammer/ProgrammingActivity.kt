@@ -35,11 +35,9 @@ import android.util.TypedValue
 import android.view.Gravity.BOTTOM
 import android.view.Gravity.END
 import android.view.Gravity.START
-import android.view.ViewManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import com.lb.auto_fit_textview.AutoResizeTextView
 import net.thauvin.erik.android.tesremoteprogrammer.filters.AlphaFilter
 import net.thauvin.erik.android.tesremoteprogrammer.filters.MinMaxFilter
 import net.thauvin.erik.android.tesremoteprogrammer.filters.NumberFilter
@@ -51,7 +49,6 @@ import net.thauvin.erik.android.tesremoteprogrammer.util.isLinear
 import net.thauvin.erik.android.tesremoteprogrammer.util.toDialPad
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.bottomPadding
-import org.jetbrains.anko.custom.ankoView
 import org.jetbrains.anko.design.coordinatorLayout
 import org.jetbrains.anko.design.floatingActionButton
 import org.jetbrains.anko.design.textInputEditText
@@ -63,9 +60,9 @@ import org.jetbrains.anko.info
 import org.jetbrains.anko.makeCall
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.padding
-import org.jetbrains.anko.singleLine
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.nestedScrollView
+import org.jetbrains.anko.textView
 import org.jetbrains.anko.topPadding
 import org.jetbrains.anko.verticalLayout
 import org.jetbrains.anko.wrapContent
@@ -77,8 +74,6 @@ import java.util.ArrayList
 class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
     private val empty = ""
 
-    private inline fun ViewManager.autofitTextView(theme: Int = 0, init: AutoResizeTextView.() -> Unit) = ankoView(::AutoResizeTextView, theme, init)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -88,12 +83,11 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
 
         coordinatorLayout {
             // option title
-            autofitTextView {
+            textView {
                 padding = dip(20)
                 text = option.title
-                setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20f)
-                singleLine = true
-                maxLines = 1
+                setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24f)
+                maxLines = 2
                 typeface = Typeface.DEFAULT_BOLD
                 isFocusableInTouchMode = true
                 ellipsize = TextUtils.TruncateAt.END
@@ -110,8 +104,9 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     // fields
                     if (option.fields.isEmpty()) {
                         // no configurations
-                        autofitTextView {
+                        textView {
                             text = getString(R.string.no_conf_req)
+                            setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20f)
                             typeface = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC)
                             freezesText = true
                         }.lparams(width = matchParent, height = matchParent)

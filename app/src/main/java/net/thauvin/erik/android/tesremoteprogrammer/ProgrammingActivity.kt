@@ -49,6 +49,7 @@ import net.thauvin.erik.android.tesremoteprogrammer.util.Dtmf
 import net.thauvin.erik.android.tesremoteprogrammer.util.isDKS
 import net.thauvin.erik.android.tesremoteprogrammer.util.isLinear
 import net.thauvin.erik.android.tesremoteprogrammer.widget.ScrollAwareFABBehavior
+import net.thauvin.erik.android.tesremoteprogrammer.util.toDialPad
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.bottomPadding
 import org.jetbrains.anko.custom.ankoView
@@ -217,15 +218,24 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                             }
 
                             startActivity<StepsActivity>(
-                                StepsActivity.EXTRA_STEPS to "$begin${dtmf.replace(MainActivity.QUOTE, empty)}$end".split(MainActivity.PAUSE))
+                                StepsActivity.EXTRA_STEPS to "$begin${
+                                dtmf.replace(
+                                    MainActivity.QUOTE,
+                                    empty
+                                )}$end".toDialPad().split(MainActivity.PAUSE)
+                            )
                         } else {
-                            Snackbar.make(this@coordinatorLayout,
+                            Snackbar.make(
+                                this@coordinatorLayout,
                                 getString(R.string.error_invalid_dtmf, dtmf),
-                                Snackbar.LENGTH_LONG).show()
+                                Snackbar.LENGTH_LONG
+                            ).show()
                         }
                     } else {
-                        Snackbar.make(this@coordinatorLayout, R.string.error_invalid_field,
-                            Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(
+                            this@coordinatorLayout, R.string.error_invalid_field,
+                            Snackbar.LENGTH_LONG
+                        ).show()
                     }
                 }
             }

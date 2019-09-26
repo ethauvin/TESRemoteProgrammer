@@ -1,7 +1,7 @@
 /*
  * NumberFilter.kt
  *
- * Copyright 2016-2018 Erik C. Thauvin (erik@thauvin.net)
+ * Copyright 2016-2019 Erik C. Thauvin (erik@thauvin.net)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,14 @@ class NumberFilter(allowed: String, alt: String) : InputFilter, AnkoLogger {
     private val allowed: String
     private val digits = "0123456789"
 
+    init {
+        this.allowed = if (allowed.isDigits()) {
+            "$allowed$alt"
+        } else {
+            "$digits$alt"
+        }
+    }
+
     override fun filter(
         source: CharSequence,
         start: Int,
@@ -50,14 +58,6 @@ class NumberFilter(allowed: String, alt: String) : InputFilter, AnkoLogger {
                 .filter { allowed.contains(it) }
                 .forEach { sb.append(it.toUpperCase()) }
             return sb.toString()
-        }
-    }
-
-    init {
-        this.allowed = if (allowed.isDigits()) {
-            "$allowed$alt"
-        } else {
-            "$digits$alt"
         }
     }
 }

@@ -1,7 +1,7 @@
 /*
  * SplashActivity.kt
  *
- * Copyright 2016-2018 Erik C. Thauvin (erik@thauvin.net)
+ * Copyright 2016-2019 Erik C. Thauvin (erik@thauvin.net)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ import android.support.v7.app.AppCompatActivity
 import org.jetbrains.anko.startActivity
 
 class SplashActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

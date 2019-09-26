@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <full-backup-content>
-    <include domain="file" path="configurations.dat"/>
-    <include domain="file" path="config.dat"/>
+    <include
+            domain="file"
+            path="configurations.dat" />
+    <include
+            domain="file"
+            path="config.dat" />
 </full-backup-content>

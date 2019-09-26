@@ -1,7 +1,7 @@
 /*
  * Option.kt
  *
- * Copyright 2016-2018 Erik C. Thauvin (erik@thauvin.net)
+ * Copyright 2016-2019 Erik C. Thauvin (erik@thauvin.net)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,8 @@ data class Option(
         source.createTypedArrayList(Field.CREATOR),
         1 == source.readInt(),
         1 == source.readInt(),
-        source.readString())
+        source.readString()
+    )
 
     override fun compareTo(other: Option): Int = title.compareTo(other.title)
 

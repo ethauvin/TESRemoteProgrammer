@@ -1,7 +1,7 @@
 /*
  * MinMaxFilter.kt
  *
- * Copyright 2016-2018 Erik C. Thauvin (erik@thauvin.net)
+ * Copyright 2016-2019 Erik C. Thauvin (erik@thauvin.net)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,21 @@ import android.text.InputFilter
 import android.text.Spanned
 import org.jetbrains.anko.AnkoLogger
 
-class MinMaxFilter(private val min: Int, private val max: Int, private val size: Int, private val zeros: Boolean) : InputFilter, AnkoLogger {
+class MinMaxFilter(
+    private val min: Int,
+    private val max: Int,
+    private val size: Int,
+    private val zeros: Boolean
+) : InputFilter, AnkoLogger {
 
-    override fun filter(source: CharSequence, start: Int, end: Int, dest: Spanned, dstart: Int, dend: Int): CharSequence? {
+    override fun filter(
+        source: CharSequence,
+        start: Int,
+        end: Int,
+        dest: Spanned,
+        dstart: Int,
+        dend: Int
+    ): CharSequence? {
         val input = (dest.toString() + source.toString())
 
         if (isInRange(input, size, min, max, zeros)) {

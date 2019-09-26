@@ -1,7 +1,7 @@
 /*
  * CrashEmail.kt
  *
- * Copyright 2016-2018 Erik C. Thauvin (erik@thauvin.net)
+ * Copyright 2016-2019 Erik C. Thauvin (erik@thauvin.net)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,8 +35,10 @@ class CrashEmail(private val config: ACRAConfiguration) : ReportSender {
     @Throws(ReportSenderException::class)
     override fun send(context: Context, errorContent: CrashReportData) {
 
-        val subject = context.getString(R.string.crash_report_subject,
-            context.getString(R.string.app_name))
+        val subject = context.getString(
+            R.string.crash_report_subject,
+            context.getString(R.string.app_name)
+        )
         val body = buildBody(errorContent)
 
         val emailIntent = Intent(android.content.Intent.ACTION_SENDTO)

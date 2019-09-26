@@ -1,7 +1,7 @@
 /*
  * Config.kt
  *
- * Copyright 2016-2018 Erik C. Thauvin (erik@thauvin.net)
+ * Copyright 2016-2019 Erik C. Thauvin (erik@thauvin.net)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,10 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.io.Serializable
 
-data class Config(var params: Params, var opts: List<Option>) : Parcelable, Serializable, Comparable<Config> {
+data class Config(
+    var params: Params,
+    var opts: List<Option>
+) : Parcelable, Serializable, Comparable<Config> {
     companion object {
         @JvmStatic
         private val serialVersionUID: Long = 1
@@ -37,7 +40,8 @@ data class Config(var params: Params, var opts: List<Option>) : Parcelable, Seri
 
     constructor(source: Parcel) : this(
         source.readParcelable<Params>(Params::class.java.classLoader),
-        source.createTypedArrayList(Option.CREATOR))
+        source.createTypedArrayList(Option.CREATOR)
+    )
 
     override fun compareTo(other: Config): Int = params.name.compareTo(other.params.name)
 

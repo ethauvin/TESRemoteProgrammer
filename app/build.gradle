@@ -1,21 +1,20 @@
 plugins {
-    id "org.jlleitschuh.gradle.ktlint" version "6.2.1"
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'org.jmailen.kotlinter' version '2.1.1'
+    id 'com.github.ben-manes.versions' version '0.25.0'
 }
 
-//noinspection GradleCompatible
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId "net.thauvin.erik.android.tesremoteprogrammer"
-        minSdkVersion 21
-        targetSdkVersion 27
+        minSdkVersion 26
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         buildConfigField "long", "TIMESTAMP", System.currentTimeMillis()  + "L"
@@ -32,8 +31,8 @@ android {
 }
 
 ext {
-    anko_version = '0.10.7'
-    support_version = "27.1.1"
+    anko_version = '0.10.8'
+    support_version = "28.0.0"
 }
 
 dependencies {
@@ -53,9 +52,6 @@ dependencies {
 
     // https://github.com/JakeWharton/ViewPagerIndicator
     implementation 'fr.avianey.com.viewpagerindicator:library:2.4.1.1@aar'
-
-    // https://github.com/AndroidDeveloperLB/AutoFitTextView
-    implementation 'com.github.AndroidDeveloperLB:AutoFitTextView:4'
 
     // https://github.com/hotchemi/PermissionsDispatcher
     // Version 4.x does not work.
@@ -81,4 +77,11 @@ repositories {
 
 kapt {
     //generateStubs = true
+}
+
+kotlinter {
+    ignoreFailures = false
+    reporters = ['html']
+    experimentalRules = false
+    disabledRules = ['import-ordering']
 }

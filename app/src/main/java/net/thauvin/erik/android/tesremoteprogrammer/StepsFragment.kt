@@ -1,7 +1,7 @@
 /*
  * StepsFragment.kt
  *
- * Copyright 2016-2018 Erik C. Thauvin (erik@thauvin.net)
+ * Copyright 2016-2019 Erik C. Thauvin (erik@thauvin.net)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,11 @@ class StepsFragment : Fragment() {
         if (steps.isEmpty()) {
             activity.finish()
         } else {
-            frag_steps_title.text = getString(R.string.title_template_step, pageNumber + 1, steps.size)
+            frag_steps_title.text = getString(
+                R.string.title_template_step,
+                pageNumber + 1,
+                steps.size
+            )
             frag_steps.text = steps[pageNumber]
         }
     }

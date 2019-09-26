@@ -1,7 +1,7 @@
 /*
  * CrashReportActivity.kt
  *
- * Copyright 2016-2018 Erik C. Thauvin (erik@thauvin.net)
+ * Copyright 2016-2019 Erik C. Thauvin (erik@thauvin.net)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@ import org.acra.dialog.BaseCrashReportDialog
 import org.jetbrains.anko.find
 
 class CrashReportActivity : BaseCrashReportDialog(), DialogInterface.OnDismissListener,
-    DialogInterface.OnClickListener {
+                            DialogInterface.OnClickListener {
     private var comment: EditText? = null
 
     companion object {
-        private val STATE_USER_COMMENT = "comment"
+        private const val STATE_USER_COMMENT = "comment"
     }
 
     override fun init(savedInstanceState: Bundle?) {

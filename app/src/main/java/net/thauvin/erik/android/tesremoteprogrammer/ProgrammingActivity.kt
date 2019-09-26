@@ -1,7 +1,7 @@
 /*
  * ProgrammingActivity.kt
  *
- * Copyright 2016-2018 Erik C. Thauvin (erik@thauvin.net)
+ * Copyright 2016-2019 Erik C. Thauvin (erik@thauvin.net)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,8 +77,8 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val params: Params = intent.extras.getParcelable("net.thauvin.erik.android.tesremoteprogrammer.models.Params")
-        val option: Option = intent.extras.getParcelable("net.thauvin.erik.android.tesremoteprogrammer.models.Option")
+        val params: Params = intent.extras!!.getParcelable("net.thauvin.erik.android.tesremoteprogrammer.models.Params")
+        val option: Option = intent.extras!!.getParcelable("net.thauvin.erik.android.tesremoteprogrammer.models.Option")
         val fields = arrayListOf<EditText>()
 
         coordinatorLayout {
@@ -135,14 +135,21 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                                         }
                                     } else {
                                         inputType = InputType.TYPE_CLASS_PHONE
-                                        inputFilters.add(NumberFilter(field.digits, if (field.alt) params.alt else empty))
+                                        inputFilters.add(
+                                            NumberFilter(
+                                                field.digits,
+                                                if (field.alt) params.alt else empty
+                                            )
+                                        )
                                         if (field.max != -1 && field.min != -1) {
                                             inputFilters.add(
                                                 MinMaxFilter(
                                                     field.min,
                                                     field.max,
                                                     field.size,
-                                                    params.type.isDKS() || field.zeros))
+                                                    params.type.isDKS() || field.zeros
+                                                )
+                                            )
                                         }
                                     }
 
@@ -196,8 +203,18 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     elevation = dip(6).toFloat()
                 }.setOnClickListener {
                     if (validateFields(params.type, fields, option)) {
-                        val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
-                        if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}", option.nodial)) {
+                        val dtmf = Dtmf.build(
+                            params.type,
+                            params.master,
+                            params.ack,
+                            option,
+                            fields
+                        )
+                        if (Dtmf.validate(
+                                dtmf,
+                                "${MainActivity.PAUSE}${params.ack}${params.alt}",
+                                option.nodial
+                            )) {
                             val begin = if (params.begin.isNotBlank()) {
                                 "${params.begin}${MainActivity.PAUSE}"
                             } else {
@@ -245,21 +262,40 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                 }.setOnClickListener {
                     if (validateFieldsForCall(params.type, fields)) {
                         if (validateFields(params.type, fields, option)) {
-                            val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
-                            if (Dtmf.validate(dtmf, "${MainActivity.PAUSE}${params.ack}${params.alt}", option.nodial)) {
+                            val dtmf = Dtmf.build(
+                                params.type,
+                                params.master,
+                                params.ack,
+                                option,
+                                fields
+                            )
+                            if (Dtmf.validate(
+                                    dtmf,
+                                    "${MainActivity.PAUSE}${params.ack}${params.alt}",
+                                    option.nodial
+                                )) {
                                 callWithPermissionCheck(params.phone, dtmf)
                             } else {
-                                Snackbar.make(this@coordinatorLayout,
+                                Snackbar.make(
+                                    this@coordinatorLayout,
                                     getString(R.string.error_invalid_dtmf, dtmf),
-                                    Snackbar.LENGTH_LONG).show()
+                                    Snackbar.LENGTH_LONG
+                                ).show()
                             }
                         } else {
-                            Snackbar.make(this@coordinatorLayout, R.string.error_invalid_field,
-                                Snackbar.LENGTH_LONG).show()
+                            Snackbar.make(
+                                this@coordinatorLayout, R.string.error_invalid_field,
+                                Snackbar.LENGTH_LONG
+                            ).show()
                         }
                     } else {
                         val text = SpannableString(getString(R.string.error_invalid_field_for_call) + "   ")
-                        text.setSpan(ImageSpan(context, R.drawable.ic_menu_dialpad_lt), text.length - 1, text.length, 0)
+                        text.setSpan(
+                            ImageSpan(context, R.drawable.ic_menu_dialpad_lt),
+                            text.length - 1,
+                            text.length,
+                            0
+                        )
                         Snackbar.make(this@coordinatorLayout, text, Snackbar.LENGTH_LONG).show()
                     }
                 }
@@ -310,19 +346,25 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     if (v.text.isNullOrBlank()) {
                         v.error = getString(R.string.error_required)
                         isValid = false
-                    } else if (!validateSize(v.length(), if ((!type.isDKS() && !zeros) && min >= 0) min.toString().length else minSize, size)) {
+                    } else if (!validateSize(
+                            v.length(),
+                            if ((!type.isDKS() && !zeros) && min >= 0) min.toString().length else minSize,
+                            size
+                        )) {
                         if (minSize > 0) {
                             v.error = getString(
                                 R.string.error_invalid_size,
                                 minSize,
                                 resources.getQuantityString(R.plurals.error_digit, minSize),
-                                getString(R.string.error_minimum))
+                                getString(R.string.error_minimum)
+                            )
                         } else {
                             v.error = getString(
                                 R.string.error_invalid_size,
                                 size,
                                 resources.getQuantityString(R.plurals.error_digit, size),
-                                empty)
+                                empty
+                            )
                         }
                         isValid = false
                     } else if (min >= 0 && max > 0) {

@@ -1,7 +1,7 @@
 /*
  * App.kt
  *
- * Copyright 2016-2018 Erik C. Thauvin (erik@thauvin.net)
+ * Copyright 2016-2019 Erik C. Thauvin (erik@thauvin.net)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,13 @@ import org.acra.ACRA
 import org.acra.ReportingInteractionMode
 import org.acra.annotation.ReportsCrashes
 
-@ReportsCrashes(mailTo = "erik@thauvin.net",
+@Suppress("unused")
+@ReportsCrashes(
+    mailTo = "erik@thauvin.net",
     mode = ReportingInteractionMode.DIALOG,
     reportSenderFactoryClasses = [CrashEmailFactory::class],
-    reportDialogClass = CrashReportActivity::class)
+    reportDialogClass = CrashReportActivity::class
+)
 open class App : Application() {
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)

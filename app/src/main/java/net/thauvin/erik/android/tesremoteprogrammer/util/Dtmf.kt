@@ -1,7 +1,7 @@
 /*
  * Dtmf.kt
  *
- * Copyright 2016-2018 Erik C. Thauvin (erik@thauvin.net)
+ * Copyright 2016-2019 Erik C. Thauvin (erik@thauvin.net)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +24,12 @@ import java.util.ArrayList
 
 class Dtmf {
     companion object {
-        val DTMF_MASTER = "[MASTER]"
-        val DTMF_FIELD = "[FIELD:%1\$d]"
-        val DKS = "dks"
-        val LINEAR = "linear"
-        val DKS_EXTRAS = " "
-        val LINEAR_EXTRAS = ", -."
+        const val DTMF_MASTER = "[MASTER]"
+        const val DTMF_FIELD = "[FIELD:%1\$d]"
+        const val DKS = "dks"
+        const val LINEAR = "linear"
+        const val DKS_EXTRAS = " "
+        const val LINEAR_EXTRAS = ", -."
 
         private fun dksAlphaToDigits(text: String, ack: String): String {
             val result = StringBuffer()
@@ -159,14 +159,18 @@ class Dtmf {
             val replace = arrayListOf(Pair(DTMF_MASTER, master))
 
             fields.forEachIndexed { i, field ->
-                replace.add(Pair(DTMF_FIELD.format(i + 1),
-                    if (option.fields[i]!!.alpha && type.isDKS()) {
-                        dksAlphaToDigits(field.text.toString(), ack)
-                    } else if (option.fields[i]!!.alpha && type.isLinear()) {
-                        linearAlphaToDigits(field.text.toString())
-                    } else {
-                        field.text.toString()
-                    }))
+                replace.add(
+                    Pair(
+                        DTMF_FIELD.format(i + 1),
+                        if (option.fields[i]!!.alpha && type.isDKS()) {
+                            dksAlphaToDigits(field.text.toString(), ack)
+                        } else if (option.fields[i]!!.alpha && type.isLinear()) {
+                            linearAlphaToDigits(field.text.toString())
+                        } else {
+                            field.text.toString()
+                        }
+                    )
+                )
             }
 
             return option.dtmf.replaceAll(replace.toTypedArray())

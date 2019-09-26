@@ -48,7 +48,6 @@ import net.thauvin.erik.android.tesremoteprogrammer.models.Params
 import net.thauvin.erik.android.tesremoteprogrammer.util.Dtmf
 import net.thauvin.erik.android.tesremoteprogrammer.util.isDKS
 import net.thauvin.erik.android.tesremoteprogrammer.util.isLinear
-import net.thauvin.erik.android.tesremoteprogrammer.widget.ScrollAwareFABBehavior
 import net.thauvin.erik.android.tesremoteprogrammer.util.toDialPad
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.bottomPadding
@@ -101,8 +100,8 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
             }.lparams(width = matchParent, height = matchParent)
 
             nestedScrollView {
-                topPadding = dip(50)
-                bottomPadding = dip(30)
+                topPadding = dip(80)
+                bottomPadding = dip(84)
                 horizontalPadding = dip(20)
 
                 verticalLayout {
@@ -200,7 +199,6 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
 
                     bottomMargin = dip(16)
                     elevation = dip(6).toFloat()
-                    behavior = ScrollAwareFABBehavior()
                 }.setOnClickListener {
                     if (validateFields(params.type, fields, option)) {
                         val dtmf = Dtmf.build(params.type, params.master, params.ack, option, fields)
@@ -249,7 +247,6 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                     bottomMargin = dip(16)
                     rightMargin = dip(16)
                     elevation = dip(6).toFloat()
-                    behavior = ScrollAwareFABBehavior()
                 }.setOnClickListener {
                     if (validateFieldsForCall(params.type, fields)) {
                         if (validateFields(params.type, fields, option)) {

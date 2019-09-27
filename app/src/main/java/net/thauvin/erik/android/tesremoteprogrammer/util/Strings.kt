@@ -17,19 +17,9 @@
  */
 package net.thauvin.erik.android.tesremoteprogrammer.util
 
-fun String.isDigits(): Boolean {
-    if (isBlank()) {
-        return false
-    }
+private val digitPattern = Regex("[0-9]+")
 
-    forEach {
-        if (!it.isDigit()) {
-            return false
-        }
-    }
-
-    return true
-}
+fun String.isDigits() = isNotBlank() && matches(digitPattern)
 
 fun String.isDKS(): Boolean = equals(Dtmf.DKS, true)
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <Blacklist></Blacklist>
+  <Whitelist>
+    <ID>ComplexMethod:Dtmf.kt$Dtmf.Companion$private fun dksAlphaToDigits(text: String, ack: String): String</ID>
+    <ID>ComplexMethod:Dtmf.kt$Dtmf.Companion$private fun linearAlphaToDigits(text: String): String</ID>
+    <ID>ComplexMethod:MainActivity.kt$MainActivity$private fun validateConfig(config: Config, errors: StringBuilder): Boolean</ID>
+    <ID>ComplexMethod:ProgrammingActivity.kt$ProgrammingActivity$override fun onCreate(savedInstanceState: Bundle?)</ID>
+    <ID>ComplexMethod:ProgrammingActivity.kt$ProgrammingActivity$private fun validateFields(type: String, fields: ArrayList&lt;EditText&gt;, option: Option): Boolean</ID>
+    <ID>LongMethod:MainActivity.kt$MainActivity$override fun onCreate(savedInstanceState: Bundle?)</ID>
+    <ID>LongMethod:MainActivity.kt$MainActivity$private fun validateConfig(config: Config, errors: StringBuilder): Boolean</ID>
+    <ID>LongMethod:ProgrammingActivity.kt$ProgrammingActivity$override fun onCreate(savedInstanceState: Bundle?)</ID>
+    <ID>MagicNumber:MainActivity.kt$MainActivity$10</ID>
+    <ID>MagicNumber:MainActivity.kt$MainActivity$18f</ID>
+    <ID>MagicNumber:MainActivity.kt$MainActivity$20</ID>
+    <ID>MagicNumber:MainActivity.kt$MainActivity$24f</ID>
+    <ID>MagicNumber:MainActivity.kt$MainActivity$40</ID>
+    <ID>MagicNumber:MainActivity.kt$MainActivity$42</ID>
+    <ID>MagicNumber:MainActivity.kt$MainActivity$5</ID>
+    <ID>MagicNumber:ProgrammingActivity.kt$ProgrammingActivity$16</ID>
+    <ID>MagicNumber:ProgrammingActivity.kt$ProgrammingActivity$20</ID>
+    <ID>MagicNumber:ProgrammingActivity.kt$ProgrammingActivity$20f</ID>
+    <ID>MagicNumber:ProgrammingActivity.kt$ProgrammingActivity$24f</ID>
+    <ID>MagicNumber:ProgrammingActivity.kt$ProgrammingActivity$40</ID>
+    <ID>MagicNumber:ProgrammingActivity.kt$ProgrammingActivity$6</ID>
+    <ID>MagicNumber:ProgrammingActivity.kt$ProgrammingActivity$80</ID>
+    <ID>MagicNumber:ProgrammingActivity.kt$ProgrammingActivity$84</ID>
+    <ID>NestedBlockDepth:Dtmf.kt$Dtmf.Companion$fun validate(dtmf: String, extra: String, nodial: Boolean): Boolean</ID>
+    <ID>NestedBlockDepth:MainActivity.kt$MainActivity$private fun initConfigurations()</ID>
+    <ID>NestedBlockDepth:MinMaxFilter.kt$MinMaxFilter$private fun isInRange(s: String, size: Int, min: Int, max: Int, zeros: Boolean): Boolean</ID>
+    <ID>NestedBlockDepth:Strings.kt$fun String.replaceAll(replace: Array&lt;Pair&lt;String, String&gt;&gt;): String</ID>
+    <ID>ReturnCount:MinMaxFilter.kt$MinMaxFilter$private fun isInRange(s: String, size: Int, min: Int, max: Int, zeros: Boolean): Boolean</ID>
+    <ID>TooManyFunctions:MainActivity.kt$MainActivity : AppCompatActivityAnkoLogger</ID>
+  </Whitelist>
+</SmellBaseline>

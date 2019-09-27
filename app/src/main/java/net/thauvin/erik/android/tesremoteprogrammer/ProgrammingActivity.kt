@@ -127,10 +127,12 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
 
                                     if (field.alpha) {
                                         if (params.type.isDKS()) {
-                                            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+                                            inputType = InputType.TYPE_CLASS_TEXT or
+                                                InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
                                             inputFilters.add(AlphaFilter(Dtmf.DKS_EXTRAS))
                                         } else if (params.type.isLinear()) {
-                                            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
+                                            inputType = InputType.TYPE_CLASS_TEXT or
+                                                InputType.TYPE_TEXT_FLAG_CAP_WORDS
                                             inputFilters.add(AlphaFilter(Dtmf.LINEAR_EXTRAS))
                                         }
                                     } else {
@@ -166,7 +168,9 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
                                         setOnEditorActionListener { _, id, _ ->
                                             if (id == EditorInfo.IME_ACTION_DONE) {
                                                 clearFocus()
-                                                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                                                val imm =
+                                                    getSystemService(Context.INPUT_METHOD_SERVICE)
+                                                        as InputMethodManager
                                                 imm.hideSoftInputFromWindow(windowToken, 0)
                                                 true
                                             } else {

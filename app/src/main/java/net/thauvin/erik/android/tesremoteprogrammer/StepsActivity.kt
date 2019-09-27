@@ -44,7 +44,7 @@ class StepsActivity : FragmentActivity() {
         fm: FragmentManager,
         steps: ArrayList<String>
     ) : FragmentStatePagerAdapter(fm) {
-        private val steps = ArrayList<String>(steps)
+        private val steps = ArrayList(steps)
 
         override fun getItem(position: Int): Fragment = StepsFragment.create(position, steps)
 

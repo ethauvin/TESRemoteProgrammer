@@ -21,6 +21,7 @@ import android.widget.EditText
 import net.thauvin.erik.android.tesremoteprogrammer.MainActivity
 import net.thauvin.erik.android.tesremoteprogrammer.models.Option
 import java.util.ArrayList
+import java.util.Locale
 
 class Dtmf {
     companion object {
@@ -34,7 +35,7 @@ class Dtmf {
         private fun dksAlphaToDigits(text: String, ack: String): String {
             val result = StringBuffer()
 
-            text.toUpperCase().forEach { c ->
+            text.toUpperCase(Locale.getDefault()).forEach { c ->
                 when (c) {
                     'A' -> result.append("2$ack${MainActivity.PAUSE}")
                     'B' -> result.append("22$ack${MainActivity.PAUSE}")
@@ -92,7 +93,7 @@ class Dtmf {
         private fun linearAlphaToDigits(text: String): String {
             val result = StringBuffer()
 
-            text.toUpperCase().forEach { c ->
+            text.toUpperCase(Locale.getDefault()).forEach { c ->
                 when (c) {
                     'A' -> result.append("1${MainActivity.PAUSE}")
                     'B' -> result.append("11${MainActivity.PAUSE}")
@@ -177,10 +178,10 @@ class Dtmf {
         }
 
         fun validate(dtmf: String, extra: String, nodial: Boolean): Boolean {
-            dtmf.split(MainActivity.PAUSE).forEach {
-                if (!(nodial && it.endsWith(MainActivity.QUOTE) && it.startsWith(MainActivity.QUOTE))) {
-                    it.forEach {
-                        if (!(it.isDigit() || it == ',' || extra.contains(it))) {
+            dtmf.split(MainActivity.PAUSE).forEach { s ->
+                if (!(nodial && s.endsWith(MainActivity.QUOTE) && s.startsWith(MainActivity.QUOTE))) {
+                    s.forEach { ch ->
+                        if (!(ch.isDigit() || ch == ',' || extra.contains(ch))) {
                             return false
                         }
                     }

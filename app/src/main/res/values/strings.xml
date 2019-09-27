@@ -12,11 +12,6 @@
     <string name="alert_config_error">Configuration Errors</string>
     <string name="app_name">TES Remote Programmer</string>
     <string name="cancel">Cancel</string>
-    <string name="crash_dialog_comment_prompt">You may add your comments about the problem below:</string>
-    <string name="crash_dialog_text">An unexpected error occurred forcing the app to stop. Would you like to e-mail a crash report to help fix the issue?</string>
-    <string name="crash_dialog_title">%1$s has crashed</string>
-    <string name="crash_report_subject">%1$s Crash Report</string>
-    <string name="crash_toast_text">Generating Crash Report</string>
     <string name="dialog_import">Import</string>
     <string name="error_invalid">Invalid</string>
     <string name="error_invalid_dtmf">Invalid DTMF: <xliff:g id="type">%1$s</xliff:g></string>

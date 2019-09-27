@@ -32,12 +32,6 @@
         <activity
                 android:name=".StepsActivity"
                 android:screenOrientation="landscape" />
-        <activity
-                android:name=".reporting.CrashReportActivity"
-                android:excludeFromRecents="true"
-                android:finishOnTaskLaunch="true"
-                android:launchMode="singleInstance"
-                android:process=":error_report" />
 
     </application>
 

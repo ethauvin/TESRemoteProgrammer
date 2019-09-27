@@ -18,23 +18,11 @@
 package net.thauvin.erik.android.tesremoteprogrammer
 
 import android.app.Application
-import android.content.Context
-import net.thauvin.erik.android.tesremoteprogrammer.reporting.CrashEmailFactory
-import net.thauvin.erik.android.tesremoteprogrammer.reporting.CrashReportActivity
-import org.acra.ACRA
-import org.acra.ReportingInteractionMode
-import org.acra.annotation.ReportsCrashes
 
 @Suppress("unused")
-@ReportsCrashes(
-    mailTo = "erik@thauvin.net",
-    mode = ReportingInteractionMode.DIALOG,
-    reportSenderFactoryClasses = [CrashEmailFactory::class],
-    reportDialogClass = CrashReportActivity::class
-)
+
 open class App : Application() {
-    override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
-        ACRA.init(this)
-    }
+//    override fun attachBaseContext(base: Context) {
+//        super.attachBaseContext(base)
+//    }
 }

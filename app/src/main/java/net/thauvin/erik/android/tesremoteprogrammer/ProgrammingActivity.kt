@@ -77,12 +77,14 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val params: Params = intent.extras!!.getParcelable(
-            "net.thauvin.erik.android.tesremoteprogrammer.models.Params"
-        )
-        val option: Option = intent.extras!!.getParcelable(
-            "net.thauvin.erik.android.tesremoteprogrammer.models.Option"
-        )
+        val params: Params =
+            intent?.extras?.getParcelable(
+                "net.thauvin.erik.android.tesremoteprogrammer.models.Params"
+            ) ?: Params()
+        val option: Option =
+            intent?.extras?.getParcelable(
+                "net.thauvin.erik.android.tesremoteprogrammer.models.Option"
+            ) ?: Option()
         val fields = arrayListOf<EditText>()
 
         coordinatorLayout {

@@ -19,6 +19,7 @@ package net.thauvin.erik.android.tesremoteprogrammer.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import net.thauvin.erik.android.tesremoteprogrammer.util.ifNull
 import java.io.Serializable
 
 data class Option(
@@ -42,11 +43,11 @@ data class Option(
     constructor() : this("", emptyList(), false, false, "")
 
     constructor(source: Parcel) : this(
-        source.readString(),
-        source.createTypedArrayList(Field.CREATOR),
+        source.readString().ifNull(),
+        source.createTypedArrayList(Field.CREATOR) ?: emptyList(),
         1 == source.readInt(),
         1 == source.readInt(),
-        source.readString()
+        source.readString().ifNull()
     )
 
     override fun compareTo(other: Option): Int = title.compareTo(other.title)

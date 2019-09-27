@@ -19,6 +19,7 @@ package net.thauvin.erik.android.tesremoteprogrammer.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import net.thauvin.erik.android.tesremoteprogrammer.util.ifNull
 import java.io.Serializable
 
 data class Params(
@@ -36,6 +37,7 @@ data class Params(
         @JvmStatic
         private val serialVersionUID: Long = 1
 
+        @Suppress("unused")
         @JvmField
         val CREATOR: Parcelable.Creator<Params> = object : Parcelable.Creator<Params> {
             override fun createFromParcel(source: Parcel): Params = Params(source)
@@ -46,15 +48,15 @@ data class Params(
     constructor() : this("", "", "", "", -1, "", "", "", "")
 
     constructor(source: Parcel) : this(
-        source.readString(),
-        source.readString(),
-        source.readString(),
-        source.readString(),
+        source.readString().ifNull(),
+        source.readString().ifNull(),
+        source.readString().ifNull(),
+        source.readString().ifNull(),
         source.readInt(),
-        source.readString(),
-        source.readString(),
-        source.readString(),
-        source.readString()
+        source.readString().ifNull(),
+        source.readString().ifNull(),
+        source.readString().ifNull(),
+        source.readString().ifNull()
     )
 
     override fun describeContents() = 0

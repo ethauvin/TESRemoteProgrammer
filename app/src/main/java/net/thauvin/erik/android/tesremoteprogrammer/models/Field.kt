@@ -19,6 +19,7 @@ package net.thauvin.erik.android.tesremoteprogrammer.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import net.thauvin.erik.android.tesremoteprogrammer.util.ifNull
 import java.io.Serializable
 
 data class Field(
@@ -43,11 +44,12 @@ data class Field(
         }
     }
 
+    @Suppress("unused")
     constructor() : this("", "", false, false, false, -1, -1, -1, -1)
 
     constructor(source: Parcel) : this(
-        source.readString(),
-        source.readString(),
+        source.readString().ifNull(),
+        source.readString().ifNull(),
         1 == source.readInt(),
         1 == source.readInt(),
         1 == source.readInt(),

@@ -25,6 +25,8 @@ fun String.isDKS(): Boolean = equals(Dtmf.DKS, true)
 
 fun String.isLinear(): Boolean = equals(Dtmf.LINEAR, true)
 
+fun String?.ifNull() = this ?: ""
+
 fun String.replaceAll(replace: Array<Pair<String, String>>): String {
     val result = StringBuilder(this)
     var offset: Int

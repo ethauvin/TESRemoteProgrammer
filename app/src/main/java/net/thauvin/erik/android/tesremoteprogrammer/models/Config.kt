@@ -29,6 +29,7 @@ data class Config(
         @JvmStatic
         private val serialVersionUID: Long = 1
 
+        @Suppress("unused")
         @JvmField
         val CREATOR: Parcelable.Creator<Config> = object : Parcelable.Creator<Config> {
             override fun createFromParcel(source: Parcel): Config = Config(source)
@@ -36,11 +37,12 @@ data class Config(
         }
     }
 
+    @Suppress("unused")
     constructor() : this(Params(), emptyList<Option>())
 
     constructor(source: Parcel) : this(
-        source.readParcelable<Params>(Params::class.java.classLoader),
-        source.createTypedArrayList(Option.CREATOR)
+        source.readParcelable<Params>(Params::class.java.classLoader) ?: Params(),
+        source.createTypedArrayList(Option.CREATOR) ?: emptyList()
     )
 
     override fun compareTo(other: Config): Int = params.name.compareTo(other.params.name)

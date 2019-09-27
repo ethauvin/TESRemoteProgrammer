@@ -54,7 +54,6 @@ class AboutActivity : AppCompatActivity() {
             addWebsite("https://m.thauvin.net/android/TESRemoteProgrammer/licenses.shtml")
             addItem(getPrivacyPolicy())
             addTwitter("ethauvin")
-
         }.create()
 
         setContentView(aboutPage)

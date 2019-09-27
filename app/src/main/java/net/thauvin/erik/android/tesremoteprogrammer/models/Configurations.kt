@@ -23,7 +23,7 @@ import java.util.HashMap
 class Configurations : Serializable {
     companion object {
         @JvmStatic
-        private val serialVersionUID: Long = 1
+        private val serialVersionUID: Long = 1L
     }
 
     val configs = HashMap<String, Config>()

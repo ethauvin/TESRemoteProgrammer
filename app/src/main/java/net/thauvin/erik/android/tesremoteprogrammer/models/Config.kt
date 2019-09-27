@@ -27,7 +27,7 @@ data class Config(
 ) : Parcelable, Serializable, Comparable<Config> {
     companion object {
         @JvmStatic
-        private val serialVersionUID: Long = 1
+        private val serialVersionUID: Long = 1L
 
         @Suppress("unused")
         @JvmField

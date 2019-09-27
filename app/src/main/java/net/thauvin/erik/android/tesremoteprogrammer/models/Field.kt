@@ -35,7 +35,7 @@ data class Field(
 ) : Parcelable, Serializable {
     companion object {
         @JvmStatic
-        private val serialVersionUID: Long = 1
+        private val serialVersionUID: Long = 1L
 
         @JvmField
         val CREATOR: Parcelable.Creator<Field> = object : Parcelable.Creator<Field> {

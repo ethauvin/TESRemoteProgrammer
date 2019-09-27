@@ -31,7 +31,7 @@ data class Option(
 ) : Parcelable, Serializable, Comparable<Option> {
     companion object {
         @JvmStatic
-        private val serialVersionUID: Long = 1
+        private val serialVersionUID: Long = 1L
 
         @JvmField
         val CREATOR: Parcelable.Creator<Option> = object : Parcelable.Creator<Option> {

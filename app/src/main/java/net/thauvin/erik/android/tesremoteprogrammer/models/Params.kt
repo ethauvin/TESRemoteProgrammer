@@ -35,7 +35,7 @@ data class Params(
 ) : Parcelable, Serializable {
     companion object {
         @JvmStatic
-        private val serialVersionUID: Long = 1
+        private val serialVersionUID: Long = 1L
 
         @Suppress("unused")
         @JvmField

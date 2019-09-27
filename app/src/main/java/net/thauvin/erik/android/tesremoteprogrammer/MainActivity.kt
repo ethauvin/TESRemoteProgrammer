@@ -38,8 +38,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import com.eggheadgames.aboutbox.AboutConfig
-import com.eggheadgames.aboutbox.activity.AboutActivity
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import net.thauvin.erik.android.tesremoteprogrammer.models.Config
@@ -69,15 +67,13 @@ import java.io.FileNotFoundException
 import java.io.InputStreamReader
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
-import java.text.DateFormat
 import java.util.ArrayList
-import java.util.Date
 import java.util.Locale
 
 @RuntimePermissions
 class MainActivity : AppCompatActivity(), AnkoLogger {
     private lateinit var config: Config
-    private val aboutConfig: AboutConfig = AboutConfig.getInstance()
+    //    private val aboutConfig: AboutConfig = AboutConfig.getInstance()
     private val configurationsData = "configurations.dat"
     private val currentConfigData = "config.dat"
     private val defaultConfigurations = listOf(
@@ -126,39 +122,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
             saveConfigurations(confs)
             saveConfig(false)
-        }
-
-        // About dialog configuration
-        with(aboutConfig) {
-            appName = getString(R.string.app_name)
-            appIcon = R.mipmap.ic_launcher
-
-            version = BuildConfig.VERSION_NAME
-
-            author = "Erik C. Thauvin"
-
-            extraTitle = "Last Update"
-            extra = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault())
-                .format(Date(BuildConfig.TIMESTAMP)).toString()
-
-            emailAddress = "erik@thauvin.net"
-            emailSubject = "${getString(R.string.app_name)} ${BuildConfig.VERSION_NAME} Support"
-            emailBody = ""
-
-            packageName = applicationContext.packageName
-            buildType = AboutConfig.BuildType.GOOGLE
-            shareMessage = "https://play.google.com/store/apps/details?id=$packageName"
-
-            appPublisher = "6626207141685878216"
-            aboutLabelTitle = "About Erik C. Thauvin"
-            companyHtmlPath = "https://m.thauvin.net/"
-
-            twitterUserName = "ethauvin"
-            webHomePage = "https://thauv.in/TESRemote"
-
-            privacyHtmlPath = "https://m.thauvin.net/apps-privacy.shtml"
-            acknowledgmentHtmlPath =
-                "https://m.thauvin.net/android/TESRemoteProgrammer/licenses.shtml"
         }
     }
 
@@ -343,7 +306,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_about -> {
-                AboutActivity.launch(this)
+                startActivity(Intent(this, AboutActivity::class.java))
             }
             R.id.action_confs -> {
                 val confs = loadConfigurations().configs.toSortedMap()

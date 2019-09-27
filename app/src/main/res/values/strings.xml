@@ -7,11 +7,17 @@
         <item quantity="one">property</item>
         <item quantity="other">properties</item>
     </plurals>
+    <string name="about_version">Version <xliff:g id="version">%1$s</xliff:g></string>
+    <string name="about_contact_us">Contact me</string>
+    <string name="about_github">Documentation on GitHub</string>
+    <string name="about_twitter">Follow me on Twitter</string>
+    <string name="about_website">Open Source Licenses</string>
+    <string name="about_privacy">Privacy Policy</string>
     <string name="action_about">About</string>
     <string name="action_config">Configurations</string>
     <string name="alert_config_error">Configuration Errors</string>
     <string name="app_name">TES Remote Programmer</string>
-<!--    <string name="cancel">Cancel</string>-->
+    <!--    <string name="cancel">Cancel</string>-->
     <string name="dialog_import">Import</string>
     <string name="error_invalid">Invalid</string>
     <string name="error_invalid_dtmf">Invalid DTMF: <xliff:g id="type">%1$s</xliff:g></string>
@@ -23,7 +29,7 @@
     <string name="hint_master_code">Master Code</string>
     <string name="hint_phone_number">Phone Number</string>
     <string name="no_conf_req">No configuration required.</string>
-<!--    <string name="ok">OK</string>-->
+    <!--    <string name="ok">OK</string>-->
     <string name="programming_heading">PROGRAMMING</string>
     <string name="title_template_step">Step <xliff:g id="step_number">%1$d</xliff:g> of <xliff:g id="steps_count">%2$d</xliff:g></string>
     <string name="validate_dtmf_nopause">Missing pause between steps</string>

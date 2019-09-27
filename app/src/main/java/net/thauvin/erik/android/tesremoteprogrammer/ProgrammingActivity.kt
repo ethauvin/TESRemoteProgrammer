@@ -396,9 +396,10 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
         return isValid
     }
 
-    private fun validateSize(size: Int, min: Int, max: Int): Boolean = if (min > 0) {
-        size in IntRange(min, max)
-    } else {
-        size == max
-    }
+    private fun validateSize(size: Int, min: Int, max: Int): Boolean =
+        if (min > 0) {
+            size in IntRange(min, max)
+        } else {
+            size == max
+        }
 }

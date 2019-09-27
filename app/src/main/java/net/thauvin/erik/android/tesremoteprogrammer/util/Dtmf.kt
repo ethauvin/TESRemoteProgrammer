@@ -88,7 +88,8 @@ class Dtmf {
             return result.toString()
         }
 
-        fun isValidType(type: String): Boolean = type.equals(DKS, true) || type.equals(LINEAR, true)
+        fun isValidType(type: String): Boolean =
+            type.equals(DKS, true) || type.equals(LINEAR, true)
 
         private fun linearAlphaToDigits(text: String): String {
             val result = StringBuffer()
@@ -179,7 +180,8 @@ class Dtmf {
 
         fun validate(dtmf: String, extra: String, nodial: Boolean): Boolean {
             dtmf.split(MainActivity.PAUSE).forEach { s ->
-                if (!(nodial && s.endsWith(MainActivity.QUOTE) && s.startsWith(MainActivity.QUOTE))) {
+                if (!(nodial && s.endsWith(MainActivity.QUOTE) &&
+                        s.startsWith(MainActivity.QUOTE))) {
                     s.forEach { ch ->
                         if (!(ch.isDigit() || ch == ',' || extra.contains(ch))) {
                             return false

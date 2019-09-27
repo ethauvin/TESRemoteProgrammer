@@ -138,9 +138,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             author = "Erik C. Thauvin"
 
             extraTitle = "Last Update"
-            extra = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault()).format(
-                Date(BuildConfig.TIMESTAMP)
-            ).toString()
+            extra = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault())
+                .format(Date(BuildConfig.TIMESTAMP)).toString()
 
             emailAddress = "erik@thauvin.net"
             emailSubject = "${getString(R.string.app_name)} ${BuildConfig.VERSION_NAME} Support"
@@ -158,7 +157,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             webHomePage = "https://thauv.in/TESRemote"
 
             privacyHtmlPath = "https://m.thauvin.net/apps-privacy.shtml"
-            acknowledgmentHtmlPath = "https://m.thauvin.net/android/TESRemoteProgrammer/licenses.shtml"
+            acknowledgmentHtmlPath =
+                "https://m.thauvin.net/android/TESRemoteProgrammer/licenses.shtml"
         }
     }
 
@@ -258,7 +258,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 textInputLayout {
                     horizontalPadding = dip(40)
                     val editText = textInputEditText {
-                        inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
+                        inputType = InputType.TYPE_CLASS_NUMBER or
+                            InputType.TYPE_NUMBER_VARIATION_PASSWORD
                         hint = getString(R.string.hint_master_code)
                         filters = arrayOf(InputFilter.LengthFilter(size))
                         setCompoundDrawablesWithIntrinsicBounds(
@@ -283,7 +284,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                         setOnEditorActionListener { _, id, _ ->
                             if (id == EditorInfo.IME_ACTION_DONE) {
                                 clearFocus()
-                                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                                val imm = getSystemService(Context.INPUT_METHOD_SERVICE)
+                                    as InputMethodManager
                                 imm.hideSoftInputFromWindow(windowToken, 0)
                                 true
                             } else {
@@ -321,8 +323,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                         if (validateFields(fields)) {
                             saveConfig()
                             startActivity<ProgrammingActivity>(
-                                "net.thauvin.erik.android.tesremoteprogrammer.models.Params" to config.params,
-                                "net.thauvin.erik.android.tesremoteprogrammer.models.Option" to opts[position]
+                                "net.thauvin.erik.android.tesremoteprogrammer.models.Params" to
+                                    config.params,
+                                "net.thauvin.erik.android.tesremoteprogrammer.models.Option" to
+                                    opts[position]
                             )
                         }
                     }

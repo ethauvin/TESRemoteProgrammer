@@ -35,7 +35,8 @@ class StepsActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_steps)
 
-        pager.adapter = StepsAdapter(fragmentManager, intent.extras.getStringArrayList(EXTRA_STEPS))
+        val steps = intent?.extras?.getStringArrayList(EXTRA_STEPS) ?: arrayListOf()
+        pager.adapter = StepsAdapter(fragmentManager, steps)
         indicator.setViewPager(pager, pager.currentItem - 1)
         indicator.fades = false
     }

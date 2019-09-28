@@ -20,8 +20,8 @@ package net.thauvin.erik.android.tesremoteprogrammer
 import android.app.Fragment
 import android.app.FragmentManager
 import android.os.Bundle
-import android.support.v13.app.FragmentStatePagerAdapter
-import android.support.v4.app.FragmentActivity
+import androidx.legacy.app.FragmentStatePagerAdapter
+import androidx.fragment.app.FragmentActivity
 import kotlinx.android.synthetic.main.activity_steps.indicator
 import kotlinx.android.synthetic.main.activity_steps.pager
 import java.util.ArrayList

@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
@@ -17,7 +18,7 @@ android {
         minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "1.0-alpha"
         buildConfigField "long", "TIMESTAMP", System.currentTimeMillis()  + "L"
     }
     buildTypes {
@@ -34,36 +35,39 @@ android {
 ext {
     anko_version = '0.10.8'
     support_version = "28.0.0"
-    perms_dispatch_version = "3.3.2"
+    perms_dispatch_version = "4.5.0"
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    testImplementation 'junit:junit:4.12'
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
 
-    implementation "com.android.support:support-v13:$support_version"
-    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.anko:anko-sdk23:$anko_version"
     implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
     implementation "org.jetbrains.anko:anko-support-v4:$anko_version"
     implementation "org.jetbrains.anko:anko-design:$anko_version"
-    implementation "com.android.support:design:$support_version"
+
+    implementation 'com.google.android.material:material:1.0.0'
+
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
 
     // https://github.com/JakeWharton/ViewPagerIndicator
     implementation 'fr.avianey.com.viewpagerindicator:library:2.4.1.1@aar'
 
     // https://github.com/hotchemi/PermissionsDispatcher
-    // Version 4.x needs AndroidX
-    //noinspection GradleDependency
-    implementation "com.github.hotchemi:permissionsdispatcher:$perms_dispatch_version"
-    kapt "com.github.hotchemi:permissionsdispatcher-processor:$perms_dispatch_version"
+    implementation "org.permissionsdispatcher:permissionsdispatcher:$perms_dispatch_version"
+    kapt "org.permissionsdispatcher:permissionsdispatcher-processor:$perms_dispatch_version"
 
     // https://github.com/medyo/android-about-page
     implementation 'com.github.medyo:android-about-page:1.2.5'
+
+    testImplementation 'junit:junit:4.12'
 }
 
 repositories {

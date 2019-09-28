@@ -18,7 +18,7 @@
 package net.thauvin.erik.android.tesremoteprogrammer
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import org.jetbrains.anko.startActivity
 
 class SplashActivity : AppCompatActivity() {

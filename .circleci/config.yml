@@ -38,3 +38,9 @@ jobs:
       - image: circleci/android:api-28
 
     <<: *defaults_gradle
+
+workflows:
+  version: 2
+  gradle:
+        jobs:
+        - build_gradle

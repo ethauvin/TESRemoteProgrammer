@@ -17,7 +17,11 @@
  */
 package net.thauvin.erik.android.tesremoteprogrammer.util
 
+import android.text.Html
+
 private val digitPattern = Regex("[0-9]+")
+
+fun String.fromHtml() = Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
 
 fun String.isDigits() = isNotBlank() && matches(digitPattern)
 

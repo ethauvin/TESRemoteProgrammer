@@ -26,7 +26,6 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.text.Html
 import android.text.InputFilter
 import android.text.InputType
 import android.text.TextUtils
@@ -43,6 +42,7 @@ import com.google.gson.JsonSyntaxException
 import net.thauvin.erik.android.tesremoteprogrammer.models.Config
 import net.thauvin.erik.android.tesremoteprogrammer.models.Configurations
 import net.thauvin.erik.android.tesremoteprogrammer.util.Dtmf
+import net.thauvin.erik.android.tesremoteprogrammer.util.fromHtml
 import net.thauvin.erik.android.tesremoteprogrammer.util.isDKS
 import net.thauvin.erik.android.tesremoteprogrammer.util.isDigits
 import org.jetbrains.anko.AnkoLogger
@@ -92,8 +92,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         const val QUOTE = "'"
     }
 
-    private fun fromHtml(s: String) = Html.fromHtml(s, Html.FROM_HTML_MODE_LEGACY)
-
     private fun initConfigurations() {
         try {
             ObjectInputStream(openFileInput(currentConfigData)).use {
@@ -113,7 +111,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                     if (validateConfig(config, errors)) {
                         info(">>> ${config.params.name}: successfully loaded")
                     } else {
-                        info(">>> ${config.params.name}: " + fromHtml(errors.toString()))
+                        info(">>> ${config.params.name}: " + errors.toString().fromHtml())
                     }
                 }
 
@@ -153,7 +151,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         if (errors.isNotEmpty()) {
             alert {
                 title = getString(R.string.alert_config_error)
-                message = fromHtml("$errors")
+                message = errors.toString().fromHtml()
                 cancelButton { }
             }.show()
         }

@@ -30,6 +30,10 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+
+    lintOptions {
+        baseline file("lint-baseline.xml")
+    }
 }
 
 ext {
@@ -81,7 +85,7 @@ kapt {
 
 kotlinter {
     ignoreFailures = false
-    reporters = ['html']
+    reporters = ['html', 'plain']
     experimentalRules = false
     disabledRules = ['import-ordering']
 }

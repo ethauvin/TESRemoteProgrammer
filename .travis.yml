@@ -29,8 +29,8 @@ before_install:
   - chmod +x gradlew
   - echo $GOOGLE_SERVICES | base64 -di > app/google-services.json
 
-after_failure:
-  - cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml
+# after_failure:
+#   - cat app/build/reports/lint-results.xml
 
 script:
-  - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
+  - ./gradlew lint build connectedCheck -PdisablePreDex --stacktrace

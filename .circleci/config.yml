@@ -21,7 +21,7 @@ defaults_gradle: &defaults_gradle
         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
     - run:
         name: Run Tests
-        command: ./gradlew lint test
+        command: ./gradlew lint build connectedCheck -PdisablePreDex --stacktrace
     - store_artifacts:
         path: app/build/reports
         destination: reports

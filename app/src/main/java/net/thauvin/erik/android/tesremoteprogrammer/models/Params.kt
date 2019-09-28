@@ -45,7 +45,17 @@ data class Params(
         }
     }
 
-    constructor() : this("", "", "", "", -1, "", "", "", "")
+    constructor() : this(
+        name = "",
+        type = "",
+        phone = "",
+        master = "",
+        size = -1,
+        ack = "",
+        alt = "",
+        begin = "",
+        end = ""
+    )
 
     constructor(source: Parcel) : this(
         source.readString().ifNull(),

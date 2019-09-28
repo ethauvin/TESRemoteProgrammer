@@ -45,18 +45,28 @@ data class Field(
     }
 
     @Suppress("unused")
-    constructor() : this("", "", false, false, false, -1, -1, -1, -1)
+    constructor() : this(
+        hint = "",
+        digits = "",
+        alpha = false,
+        alt = false,
+        zeros = false,
+        minSize = -1,
+        size = -1,
+        min = -1,
+        max = -1
+    )
 
     constructor(source: Parcel) : this(
-        source.readString().ifNull(),
-        source.readString().ifNull(),
-        1 == source.readInt(),
-        1 == source.readInt(),
-        1 == source.readInt(),
-        source.readInt(),
-        source.readInt(),
-        source.readInt(),
-        source.readInt()
+        hint = source.readString().ifNull(),
+        digits = source.readString().ifNull(),
+        alpha = 1 == source.readInt(),
+        alt = 1 == source.readInt(),
+        zeros = 1 == source.readInt(),
+        minSize = source.readInt(),
+        size = source.readInt(),
+        min = source.readInt(),
+        max = source.readInt()
     )
 
     override fun describeContents() = 0

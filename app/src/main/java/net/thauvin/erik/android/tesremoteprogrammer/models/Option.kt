@@ -40,14 +40,20 @@ data class Option(
         }
     }
 
-    constructor() : this("", emptyList(), false, false, "")
+    constructor() : this(
+        title = "",
+        fields = emptyList(),
+        nodial = false,
+        nosteps = false,
+        dtmf = ""
+    )
 
     constructor(source: Parcel) : this(
-        source.readString().ifNull(),
-        source.createTypedArrayList(Field.CREATOR) ?: emptyList(),
-        1 == source.readInt(),
-        1 == source.readInt(),
-        source.readString().ifNull()
+        title = source.readString().ifNull(),
+        fields = source.createTypedArrayList(Field.CREATOR) ?: emptyList(),
+        nodial = 1 == source.readInt(),
+        nosteps = 1 == source.readInt(),
+        dtmf = source.readString().ifNull()
     )
 
     override fun compareTo(other: Option): Int = title.compareTo(other.title)

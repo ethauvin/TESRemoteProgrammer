@@ -73,7 +73,6 @@ import java.util.Locale
 @RuntimePermissions
 class MainActivity : AppCompatActivity(), AnkoLogger {
     private lateinit var config: Config
-    //    private val aboutConfig: AboutConfig = AboutConfig.getInstance()
     private val configurationsData = "configurations.dat"
     private val currentConfigData = "config.dat"
     private val defaultConfigurations = listOf(

@@ -76,6 +76,7 @@ class ProgrammingActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val params: Params =
             intent?.extras?.getParcelable(

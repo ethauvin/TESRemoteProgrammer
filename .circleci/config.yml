@@ -1,3 +1,5 @@
+version: 2
+
 defaults: &defaults
   working_directory: ~/code
   environment:
@@ -27,8 +29,6 @@ defaults_gradle: &defaults_gradle
         destination: reports
     - store_test_results:
         path: app/build/test-results
-
-version: 2.0
 
 jobs:
   build_gradle:

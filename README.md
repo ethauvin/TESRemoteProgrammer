@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/ethauvin/TESRemoteProgrammer.svg?branch=master)](https://travis-ci.org/ethauvin/TESRemoteProgrammer)
 [![Known Vulnerabilities](https://snyk.io/test/github/ethauvin/tesremoteprogrammer/badge.svg?targetFile=app%2Fbuild.gradle)](https://snyk.io/test/github/ethauvin/tesremoteprogrammer?targetFile=app%2Fbuild.gradle)
 [![CircleCI](https://circleci.com/gh/ethauvin/TESRemoteProgrammer/tree/master.svg?style=shield)](https://circleci.com/gh/ethauvin/TESRemoteProgrammer/tree/master)
-[![License](https://img.shields.io/badge/android-Privacy%20Policy-orange.svg)](https://thauv.in/apps-privacy)
+[![License](https://img.shields.io/badge/android-Privacy%20Policy-orange.svg)](https://m.thauvin.net/android/TESRemoteProgrammer/privacy.shtml)
 
 
 [![TES Remote Programmer](https://github.com/ethauvin/TESRemoteProgrammer/raw/master/images/github_graphic.png)](httpd://mobile.thauvin.net/android/)

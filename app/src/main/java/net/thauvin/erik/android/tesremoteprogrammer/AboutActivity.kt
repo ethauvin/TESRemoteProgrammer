@@ -25,8 +25,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import mehdi.sakout.aboutpage.AboutPage
 import mehdi.sakout.aboutpage.Element
-import net.thauvin.erik.android.tesremoteprogrammer.util.fromHtml
-import java.util.Calendar
+import org.jetbrains.anko.design.snackbar
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
+
 
 /**
  * The <code>net.thauvin.erik.android.tesremoteprogrammer.AboutActivity</code> class.
@@ -36,26 +41,28 @@ import java.util.Calendar
  * @since 1.0
  */
 class AboutActivity : AppCompatActivity() {
+    private val dateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(BuildConfig.TIMESTAMP),
+            ZoneId.of("America/Los_Angeles"))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         AppCompatDelegate.setDefaultNightMode(
-            AppCompatDelegate.MODE_NIGHT_NO
+                AppCompatDelegate.MODE_NIGHT_NO
         )
 
         val aboutPage = AboutPage(this).apply {
             isRTL(false)
             setImage(R.drawable.background_splash)
-            val version = String.format(getString(R.string.about_version), BuildConfig.VERSION_NAME)
-            setDescription(
-                "<strong>$version</strong><br><small>&copy; ${Calendar.getInstance().get(Calendar.YEAR)} Erik C. Thauvin</small>️".fromHtml()
-            )
+            setDescription(getString(R.string.about_description))
+            addItem(getVersion())
             addEmail("erik@thauvin.net")
             addGitHub("ethauvin/TESRemoteProgrammer")
             addWebsite("https://m.thauvin.net/android/TESRemoteProgrammer/licenses.shtml")
             addItem(getPrivacyPolicy())
             addTwitter("ethauvin")
+            addItem(getCopyright())
 
             if (BuildConfig.DEBUG) {
                 addItem(getCrashTest())
@@ -76,6 +83,16 @@ class AboutActivity : AppCompatActivity() {
         }
     }
 
+    private fun getCopyright(): Element {
+        return Element().apply {
+            title = "© ${Calendar.getInstance().get(Calendar.YEAR)} Erik C. Thauvin"
+            intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://m.thauvin.net/android/")
+            )
+        }
+    }
+
     private fun getPrivacyPolicy(): Element {
         return Element().apply {
             title = getString(R.string.about_privacy)
@@ -83,9 +100,19 @@ class AboutActivity : AppCompatActivity() {
             iconTint = R.color.about_github_color
             value = "privacy"
             intent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://m.thauvin.net/android/TESRemoteProgrammer/privacy.shtml")
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://m.thauvin.net/android/TESRemoteProgrammer/privacy.shtml")
             )
+        }
+    }
+
+    private fun getVersion(): Element {
+        val dateTimeFormatter = DateTimeFormatter.ofPattern(getString(R.string.about_built_on))
+        return Element().apply {
+            title = String.format(getString(R.string.about_version), BuildConfig.VERSION_NAME)
+            onClickListener = View.OnClickListener {
+                it.snackbar(dateTime.format(dateTimeFormatter))
+            }
         }
     }
 }

@@ -9,7 +9,7 @@
 
 [![TES Remote Programmer](https://github.com/ethauvin/TESRemoteProgrammer/raw/master/images/github_graphic.png)](httpd://mobile.thauvin.net/android/)
 
-Program your Telephone Entry System remotely (off-site) using your phone.
+Easily program your Telephone Entry System remotely from anywhere using your phone.
 
 Most Telephone Entry Systems can be programmed from the front keypad or remotely from an off-premise location using any touch-tone phone. TES Remote Programmer streamlines the often cumbersome remote programming process by providing data entry screens and automated dial-in options.
 

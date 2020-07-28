@@ -23,7 +23,7 @@ import net.thauvin.erik.android.tesremoteprogrammer.models.Option
 import java.util.ArrayList
 import java.util.Locale
 
-class Dtmf {
+class Dtmf private constructor() {
     companion object {
         const val DTMF_MASTER = "[MASTER]"
         const val DTMF_FIELD = "[FIELD:%1\$d]"

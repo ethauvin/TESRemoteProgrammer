@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         val tmp: Config? = try {
             Gson().fromJson(
-                InputStreamReader(contentResolver.openInputStream(intent.data!!)),
+                InputStreamReader(contentResolver.openInputStream(intent.data!!)!!),
                 Config::class.java
             )
         } catch (jse: JsonSyntaxException) {
@@ -260,6 +260,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 // programming title
                 textView {
                     topPadding = dip(10)
+                    bottomPadding = dip(10)
                     text = getString(R.string.programming_heading)
                     setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18f)
                     typeface = Typeface.DEFAULT_BOLD
@@ -338,7 +339,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 alert.show()
             }
         }
-        return super.onOptionsItemSelected(item)
+        return super.onOptionsItemSelected(item!!)
     }
 
     @SuppressLint("NeedOnRequestPermissionsResult")

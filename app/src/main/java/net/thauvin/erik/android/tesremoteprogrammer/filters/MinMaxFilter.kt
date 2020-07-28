@@ -51,16 +51,14 @@ class MinMaxFilter(
 
             if (zeros) {
                 if (size > 1 && len != size) {
-                    i = if (i == 0) {
+                    if (i == 0) {
                         return true
                     } else {
-                        s.padEnd(size, '0').toInt()
+                        i = s.padEnd(size, '0').toInt()
                     }
                 }
-            } else {
-                if (len > 1 && s.startsWith("0")) {
-                    return false
-                }
+            } else if (len > 1 && s.startsWith("0")) {
+                return false
             }
 
             return i in IntRange(min, max)

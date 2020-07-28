@@ -79,6 +79,7 @@ dependencies {
 repositories {
     mavenCentral()
     maven { url "https://jitpack.io" }
+
 }
 
 kapt {
@@ -89,4 +90,9 @@ detekt {
     input = files("src/main/java")
     //filters = ".*/resources/.*,.*/build/.*"
     baseline = file("detekt-baseline.xml")
+
+    reports {
+        html.enabled = true
+        xml.enabled = true
+    }
 }
